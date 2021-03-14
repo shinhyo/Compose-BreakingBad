@@ -1,8 +1,9 @@
 # BaBr-Compose
 
 <p >
-<img src="/gif/0.gif" width="35%"/>
-<img src="/gif/1.gif" width="35%"/>
+<img src="/gif/0.gif" width="33%"/>
+<img src="/gif/1.gif" width="33%"/>
+<img src="/gif/2.gif" width="33%"/>
 </p>
 
 ## Development
