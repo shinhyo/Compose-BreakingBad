@@ -1,5 +1,10 @@
 # BaBr-Compose
 
+<p >
+<img src="/gif/0.gif" width="35%"/>
+<img src="/gif/1.gif" width="35%"/>
+</p>
+
 ## Development
 
 - [Jetpack](https://developer.android.com/jetpack)
