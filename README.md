@@ -6,8 +6,7 @@
 <img src="/gif/2.gif" width="33%"/>
 </p>
 
-## Development
-
+## Tech Stack
 - [Jetpack](https://developer.android.com/jetpack)
     - Compose - Define your UI programmatically with composable functions that describe its shape
       and data dependencies.
@@ -20,11 +19,14 @@
 - MVVM pattern
 - Kotlin Coroutines & Flows
 - Material Design
+- Single Activity
 - StaggeredVerticalGrid
 - [Accompanist](https://google.github.io/accompanist)
 - [Retrofit2](https://github.com/square/retrofit)
 - [Glide](https://bumptech.github.io/glide/)
 - [Timber](https://github.com/JakeWharton/timber)
+
+#### If you think this reposittory is useful, please press the star button at the top. ⭐️
 
 # License
 
