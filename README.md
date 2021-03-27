@@ -1,5 +1,7 @@
-# Breaking Bad - Compose [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
-
+# Breaking Bad - Compose
+<a href='https://developer.android.com'><img src='http://img.shields.io/badge/platform-android-green.svg'/></a>
+<a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
+[![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 
 <p >
 <img src="/gif/0.gif" width="33%"/>
