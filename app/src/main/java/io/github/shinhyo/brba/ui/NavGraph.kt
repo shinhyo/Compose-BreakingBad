@@ -9,12 +9,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltNavGraphViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
-import dev.chrisbanes.accompanist.insets.navigationBarsPadding
+import com.google.accompanist.insets.navigationBarsPadding
 import io.github.shinhyo.brba.R
 import io.github.shinhyo.brba.data.Character
 import io.github.shinhyo.brba.ui.detail.DetailScreen
@@ -27,7 +26,6 @@ sealed class NavScreens(val route: String) {
     object DETAIL : NavScreens("detail")
 }
 
-@Preview
 @Composable
 fun NavGraph(startDestination: NavScreens = NavScreens.MAIN) {
     val navController = rememberNavController()

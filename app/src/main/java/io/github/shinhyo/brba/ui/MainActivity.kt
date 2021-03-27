@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.core.view.WindowCompat
+import com.google.accompanist.insets.ProvideWindowInsets
 import dagger.hilt.android.AndroidEntryPoint
-import dev.chrisbanes.accompanist.insets.ProvideWindowInsets
 import io.github.shinhyo.brba.ui.theme.BrBaComposeTheme
 import io.github.shinhyo.brba.utils.LocalBackDispatcher
 

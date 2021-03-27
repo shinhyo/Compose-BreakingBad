@@ -27,8 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import dev.chrisbanes.accompanist.glide.GlideImage
-import dev.chrisbanes.accompanist.insets.statusBarsPadding
+import com.google.accompanist.glide.GlideImage
+import com.google.accompanist.insets.statusBarsPadding
 import io.github.shinhyo.brba.R
 import io.github.shinhyo.brba.data.Character
 import io.github.shinhyo.brba.ui.common.IconFavorite
