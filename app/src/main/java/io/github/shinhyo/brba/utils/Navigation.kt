@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 The Android Open Source Project
+ * Copyright 2020 shinhyo
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package io.github.shinhyo.brba.utils
 
 import androidx.activity.OnBackPressedCallback
@@ -61,5 +60,3 @@ fun backHandler(
 internal val LocalBackDispatcher = staticCompositionLocalOf<OnBackPressedDispatcher> {
     error("No Back Dispatcher provided")
 }
-
-

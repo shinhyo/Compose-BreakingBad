@@ -1,3 +1,18 @@
+/*
+ * Copyright 2021 shinhyo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.github.shinhyo.brba.ui.detail
 
 import androidx.compose.foundation.background
@@ -20,7 +35,6 @@ import androidx.constraintlayout.compose.Dimension
 import com.google.accompanist.glide.GlideImage
 import io.github.shinhyo.brba.data.Character
 import io.github.shinhyo.brba.ui.common.IconFavorite
-
 
 @Composable
 fun DetailScreen(viewModel: DetailViewModel) {
@@ -73,11 +87,14 @@ private fun Extra(
             }
         )
 
-        IconFavorite(character.favorite, modifier = Modifier.constrainAs(favorite) {
-            start.linkTo(name.end, margin = 8.dp)
-            top.linkTo(name.top)
-            bottom.linkTo(name.bottom)
-        }) { clickFavorite.invoke(character) }
+        IconFavorite(
+            character.favorite,
+            modifier = Modifier.constrainAs(favorite) {
+                start.linkTo(name.end, margin = 8.dp)
+                top.linkTo(name.top)
+                bottom.linkTo(name.bottom)
+            }
+        ) { clickFavorite.invoke(character) }
 
         Text(
             text = character.nickname,
@@ -88,15 +105,16 @@ private fun Extra(
                 top.linkTo(name.bottom)
             }
         )
-        GetCategoryText(character = character, modifier = Modifier
-            .constrainAs(category) {
-                start.linkTo(name.start)
-                top.linkTo(nick.bottom, 8.dp)
-            }
+        GetCategoryText(
+            character = character,
+            modifier = Modifier
+                .constrainAs(category) {
+                    start.linkTo(name.start)
+                    top.linkTo(nick.bottom, 8.dp)
+                }
         )
     }
 }
-
 
 @Composable
 private fun GetCategoryText(character: Character, modifier: Modifier) {
@@ -126,7 +144,3 @@ private fun GetCategoryText(character: Character, modifier: Modifier) {
         Chips(listOf("#$category"), modifier)
     }
 }
-
-
-
-

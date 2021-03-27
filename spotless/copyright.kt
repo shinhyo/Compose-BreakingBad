@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 shinhyo
+ * Copyright $YEAR shinhyo
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,18 +13,3 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.shinhyo.brba.initializer
-
-import android.content.Context
-import androidx.startup.Initializer
-import io.github.shinhyo.brba.BuildConfig
-import timber.log.Timber
-
-class TimberInitializer : Initializer<Unit> {
-    override fun create(context: Context) {
-        if (!BuildConfig.DEBUG) return
-        Timber.plant(Timber.DebugTree())
-    }
-
-    override fun dependencies(): MutableList<Class<out Initializer<*>>> = mutableListOf()
-}
