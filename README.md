@@ -1,4 +1,5 @@
-# Breaking Bad - Compose
+# Breaking Bad - Compose [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
+
 
 <p >
 <img src="/gif/0.gif" width="33%"/>
