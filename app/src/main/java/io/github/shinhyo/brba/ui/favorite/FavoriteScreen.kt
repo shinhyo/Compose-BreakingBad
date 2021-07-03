@@ -15,6 +15,7 @@
  */
 package io.github.shinhyo.brba.ui.favorite
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -38,7 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.google.accompanist.glide.GlideImage
+import com.google.accompanist.glide.rememberGlidePainter
 import io.github.shinhyo.brba.R
 import io.github.shinhyo.brba.data.Character
 import io.github.shinhyo.brba.ui.common.IconFavorite
@@ -122,10 +123,12 @@ private fun ItemContent(
 
         ) {
             val (img, name, nickname, favorite) = createRefs()
-            GlideImage(
-                data = item.img,
+            Image(
+                painter = rememberGlidePainter(
+                    request = item.img,
+                    fadeIn = true,
+                ),
                 contentDescription = null,
-                fadeIn = true,
                 contentScale = ContentScale.Crop,
                 alignment = Alignment.TopCenter,
                 modifier = Modifier

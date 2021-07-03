@@ -15,6 +15,7 @@
  */
 package io.github.shinhyo.brba.ui.list
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -42,7 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.google.accompanist.glide.GlideImage
+import com.google.accompanist.glide.rememberGlidePainter
 import com.google.accompanist.insets.statusBarsPadding
 import io.github.shinhyo.brba.R
 import io.github.shinhyo.brba.data.Character
@@ -111,10 +112,12 @@ fun FeaturedList(
             modifier = Modifier.clickable { select.invoke(character) }
         ) {
             val (image, name, dim, favorite) = createRefs()
-            GlideImage(
-                data = character.img,
+            Image(
+                painter = rememberGlidePainter(
+                    request = character.img,
+                    fadeIn = true,
+                ),
                 contentDescription = null,
-                fadeIn = true,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .aspectRatio(1f / character.ratio)

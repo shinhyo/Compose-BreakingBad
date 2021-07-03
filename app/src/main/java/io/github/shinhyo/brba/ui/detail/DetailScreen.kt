@@ -15,8 +15,14 @@
  */
 package io.github.shinhyo.brba.ui.detail
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -27,12 +33,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.google.accompanist.glide.GlideImage
+import com.google.accompanist.glide.rememberGlidePainter
 import io.github.shinhyo.brba.data.Character
 import io.github.shinhyo.brba.ui.common.IconFavorite
 
@@ -51,11 +56,13 @@ private fun Body(character: Character, clickFavorite: (Character) -> Unit) {
     ) {
         LazyColumn {
             item {
-                GlideImage(
-                    data = character.img,
-                    contentDescription = null,
-                    fadeIn = true,
-                    contentScale = ContentScale.Crop,
+
+                Image(
+                    painter = rememberGlidePainter(
+                        request = character.img,
+                        fadeIn = true,
+                    ),
+                    contentDescription = character.name,
                     alignment = Alignment.TopCenter,
                     modifier = Modifier
                         .fillMaxWidth()

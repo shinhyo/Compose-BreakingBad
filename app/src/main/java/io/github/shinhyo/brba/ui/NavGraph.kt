@@ -24,7 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.hilt.navigation.compose.hiltNavGraphViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
@@ -53,7 +53,7 @@ fun NavGraph(startDestination: NavScreens = NavScreens.MAIN) {
         composable(
             route = "${NavScreens.DETAIL.route}/{id}",
             arguments = listOf(navArgument("id") { type = NavType.LongType })
-        ) { DetailScreen(viewModel = hiltNavGraphViewModel()) }
+        ) { DetailScreen(viewModel = hiltViewModel()) }
     }
 }
 
@@ -97,12 +97,12 @@ fun NavScreen(
         val modifier = Modifier.padding(it)
         when (selectedTab.value) {
             BottomNavTabs.LIST -> ListScreen(
-                hiltNavGraphViewModel(),
+                hiltViewModel(),
                 actions.moveDetail,
                 modifier
             )
             BottomNavTabs.FAVORITE -> FavoriteScreen(
-                hiltNavGraphViewModel(),
+                hiltViewModel(),
                 actions.moveDetail,
                 modifier
             )
