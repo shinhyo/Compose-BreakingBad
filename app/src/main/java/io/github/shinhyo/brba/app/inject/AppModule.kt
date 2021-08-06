@@ -44,4 +44,3 @@ object AppModule {
     @Singleton
     fun provideCharacterDao(appDatabase: AppDatabase): CharacterDao = appDatabase.characterDao()
 }
-

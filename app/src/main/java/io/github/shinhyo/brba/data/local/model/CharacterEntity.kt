@@ -37,4 +37,3 @@ data class CharacterEntity(
         const val TABLE_NAME = "character"
     }
 }
-

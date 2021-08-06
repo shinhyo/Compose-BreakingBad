@@ -42,15 +42,13 @@ open class CharactersRepositoryImpl(private val api: BaBrApi, private val db: Ap
         flow { emit(api.getCharactersById(id)) }
             .map { it[0] }
             .map { it.toCharacter() }
-            .combine(db.characterDao().getCharacter(id))
-            { res: Character, entity: CharacterEntity? ->
+            .combine(db.characterDao().getCharacter(id)) { res: Character, entity: CharacterEntity? ->
                 res.copy(favorite = entity?.favorite ?: false)
             }
 
     override fun addFavoriteStatus(listCharacter: List<Character>): Flow<List<Character>> =
         flowOf(listCharacter)
-            .combine(db.characterDao().getAll())
-            { list: List<Character>, db: List<CharacterEntity> ->
+            .combine(db.characterDao().getAll()) { list: List<Character>, db: List<CharacterEntity> ->
                 list.toMutableList().map {
                     it.copy(favorite = db.find { i -> it.charId == i.charId }?.favorite ?: false)
                 }
