@@ -22,7 +22,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.github.shinhyo.brba.data.remote.api.BaBrApi
-import io.github.shinhyo.brba.domain.BuildConfig
+import io.github.shinhyo.brba.data.BuildConfig
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

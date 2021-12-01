@@ -35,3 +35,5 @@ subprojects {
         }
     }
 }
+
+apply from: file('gradle/projectDependencyGraph.gradle')

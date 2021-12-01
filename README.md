@@ -1,6 +1,6 @@
 # Breaking Bad - Jetpack Compose
 <a href='https://developer.android.com'><img src='http://img.shields.io/badge/platform-android-green.svg'/></a>
-<a href = "https://developer.android.com/jetpack/androidx/versions/all-channel#march_24_2021"> <img src = "https://img.shields.io/badge/Jetpack%20Compose-1.0.0-brightgreen" /> </a>
+<a href = "https://developer.android.com/jetpack/androidx/versions/all-channel#march_24_2021"> <img src = "https://img.shields.io/badge/Jetpack%20Compose-1.0.5-brightgreen" /> </a>
 <a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
 [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 
@@ -31,12 +31,14 @@
 - [Glide](https://bumptech.github.io/glide/)
 - [Timber](https://github.com/JakeWharton/timber)
 
-#### If you think this reposittory is useful, please press the star button at the top. ⭐️
+
+## Multi Module (Clean Architecture)
+![](project.dot.png)
 
 # License
 
 ```xml
-Designed and developed by 2021 shinhyo
+    Designed and developed by 2021 shinhyo
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
