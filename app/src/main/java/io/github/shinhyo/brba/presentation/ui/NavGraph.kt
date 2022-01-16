@@ -28,6 +28,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
+import androidx.navigation.navArgument
 import com.google.accompanist.insets.navigationBarsPadding
 import io.github.shinhyo.brba.R
 import io.github.shinhyo.brba.domain.model.Character
