@@ -22,14 +22,13 @@ import io.github.shinhyo.brba.data.mapper.toCharacterEntity
 import io.github.shinhyo.brba.data.remote.api.BaBrApi
 import io.github.shinhyo.brba.domain.model.Character
 import io.github.shinhyo.brba.domain.repository.CharactersRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
+import javax.inject.Inject
 
-open class CharactersRepositoryImpl(private val api: BaBrApi, private val db: AppDatabase) :
-    CharactersRepository {
+open class CharactersRepositoryImpl @Inject constructor(
+    private val api: BaBrApi,
+    private val db: AppDatabase
+) : CharactersRepository {
 
     override fun getCharacterList(): Flow<List<Character>> = flow { emit(api.getCharacters()) }
         .map { it.map { r -> r.toCharacter() } }
@@ -42,13 +41,17 @@ open class CharactersRepositoryImpl(private val api: BaBrApi, private val db: Ap
         flow { emit(api.getCharactersById(id)) }
             .map { it[0] }
             .map { it.toCharacter() }
-            .combine(db.characterDao().getCharacter(id)) { res: Character, entity: CharacterEntity? ->
+            .combine(
+                db.characterDao().getCharacter(id)
+            ) { res: Character, entity: CharacterEntity? ->
                 res.copy(favorite = entity?.favorite ?: false)
             }
 
     override fun addFavoriteStatus(listCharacter: List<Character>): Flow<List<Character>> =
         flowOf(listCharacter)
-            .combine(db.characterDao().getAll()) { list: List<Character>, db: List<CharacterEntity> ->
+            .combine(
+                db.characterDao().getAll()
+            ) { list: List<Character>, db: List<CharacterEntity> ->
                 list.toMutableList().map {
                     it.copy(favorite = db.find { i -> it.charId == i.charId }?.favorite ?: false)
                 }

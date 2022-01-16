@@ -15,22 +15,17 @@
  */
 package io.github.shinhyo.brba.app.inject
 
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import io.github.shinhyo.brba.data.local.db.AppDatabase
-import io.github.shinhyo.brba.data.remote.api.BaBrApi
 import io.github.shinhyo.brba.data.repository.CharactersRepositoryImpl
 import io.github.shinhyo.brba.domain.repository.CharactersRepository
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RepositoryModule {
+abstract class RepositoryModule {
 
-    @Provides
-    @Singleton
-    fun provideCharactersRepository(api: BaBrApi, db: AppDatabase): CharactersRepository =
-        CharactersRepositoryImpl(api, db)
+    @Binds
+    abstract fun bindCharactersRepository(repository: CharactersRepositoryImpl): CharactersRepository
 }
