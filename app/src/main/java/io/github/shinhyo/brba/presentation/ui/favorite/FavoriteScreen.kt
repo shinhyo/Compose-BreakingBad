@@ -39,7 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.google.accompanist.glide.rememberGlidePainter
+import coil.compose.rememberImagePainter
 import io.github.shinhyo.brba.R
 import io.github.shinhyo.brba.domain.model.Character
 import io.github.shinhyo.brba.presentation.ui.common.IconFavorite
@@ -124,9 +124,11 @@ private fun ItemContent(
         ) {
             val (img, name, nickname, favorite) = createRefs()
             Image(
-                painter = rememberGlidePainter(
-                    request = item.img,
-                    fadeIn = true,
+                painter = rememberImagePainter(
+                    data = item.img,
+                    builder = {
+                        crossfade(true)
+                    }
                 ),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,

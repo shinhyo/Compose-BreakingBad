@@ -17,12 +17,7 @@ package io.github.shinhyo.brba.presentation.ui.detail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -33,11 +28,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.google.accompanist.glide.rememberGlidePainter
+import coil.compose.rememberImagePainter
 import io.github.shinhyo.brba.domain.model.Character
 import io.github.shinhyo.brba.presentation.ui.common.IconFavorite
 
@@ -56,12 +52,14 @@ private fun Body(character: Character, clickFavorite: (Character) -> Unit) {
     ) {
         LazyColumn {
             item {
-
                 Image(
-                    painter = rememberGlidePainter(
-                        request = character.img,
-                        fadeIn = true,
+                    painter = rememberImagePainter(
+                        data = character.img,
+                        builder = {
+                            crossfade(true)
+                        }
                     ),
+                    contentScale = ContentScale.Crop,
                     contentDescription = character.name,
                     alignment = Alignment.TopCenter,
                     modifier = Modifier
@@ -82,7 +80,7 @@ private fun Extra(
     clickFavorite: (Character) -> Unit
 ) {
     ConstraintLayout(modifier = Modifier.padding(16.dp)) {
-        val (name, favorite, nick, status, category) = createRefs()
+        val (name, favorite, nick, _, category) = createRefs()
         Text(
             text = character.name,
             style = MaterialTheme.typography.h4,

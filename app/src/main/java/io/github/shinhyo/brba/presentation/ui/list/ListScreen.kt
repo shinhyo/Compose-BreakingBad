@@ -15,15 +15,11 @@
  */
 package io.github.shinhyo.brba.presentation.ui.list
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -43,7 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.google.accompanist.glide.rememberGlidePainter
+import coil.compose.rememberImagePainter
 import com.google.accompanist.insets.statusBarsPadding
 import io.github.shinhyo.brba.R
 import io.github.shinhyo.brba.domain.model.Character
@@ -113,9 +109,11 @@ fun FeaturedList(
         ) {
             val (image, name, dim, favorite) = createRefs()
             Image(
-                painter = rememberGlidePainter(
-                    request = character.img,
-                    fadeIn = true,
+                painter = rememberImagePainter(
+                    data = character.img,
+                    builder = {
+                        crossfade(true)
+                    }
                 ),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
