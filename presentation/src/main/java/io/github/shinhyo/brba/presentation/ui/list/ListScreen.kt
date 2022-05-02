@@ -16,10 +16,7 @@
 package io.github.shinhyo.brba.presentation.ui.list
 
 import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -40,9 +37,8 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import coil.compose.rememberImagePainter
-import com.google.accompanist.insets.statusBarsPadding
-import io.github.shinhyo.brba.presentation.R
 import io.github.shinhyo.brba.domain.model.Character
+import io.github.shinhyo.brba.presentation.R
 import io.github.shinhyo.brba.presentation.ui.common.IconFavorite
 import kotlin.math.ceil
 
@@ -50,11 +46,12 @@ import kotlin.math.ceil
 fun ListScreen(
     viewModel: ListViewModel,
     select: (Character) -> Unit,
+    state: ScrollState,
     modifier: Modifier = Modifier
 ) {
     val list = viewModel.list.collectAsState()
     val clickFavorite: (Character) -> Unit = viewModel::upsertFavorite
-    Body(list, select, clickFavorite, modifier)
+    Body(list, select, clickFavorite, state, modifier)
 }
 
 @Composable
@@ -62,11 +59,12 @@ private fun Body(
     list: State<List<Character>>,
     select: (Character) -> Unit,
     clickFavorite: (Character) -> Unit,
+    state: ScrollState,
     modifier: Modifier
 ) {
     Column(
         modifier = modifier
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(state)
             .statusBarsPadding()
     ) {
         Text(

@@ -15,7 +15,10 @@
  */
 package io.github.shinhyo.brba.presentation.ui
 
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -27,15 +30,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
-import androidx.navigation.compose.*
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.google.accompanist.insets.navigationBarsPadding
 import io.github.shinhyo.brba.domain.model.Character
 import io.github.shinhyo.brba.presentation.R
 import io.github.shinhyo.brba.presentation.ui.detail.DetailScreen
 import io.github.shinhyo.brba.presentation.ui.favorite.FavoriteScreen
 import io.github.shinhyo.brba.presentation.ui.list.ListScreen
-import io.github.shinhyo.brba.presentation.utils.BackHandler
 
 sealed class NavScreens(val route: String) {
     object MAIN : NavScreens("main")
@@ -72,8 +75,8 @@ fun NavScreen(
     Scaffold(
         bottomBar = {
             BottomNavigation(
-                modifier = Modifier.navigationBarsPadding(),
-                backgroundColor = MaterialTheme.colors.background
+                backgroundColor = MaterialTheme.colors.background,
+                modifier = Modifier.navigationBarsPadding()
             ) {
                 for (tab in BottomNavTabs.values()) {
                     BottomNavigationItem(
@@ -96,10 +99,12 @@ fun NavScreen(
         },
     ) {
         val modifier = Modifier.padding(it)
+        val listScrollState = rememberScrollState()
         when (selectedTab.value) {
             BottomNavTabs.LIST -> ListScreen(
                 hiltViewModel(),
                 actions.moveDetail,
+                listScrollState,
                 modifier
             )
             BottomNavTabs.FAVORITE -> FavoriteScreen(
@@ -109,7 +114,7 @@ fun NavScreen(
             )
         }
     }
-//    }
+
     BackHandler(
         enabled = selectedTab.value != BottomNavTabs.LIST,
         onBack = { selectedTab.value = BottomNavTabs.LIST }
