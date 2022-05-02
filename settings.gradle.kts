@@ -1,14 +1,21 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://jitpack.io' }
-        jcenter() // Warning: this repository is going to shut down soon
     }
 }
 rootProject.name = "BrBa-Compose"
-include ':app'
-include ':presentation'
-include ':data'
-include ':domain'
+include(
+    ":app",
+    ":presentation",
+    ":domain",
+    ":data",
+)
