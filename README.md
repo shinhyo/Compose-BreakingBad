@@ -34,7 +34,7 @@
 ## Multi Module (Clean Architecture)
 ![](project.dot.png)
 
-#### If you think this reposittory is useful, please press the star button at the top. ⭐️
+### If you think this reposittory is useful, please press the star button at the top. ⭐️
 
 # License
 
