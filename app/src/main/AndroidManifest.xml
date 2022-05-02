@@ -15,7 +15,7 @@
         android:hardwareAccelerated="true"
         android:theme="@style/Theme.BrBaCompose">
         <activity
-            android:name=".presentation.ui.MainActivity"
+            android:name=".app.ui.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.BrBaCompose.NoActionBar">
@@ -31,7 +31,7 @@
             android:exported="false"
             tools:node="merge">
             <meta-data
-                android:name="${applicationId}.presentation.initializer.TimberInitializer"
+                android:name="${applicationId}.app.initializer.TimberInitializer"
                 android:value="androidx.startup" />
         </provider>
     </application>

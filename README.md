@@ -31,12 +31,15 @@
 - [Glide](https://bumptech.github.io/glide/)
 - [Timber](https://github.com/JakeWharton/timber)
 
+## Multi Module (Clean Architecture)
+![](project.dot.png)
+
 #### If you think this reposittory is useful, please press the star button at the top. ⭐️
 
 # License
 
 ```xml
-Designed and developed by 2021 shinhyo
+    Designed and developed by 2021 shinhyo
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

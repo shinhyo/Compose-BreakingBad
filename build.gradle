@@ -5,16 +5,16 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
-        classpath "com.google.dagger:hilt-android-gradle-plugin:2.40.5"
+        classpath 'com.android.tools.build:gradle:7.0.3'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31'
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.40.3"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
 plugins {
-    id 'com.diffplug.spotless' version '6.2.0'
+    id 'com.diffplug.spotless' version '5.7.0'
 }
 
 subprojects {
@@ -30,8 +30,10 @@ subprojects {
             targetExclude("$buildDir/**/*.kt")
             targetExclude('bin/**/*.kt')
 
-            ktlint("0.43.2").userData([disabled_rules: "no-wildcard-imports,import-ordering"])
+            ktlint("0.41.0").userData([disabled_rules: "no-wildcard-imports,import-ordering"])
             licenseHeaderFile rootProject.file('spotless/copyright.kt')
         }
     }
 }
+
+apply from: file('gradle/projectDependencyGraph.gradle')
