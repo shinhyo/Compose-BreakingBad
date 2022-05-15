@@ -45,22 +45,22 @@ import kotlin.math.ceil
 fun ListScreen(
     viewModel: ListViewModel,
     select: (Character) -> Unit,
-    state: ScrollState,
     modifier: Modifier = Modifier
 ) {
-    val uiState = viewModel.uiState.collectAsState()
+    val listScrollState = rememberScrollState()
     val clickFavorite: (Character) -> Unit = viewModel::upsertFavorite
-    Body(uiState.value.list, select, clickFavorite, state, modifier)
+    Body(viewModel, select, clickFavorite, listScrollState, modifier)
 }
 
 @Composable
 private fun Body(
-    list: List<Character>,
+    viewModel: ListViewModel,
     select: (Character) -> Unit,
     clickFavorite: (Character) -> Unit,
     state: ScrollState,
     modifier: Modifier
 ) {
+    val uiState = viewModel.uiState.collectAsState()
     Column(
         modifier = modifier
             .verticalScroll(state)
@@ -78,7 +78,7 @@ private fun Body(
             maxColumnWidth = 160.dp,
             modifier = Modifier.padding(4.dp)
         ) {
-            list.forEach {
+            uiState.value.list.forEach {
                 FeaturedList(
                     character = it, select = select,
                     clickFavorite = clickFavorite
