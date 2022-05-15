@@ -15,7 +15,6 @@
  */
 package io.github.shinhyo.brba.presentation.ui.detail
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -29,11 +28,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import coil.compose.rememberImagePainter
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import io.github.shinhyo.brba.domain.model.Character
 import io.github.shinhyo.brba.presentation.ui.common.IconFavorite
 
@@ -52,13 +53,11 @@ private fun Body(character: Character, clickFavorite: (Character) -> Unit) {
     ) {
         LazyColumn {
             item {
-                Image(
-                    painter = rememberImagePainter(
-                        data = character.img,
-                        builder = {
-                            crossfade(true)
-                        }
-                    ),
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(character.img)
+                        .crossfade(true)
+                        .build(),
                     contentScale = ContentScale.Crop,
                     contentDescription = character.name,
                     alignment = Alignment.TopCenter,

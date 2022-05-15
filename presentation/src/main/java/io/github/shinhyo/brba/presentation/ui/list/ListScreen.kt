@@ -15,8 +15,11 @@
  */
 package io.github.shinhyo.brba.presentation.ui.list
 
-import androidx.compose.foundation.*
+import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -28,6 +31,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -36,7 +40,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import coil.compose.rememberImagePainter
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import io.github.shinhyo.brba.domain.model.Character
 import io.github.shinhyo.brba.presentation.R
 import io.github.shinhyo.brba.presentation.ui.common.IconFavorite
@@ -106,13 +111,11 @@ fun FeaturedList(
             modifier = Modifier.clickable { select.invoke(character) }
         ) {
             val (image, name, dim, favorite) = createRefs()
-            Image(
-                painter = rememberImagePainter(
-                    data = character.img,
-                    builder = {
-                        crossfade(true)
-                    }
-                ),
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(character.img)
+                    .crossfade(true)
+                    .build(),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
