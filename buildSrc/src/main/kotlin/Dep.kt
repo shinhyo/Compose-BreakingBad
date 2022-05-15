@@ -136,6 +136,6 @@ object Dep {
 
     const val javaxInject = "javax.inject:javax.inject:1"
     const val timber = "com.jakewharton.timber:timber:5.0.1"
-    const val coil = "io.coil-kt:coil-compose:1.4.0"
+    const val coil = "io.coil-kt:coil-compose:2.0.0"
 
 }
