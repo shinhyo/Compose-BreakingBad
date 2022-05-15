@@ -21,7 +21,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -49,14 +48,14 @@ fun ListScreen(
     state: ScrollState,
     modifier: Modifier = Modifier
 ) {
-    val list = viewModel.list.collectAsState()
+    val uiState = viewModel.uiState.collectAsState()
     val clickFavorite: (Character) -> Unit = viewModel::upsertFavorite
-    Body(list, select, clickFavorite, state, modifier)
+    Body(uiState.value.list, select, clickFavorite, state, modifier)
 }
 
 @Composable
 private fun Body(
-    list: State<List<Character>>,
+    list: List<Character>,
     select: (Character) -> Unit,
     clickFavorite: (Character) -> Unit,
     state: ScrollState,
@@ -79,7 +78,7 @@ private fun Body(
             maxColumnWidth = 160.dp,
             modifier = Modifier.padding(4.dp)
         ) {
-            list.value.forEach {
+            list.forEach {
                 FeaturedList(
                     character = it, select = select,
                     clickFavorite = clickFavorite
