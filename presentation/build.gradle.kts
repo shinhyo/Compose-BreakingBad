@@ -25,6 +25,7 @@ dependencies {
     implementation(Dep.AndroidX.Compose.material)
     implementation(Dep.AndroidX.Compose.materialIcons)
 
+    implementation(Dep.AndroidX.Lifecycle.runtime)
     implementation(Dep.AndroidX.Lifecycle.viewModelCompose)
     implementation(Dep.AndroidX.Navigation.navigationCompose)
     implementation(Dep.AndroidX.ConstraintLayout.compose)
@@ -38,6 +39,8 @@ dependencies {
 
     implementation(Dep.AndroidX.Hilt.navigationFragment)
     implementation(Dep.AndroidX.Hilt.navigationCompose)
+
+    implementation(Dep.timber)
 
     testImplementation(Dep.Test.junit)
     androidTestImplementation(Dep.Test.junitExt)
