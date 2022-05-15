@@ -39,31 +39,39 @@ import coil.compose.rememberImagePainter
 import io.github.shinhyo.brba.domain.model.Character
 import io.github.shinhyo.brba.presentation.R
 import io.github.shinhyo.brba.presentation.ui.common.IconFavorite
+import timber.log.Timber
 import kotlin.math.ceil
 
 @Composable
 fun ListScreen(
+    modifier: Modifier = Modifier,
     viewModel: ListViewModel,
+    scrollState: ScrollState,
     select: (Character) -> Unit,
-    modifier: Modifier = Modifier
 ) {
-    val listScrollState = rememberScrollState()
-    val clickFavorite: (Character) -> Unit = viewModel::upsertFavorite
-    Body(viewModel, select, clickFavorite, listScrollState, modifier)
+    Body(
+        modifier = modifier,
+        viewModel = viewModel,
+        scrollState = scrollState,
+        select = select,
+    )
 }
 
 @Composable
 private fun Body(
+    modifier: Modifier,
     viewModel: ListViewModel,
+    scrollState: ScrollState,
     select: (Character) -> Unit,
-    clickFavorite: (Character) -> Unit,
-    state: ScrollState,
-    modifier: Modifier
 ) {
+    Timber.d("Body")
+//    val scrollState = rememberScrollState()
+//    Timber.i("Body: scrollState.value ${scrollState.value}")
     val uiState = viewModel.uiState.collectAsState()
+    val clickFavorite: (Character) -> Unit = viewModel::upsertFavorite
     Column(
         modifier = modifier
-            .verticalScroll(state)
+            .verticalScroll(scrollState)
             .statusBarsPadding()
     ) {
         Text(
@@ -80,7 +88,8 @@ private fun Body(
         ) {
             uiState.value.list.forEach {
                 FeaturedList(
-                    character = it, select = select,
+                    character = it,
+                    select = select,
                     clickFavorite = clickFavorite
                 )
             }

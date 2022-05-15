@@ -18,6 +18,8 @@ package io.github.shinhyo.brba.presentation.ui
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -98,16 +100,20 @@ fun NavScreen(
         },
     ) {
         val modifier = Modifier.padding(it)
+        val listScrollState = rememberScrollState()
+        val favoriteScrollState = rememberLazyListState()
         when (selectedTab.value) {
             BottomNavTabs.LIST -> ListScreen(
-                hiltViewModel(),
-                actions.moveDetail,
-                modifier
+                modifier = modifier,
+                viewModel = hiltViewModel(),
+                scrollState = listScrollState,
+                select = actions.moveDetail,
             )
             BottomNavTabs.FAVORITE -> FavoriteScreen(
-                hiltViewModel(),
-                actions.moveDetail,
-                modifier
+                modifier = modifier,
+                viewModel = hiltViewModel(),
+                scrollState = favoriteScrollState,
+                select = actions.moveDetail,
             )
         }
     }

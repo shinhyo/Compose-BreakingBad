@@ -20,6 +20,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -46,27 +47,51 @@ import io.github.shinhyo.brba.presentation.ui.common.IconFavorite
 
 @Composable
 fun FavoriteScreen(
+    modifier: Modifier = Modifier,
     viewModel: FavoriteViewModel,
+    scrollState: LazyListState,
     select: (Character) -> Unit,
-    modifier: Modifier = Modifier
+) {
+    Body(
+        modifier = modifier,
+        viewModel = viewModel,
+        scrollState = scrollState,
+        select = select,
+    )
+}
+
+@Composable
+private fun Body(
+    modifier: Modifier,
+    viewModel: FavoriteViewModel,
+    scrollState: LazyListState,
+    select: (Character) -> Unit,
 ) {
     val list = viewModel.list.collectAsState()
     if (list.value.isEmpty()) {
         EmptyScreen()
     } else {
-        ListScreen(modifier, list, select, viewModel)
+        ListScreen(
+            modifier = modifier,
+            list = list,
+            select = select,
+            viewModel = viewModel,
+            state = scrollState
+        )
     }
 }
 
 @Composable
 private fun ListScreen(
     modifier: Modifier,
+    viewModel: FavoriteViewModel,
     list: State<List<Character>>,
+    state: LazyListState,
     select: (Character) -> Unit,
-    viewModel: FavoriteViewModel
 ) {
     LazyColumn(
         modifier = modifier,
+        state = state,
         contentPadding = PaddingValues(start = 8.dp, top = 32.dp, end = 8.dp, bottom = 32.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
