@@ -39,12 +39,13 @@ object Dep {
 
 
         object Lifecycle {
-            private const val lifecycleVersion = "2.4.1"
-            const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+            private const val version = "2.4.1"
+            const val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$version"
+            const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
             const val viewModelCompose =
-                "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion"
-            const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
-            const val livedataRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+                "androidx.lifecycle:lifecycle-viewmodel-compose:$version"
+            const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:$version"
+            const val livedataRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:$version"
         }
 
         object Navigation {
