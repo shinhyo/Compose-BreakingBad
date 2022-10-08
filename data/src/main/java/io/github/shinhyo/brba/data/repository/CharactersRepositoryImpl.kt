@@ -66,7 +66,6 @@ open class CharactersRepositoryImpl @Inject constructor(
             .map { Result.Success(it) }
     }
 
-
     override fun getFavoriteList(isAsc: Boolean): Flow<List<Character>> =
         db.characterDao().getFavorite(isAsc = isAsc)
             .map { it.map { i -> i.toCharacter() } }

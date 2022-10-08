@@ -27,7 +27,6 @@ import io.github.shinhyo.brba.presentation.ui.BaseFavoriteViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
-
 data class ListUiState(
     val isLoading: Boolean = false,
     @StringRes val errorMessages: Int? = null,
@@ -43,7 +42,6 @@ class ListViewModel
 
     private val _uiState = MutableStateFlow(ListUiState())
     val uiState = _uiState.asStateFlow()
-
 
     init {
         getCharacterList()
