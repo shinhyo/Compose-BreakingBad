@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 shinhyo
+ * Copyright 2022 shinhyo
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,15 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.shinhyo.brba.domain.repository
+package io.github.shinhyo.brba.domain.di
 
-import io.github.shinhyo.brba.domain.model.Character
-import io.github.shinhyo.brba.domain.result.Result
-import kotlinx.coroutines.flow.Flow
+import javax.inject.Qualifier
 
-interface CharactersRepository {
-    fun getCharacterList(): Flow<Result<List<Character>>>
-    fun getFavoriteList(isAsc: Boolean = false): Flow<List<Character>>
-    fun getCharacterById(id: Long): Flow<Character>
-    fun updateFavorite(character: Character): Flow<Boolean>
-}
+@Retention(AnnotationRetention.BINARY)
+@Qualifier
+annotation class DefaultDispatcher
+
+@Retention(AnnotationRetention.BINARY)
+@Qualifier
+annotation class IoDispatcher
+
+@Retention(AnnotationRetention.BINARY)
+@Qualifier
+annotation class MainDispatcher
+
+@Retention(AnnotationRetention.BINARY)
+@Qualifier
+annotation class MainImmediateDispatcher

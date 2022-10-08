@@ -15,11 +15,11 @@
  */
 package io.github.shinhyo.brba.presentation.ui.favorite
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -33,40 +33,66 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import coil.compose.rememberImagePainter
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import io.github.shinhyo.brba.domain.model.Character
 import io.github.shinhyo.brba.presentation.R
 import io.github.shinhyo.brba.presentation.ui.common.IconFavorite
 
 @Composable
 fun FavoriteScreen(
+    modifier: Modifier = Modifier,
     viewModel: FavoriteViewModel,
+    scrollState: LazyListState,
     select: (Character) -> Unit,
-    modifier: Modifier = Modifier
+) {
+    Body(
+        modifier = modifier,
+        viewModel = viewModel,
+        scrollState = scrollState,
+        select = select,
+    )
+}
+
+@Composable
+private fun Body(
+    modifier: Modifier,
+    viewModel: FavoriteViewModel,
+    scrollState: LazyListState,
+    select: (Character) -> Unit,
 ) {
     val list = viewModel.list.collectAsState()
     if (list.value.isEmpty()) {
         EmptyScreen()
     } else {
-        ListScreen(modifier, list, select, viewModel)
+        ListScreen(
+            modifier = modifier,
+            list = list,
+            select = select,
+            viewModel = viewModel,
+            state = scrollState
+        )
     }
 }
 
 @Composable
 private fun ListScreen(
     modifier: Modifier,
+    viewModel: FavoriteViewModel,
     list: State<List<Character>>,
+    state: LazyListState,
     select: (Character) -> Unit,
-    viewModel: FavoriteViewModel
 ) {
     LazyColumn(
         modifier = modifier,
+        state = state,
         contentPadding = PaddingValues(start = 8.dp, top = 32.dp, end = 8.dp, bottom = 32.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
@@ -123,13 +149,11 @@ private fun ItemContent(
 
         ) {
             val (img, name, nickname, favorite) = createRefs()
-            Image(
-                painter = rememberImagePainter(
-                    data = item.img,
-                    builder = {
-                        crossfade(true)
-                    }
-                ),
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(item.img)
+                    .crossfade(true)
+                    .build(),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 alignment = Alignment.TopCenter,

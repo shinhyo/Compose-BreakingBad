@@ -22,20 +22,49 @@ import io.github.shinhyo.brba.data.mapper.toCharacterEntity
 import io.github.shinhyo.brba.data.remote.api.BaBrApi
 import io.github.shinhyo.brba.domain.model.Character
 import io.github.shinhyo.brba.domain.repository.CharactersRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
+import io.github.shinhyo.brba.domain.result.Result
+import kotlinx.coroutines.flow.*
+import java.util.*
 import javax.inject.Inject
+import kotlin.random.Random
 
 open class CharactersRepositoryImpl @Inject constructor(
     private val api: BaBrApi,
     private val db: AppDatabase
 ) : CharactersRepository {
 
-    override fun getCharacterList(): Flow<List<Character>> = flow { emit(api.getCharacters()) }
-        .map { it.map { r -> r.toCharacter() } }
+    companion object {
+        const val MIN_RATIO = 1.2f
+    }
+
+    private val random: Random by lazy { Random(Calendar.getInstance().timeInMillis) }
+
+    override fun getCharacterList(): Flow<Result<List<Character>>> {
+
+        fun changeRatio(list: List<Character>) =
+            list.map { c ->
+                val nextInt = random.nextInt(4) * 0.15f
+                c.copy(ratio = MIN_RATIO + nextInt)
+            }
+
+        fun addFavoriteToList(list: List<Character>) =
+            db.characterDao().getAll()
+                .map { dblist ->
+                    list.toMutableList().map {
+                        it.copy(
+                            favorite = dblist.find { i ->
+                                it.charId == i.charId
+                            }?.favorite ?: false
+                        )
+                    }
+                }
+
+        return flow { emit(api.getCharacters()) }
+            .map { it.map { r -> r.toCharacter() } }
+            .map { changeRatio(it) }
+            .flatMapConcat { addFavoriteToList(it) }
+            .map { Result.Success(it) }
+    }
 
     override fun getFavoriteList(isAsc: Boolean): Flow<List<Character>> =
         db.characterDao().getFavorite(isAsc = isAsc)
@@ -49,16 +78,6 @@ open class CharactersRepositoryImpl @Inject constructor(
                 db.characterDao().getCharacter(id)
             ) { res: Character, entity: CharacterEntity? ->
                 res.copy(favorite = entity?.favorite ?: false)
-            }
-
-    override fun addFavoriteStatus(listCharacter: List<Character>): Flow<List<Character>> =
-        flowOf(listCharacter)
-            .combine(
-                db.characterDao().getAll()
-            ) { list: List<Character>, db: List<CharacterEntity> ->
-                list.toMutableList().map {
-                    it.copy(favorite = db.find { i -> it.charId == i.charId }?.favorite ?: false)
-                }
             }
 
     override fun updateFavorite(character: Character): Flow<Boolean> = flowOf(character)

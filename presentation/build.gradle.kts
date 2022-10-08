@@ -1,45 +1,27 @@
 plugins {
-    id("com.android.library")
-    kotlin("android")
-    id("kotlinx-serialization")
-    kotlin("kapt")
-    id("dagger.hilt.android.plugin")
+    id("brba.android.library")
+    id("brba.android.library.compose")
+    id("brba.android.hilt")
 }
 
 android {
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = Dep.AndroidX.Compose.version
-    }
+    namespace = "io.github.shinhyo.brba.presentation"
 }
 
 dependencies {
     implementation(project(":domain"))
 
-    implementation(Dep.Kotlin.coroutine)
-    implementation(Dep.AndroidX.core)
+    implementation(libs.timber)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.core.ktx)
 
-    implementation(Dep.AndroidX.Compose.ui)
-    implementation(Dep.AndroidX.Compose.material)
-    implementation(Dep.AndroidX.Compose.materialIcons)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.androidx.compose.material.icons.extended)
 
-    implementation(Dep.AndroidX.Lifecycle.viewModelCompose)
-    implementation(Dep.AndroidX.Navigation.navigationCompose)
-    implementation(Dep.AndroidX.ConstraintLayout.compose)
+    implementation(libs.androidx.constraintlayout.compose)
 
-    implementation(Dep.coil)
-    implementation(Dep.AndroidX.Compose.foundation)
-    implementation(Dep.AndroidX.Compose.foundationLayout)
+    implementation(libs.coil.kt.compose)
 
-    implementation(Dep.Dagger.hiltAndroid)
-    kapt(Dep.Dagger.hiltCompiler)
-
-    implementation(Dep.AndroidX.Hilt.navigationFragment)
-    implementation(Dep.AndroidX.Hilt.navigationCompose)
-
-    testImplementation(Dep.Test.junit)
-    androidTestImplementation(Dep.Test.junitExt)
-    androidTestImplementation(Dep.Test.espresso)
+    implementation(libs.androidx.hilt.navigation.compose)
 }

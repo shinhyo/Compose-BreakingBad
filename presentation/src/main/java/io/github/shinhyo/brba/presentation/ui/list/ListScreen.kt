@@ -15,19 +15,22 @@
  */
 package io.github.shinhyo.brba.presentation.ui.list
 
-import androidx.compose.foundation.*
+import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -36,35 +39,44 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import coil.compose.rememberImagePainter
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import io.github.shinhyo.brba.domain.model.Character
 import io.github.shinhyo.brba.presentation.R
 import io.github.shinhyo.brba.presentation.ui.common.IconFavorite
+import timber.log.Timber
 import kotlin.math.ceil
 
 @Composable
 fun ListScreen(
+    modifier: Modifier = Modifier,
     viewModel: ListViewModel,
+    scrollState: ScrollState,
     select: (Character) -> Unit,
-    state: ScrollState,
-    modifier: Modifier = Modifier
 ) {
-    val list = viewModel.list.collectAsState()
-    val clickFavorite: (Character) -> Unit = viewModel::upsertFavorite
-    Body(list, select, clickFavorite, state, modifier)
+    Body(
+        modifier = modifier,
+        viewModel = viewModel,
+        scrollState = scrollState,
+        select = select,
+    )
 }
 
 @Composable
 private fun Body(
-    list: State<List<Character>>,
+    modifier: Modifier,
+    viewModel: ListViewModel,
+    scrollState: ScrollState,
     select: (Character) -> Unit,
-    clickFavorite: (Character) -> Unit,
-    state: ScrollState,
-    modifier: Modifier
 ) {
+    Timber.d("Body")
+//    val scrollState = rememberScrollState()
+//    Timber.i("Body: scrollState.value ${scrollState.value}")
+    val uiState = viewModel.uiState.collectAsState()
+    val clickFavorite: (Character) -> Unit = viewModel::upsertFavorite
     Column(
         modifier = modifier
-            .verticalScroll(state)
+            .verticalScroll(scrollState)
             .statusBarsPadding()
     ) {
         Text(
@@ -79,9 +91,10 @@ private fun Body(
             maxColumnWidth = 160.dp,
             modifier = Modifier.padding(4.dp)
         ) {
-            list.value.forEach {
+            uiState.value.list.forEach {
                 FeaturedList(
-                    character = it, select = select,
+                    character = it,
+                    select = select,
                     clickFavorite = clickFavorite
                 )
             }
@@ -106,13 +119,11 @@ fun FeaturedList(
             modifier = Modifier.clickable { select.invoke(character) }
         ) {
             val (image, name, dim, favorite) = createRefs()
-            Image(
-                painter = rememberImagePainter(
-                    data = character.img,
-                    builder = {
-                        crossfade(true)
-                    }
-                ),
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(character.img)
+                    .crossfade(true)
+                    .build(),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier

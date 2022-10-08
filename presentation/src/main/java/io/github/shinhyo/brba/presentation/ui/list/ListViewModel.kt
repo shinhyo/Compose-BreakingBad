@@ -15,45 +15,62 @@
  */
 package io.github.shinhyo.brba.presentation.ui.list
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.shinhyo.brba.domain.model.Character
-import io.github.shinhyo.brba.domain.usecase.AddFavoriteToListUseCase
+import io.github.shinhyo.brba.domain.result.Result
 import io.github.shinhyo.brba.domain.usecase.GetCharacterListUseCase
 import io.github.shinhyo.brba.domain.usecase.UpdateFavoriteUseCase
+import io.github.shinhyo.brba.presentation.R
 import io.github.shinhyo.brba.presentation.ui.BaseFavoriteViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
+
+data class ListUiState(
+    val isLoading: Boolean = false,
+    @StringRes val errorMessages: Int? = null,
+    val list: List<Character> = emptyList()
+)
 
 @HiltViewModel
 class ListViewModel
 @Inject constructor(
     private val getCharacterListUseCase: GetCharacterListUseCase,
-    private val addFavoriteToListUseCase: AddFavoriteToListUseCase,
     updateFavoriteUseCase: UpdateFavoriteUseCase,
 ) : BaseFavoriteViewModel(updateFavoriteUseCase) {
 
-    private val _list = MutableStateFlow(emptyList<Character>())
-    val list: StateFlow<List<Character>> get() = _list
+    private val _uiState = MutableStateFlow(ListUiState())
+    val uiState = _uiState.asStateFlow()
 
     init {
         getCharacterList()
     }
 
     private fun getCharacterList() {
-        getCharacterListUseCase.execute()
-            .onEach { _list.value = it }
-            .flatMapConcat { addFavoriteToListUseCase.execute(it) }
-            .onEach { _list.value = it }
-            .flowOn(Dispatchers.IO)
-            .catch { e -> e.printStackTrace() }
+        _uiState.update { it.copy(isLoading = true) }
+
+        getCharacterListUseCase(Unit)
+            .onEach { result ->
+                when (result) {
+                    is Result.Success -> {
+                        _uiState.update {
+                            it.copy(
+                                isLoading = true,
+                                list = result.data
+                            )
+                        }
+                    }
+                    is Result.Error -> {
+                        _uiState.update {
+                            it.copy(
+                                isLoading = true,
+                                errorMessages = R.string.error_load
+                            )
+                        }
+                    }
+                }
+            }
             .launchIn(viewModelScope)
     }
 }

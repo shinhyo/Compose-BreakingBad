@@ -1,35 +1,26 @@
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    kotlin("kapt")
-    id("dagger.hilt.android.plugin")
+    id("brba.android.application")
+    id("brba.android.application.compose")
+    id("brba.android.hilt")
 }
 
 android {
+    namespace = "io.github.shinhyo.brba"
 
     defaultConfig {
         applicationId = "io.github.shinhyo.brba"
-        versionCode = Versions.versionCode
-        versionName = Versions.versionName
+        versionCode = 1
+        versionName = "1.0"
     }
 
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile(
-                    "proguard-android-optimize.txt"
-                ),
+                getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
-    }
-
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = Dep.AndroidX.Compose.version
     }
 }
 
@@ -39,17 +30,14 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
 
-    implementation(Dep.Google.material)
+    implementation(libs.material)
 
-    implementation(Dep.AndroidX.startupRuntime)
+    implementation(libs.androidx.startup)
 
-    implementation(Dep.AndroidX.core)
-    implementation(Dep.AndroidX.appcompat)
-    implementation(Dep.AndroidX.Activity.compose)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.activity.compose)
 
-    implementation(Dep.Dagger.hiltAndroid)
-    kapt(Dep.Dagger.hiltCompiler)
-
-    implementation(Dep.timber)
+    implementation(libs.timber)
 
 }
