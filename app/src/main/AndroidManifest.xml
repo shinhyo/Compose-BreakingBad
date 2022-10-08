@@ -16,7 +16,6 @@
         <activity
             android:name=".app.ui.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.BrBaCompose.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,11 +25,11 @@
         </activity>
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="${applicationId}.androidx-startup"
+            android:authorities="io.github.shinhyo.brba.androidx-startup"
             android:exported="false"
             tools:node="merge">
             <meta-data
-                android:name="${applicationId}.app.initializer.TimberInitializer"
+                android:name="io.github.shinhyo.brba.app.initializer.TimberInitializer"
                 android:value="androidx.startup" />
         </provider>
     </application>
