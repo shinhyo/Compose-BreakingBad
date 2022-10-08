@@ -24,7 +24,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -45,31 +44,39 @@ import coil.request.ImageRequest
 import io.github.shinhyo.brba.domain.model.Character
 import io.github.shinhyo.brba.presentation.R
 import io.github.shinhyo.brba.presentation.ui.common.IconFavorite
+import timber.log.Timber
 import kotlin.math.ceil
 
 @Composable
 fun ListScreen(
+    modifier: Modifier = Modifier,
     viewModel: ListViewModel,
+    scrollState: ScrollState,
     select: (Character) -> Unit,
-    state: ScrollState,
-    modifier: Modifier = Modifier
 ) {
-    val list = viewModel.list.collectAsState()
-    val clickFavorite: (Character) -> Unit = viewModel::upsertFavorite
-    Body(list, select, clickFavorite, state, modifier)
+    Body(
+        modifier = modifier,
+        viewModel = viewModel,
+        scrollState = scrollState,
+        select = select,
+    )
 }
 
 @Composable
 private fun Body(
-    list: State<List<Character>>,
+    modifier: Modifier,
+    viewModel: ListViewModel,
+    scrollState: ScrollState,
     select: (Character) -> Unit,
-    clickFavorite: (Character) -> Unit,
-    state: ScrollState,
-    modifier: Modifier
 ) {
+    Timber.d("Body")
+//    val scrollState = rememberScrollState()
+//    Timber.i("Body: scrollState.value ${scrollState.value}")
+    val uiState = viewModel.uiState.collectAsState()
+    val clickFavorite: (Character) -> Unit = viewModel::upsertFavorite
     Column(
         modifier = modifier
-            .verticalScroll(state)
+            .verticalScroll(scrollState)
             .statusBarsPadding()
     ) {
         Text(
@@ -84,9 +91,10 @@ private fun Body(
             maxColumnWidth = 160.dp,
             modifier = Modifier.padding(4.dp)
         ) {
-            list.value.forEach {
+            uiState.value.list.forEach {
                 FeaturedList(
-                    character = it, select = select,
+                    character = it,
+                    select = select,
                     clickFavorite = clickFavorite
                 )
             }
