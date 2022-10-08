@@ -6,6 +6,7 @@ plugins {
 }
 
 android {
+    namespace = "io.github.shinhyo.brba"
 
     defaultConfig {
         applicationId = "io.github.shinhyo.brba"
@@ -29,7 +30,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Dep.AndroidX.Compose.version
+        kotlinCompilerExtensionVersion = Dep.AndroidX.Compose.compilerVersion
     }
 }
 
@@ -51,5 +52,6 @@ dependencies {
     kapt(Dep.Dagger.hiltCompiler)
 
     implementation(Dep.timber)
+    implementation(Dep.AndroidX.Compose.compiler)
 
 }

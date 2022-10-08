@@ -6,6 +6,7 @@ plugins {
 }
 
 android {
+    namespace = "io.github.shinhyo.brba.data"
 }
 
 dependencies {

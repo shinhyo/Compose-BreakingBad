@@ -1,45 +1,44 @@
 object Versions {
-    const val compileSdk = 32
+    const val compileSdk = 33
 
     const val minSdk = 26
-    const val targetSdk = 32
+    const val targetSdk = 33
     const val versionCode = 1
     const val versionName = "1.0"
 }
 
 object Dep {
-    const val androidGradlePlugin = "com.android.tools.build:gradle:7.1.3"
+    const val androidGradlePlugin = "com.android.tools.build:gradle:7.3.0"
 
     object Google {
-        const val material = "com.google.android.material:material:1.5.0"
+        const val material = "com.google.android.material:material:1.6.1"
         const val gson = "com.google.code.gson:gson:2.9.0"
     }
 
     object AndroidX {
-        const val core = "androidx.core:core-ktx:1.6.0"
-        const val appcompat = "androidx.appcompat:appcompat:1.4.1"
+        const val core = "androidx.core:core-ktx:1.9.0"
+        const val appcompat = "androidx.appcompat:appcompat:1.5.1"
         const val startupRuntime = "androidx.startup:startup-runtime:1.1.1"
 
 
         object ConstraintLayout {
-            const val layout = "androidx.constraintlayout:constraintlayout:2.1.3"
-            const val compose = "androidx.constraintlayout:constraintlayout-compose:1.0.0"
+            const val layout = "androidx.constraintlayout:constraintlayout:2.1.4"
+            const val compose = "androidx.constraintlayout:constraintlayout-compose:1.0.1"
         }
 
         object Activity {
-            private const val version = "1.4.0"
+            private const val version = "1.6.0"
             const val activity = "androidx.activity:activity-ktx:$version"
             const val compose = "androidx.activity:activity-compose:$version"
         }
 
         object Fragment {
-            private const val version = "1.4.1"
-            const val fragment = "androidx.fragment:fragment-ktx:1.4.1"
+            private const val version = "1.5.3"
+            const val fragment = "androidx.fragment:fragment-ktx:$version"
         }
 
-
         object Lifecycle {
-            private const val lifecycleVersion = "2.4.1"
+            private const val lifecycleVersion = "2.5.1"
             const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
             const val viewModelCompose =
                 "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion"
@@ -48,7 +47,7 @@ object Dep {
         }
 
         object Navigation {
-            private const val version = "2.4.2"
+            private const val version = "2.5.2"
             const val fragment = "androidx.navigation:navigation-fragment-ktx:$version"
             const val ui = "androidx.navigation:navigation-ui-ktx:$version"
             const val navigationCompose = "androidx.navigation:navigation-compose:$version"
@@ -63,12 +62,13 @@ object Dep {
         }
 
         object Compose {
-            //            const val version = "1.1.1"
-            const val version = "1.2.0-alpha08"
+            const val compilerVersion = "1.3.2"
+            const val compiler = "androidx.compose.compiler:compiler:$compilerVersion"
 
+            private const val version = "1.2.1"
             const val foundation = "androidx.compose.foundation:foundation:$version"
             const val foundationLayout = "androidx.compose.foundation:foundation-layout:$version"
-            const val m3 = "androidx.compose.material3:material3:1.0.0-alpha10"
+            const val m3 = "androidx.compose.material3:material3:1.0.0-rc01"
 
 
             const val ui = "androidx.compose.ui:ui:$version"
@@ -85,7 +85,7 @@ object Dep {
         }
 
         object Room {
-            private const val version = "2.4.2"
+            private const val version = "2.4.3"
             const val roomRuntime = "androidx.room:room-runtime:$version"
             const val roomKtx = "androidx.room:room-ktx:$version"
             const val roomCompiler = "androidx.room:room-compiler:$version"
@@ -93,8 +93,8 @@ object Dep {
     }
 
     object Kotlin {
-        const val version = "1.6.20"
-        const val coroutineVersion = "1.6.1"
+        const val version = "1.7.20"
+        const val coroutineVersion = "1.6.4"
 
         const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
         const val coroutineCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion"
@@ -126,7 +126,7 @@ object Dep {
     }
 
     object Dagger {
-        private const val daggerVersion = "2.41"
+        private const val daggerVersion = "2.42"
         const val hiltGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:$daggerVersion"
         const val hiltAndroid = "com.google.dagger:hilt-android:$daggerVersion"
         const val hiltCompiler = "com.google.dagger:hilt-compiler:$daggerVersion"

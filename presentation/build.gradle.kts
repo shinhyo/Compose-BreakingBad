@@ -7,11 +7,13 @@ plugins {
 }
 
 android {
+    namespace = "io.github.shinhyo.brba.presentation"
+
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Dep.AndroidX.Compose.version
+        kotlinCompilerExtensionVersion = Dep.AndroidX.Compose.compilerVersion
     }
 }
 
