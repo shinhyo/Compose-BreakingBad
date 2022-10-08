@@ -11,6 +11,7 @@ android {
 dependencies {
     implementation(project(":domain"))
 
+    implementation(libs.timber)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.core.ktx)
 
