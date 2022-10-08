@@ -10,6 +10,6 @@ java {
 
 dependencies {
 
-    implementation(Dep.javaxInject)
-    implementation(Dep.Kotlin.coroutineCore)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.javax.inject)
 }

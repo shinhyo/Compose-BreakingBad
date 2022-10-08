@@ -1,8 +1,7 @@
 plugins {
-    id("com.android.library")
-    kotlin("android")
-    kotlin("kapt")
-    id("dagger.hilt.android.plugin")
+    id("brba.android.library")
+    id("brba.android.hilt")
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -12,19 +11,16 @@ android {
 dependencies {
     implementation(project(":domain"))
 
-    implementation(Dep.Kotlin.coroutineCore)
-    implementation(Dep.timber)
-    implementation(Dep.Google.gson)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.timber)
+    implementation(libs.gson)
 
-    implementation(Dep.Dagger.hiltAndroid)
-    kapt(Dep.Dagger.hiltCompiler)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.okhttp.logging)
 
-    implementation(Dep.Square.retrofit)
-    implementation(Dep.Square.converterGson)
-    implementation(Dep.Square.loggingInterceptor)
-
-    implementation(Dep.AndroidX.Room.roomRuntime)
-    implementation(Dep.AndroidX.Room.roomKtx)
-    kapt(Dep.AndroidX.Room.roomCompiler)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
 }
