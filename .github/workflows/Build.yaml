@@ -45,11 +45,11 @@ jobs:
       #      - name: Run local tests
       #        run: ./gradlew testDebug testProdDebug --stacktrace
 
-      - name: Upload build outputs (APKs)
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-outputs
-          path: app/build/outputs
+      #      - name: Upload build outputs (APKs)
+      #        uses: actions/upload-artifact@v3
+      #        with:
+      #          name: build-outputs
+      #          path: app/build/outputs
 
       - name: Upload build reports
         if: always()

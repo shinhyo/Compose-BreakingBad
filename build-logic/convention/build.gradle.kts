@@ -39,5 +39,10 @@ gradlePlugin {
             implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
 
+        register("androidFeature") {
+            id = "brba.android.feature"
+            implementationClass = "AndroidFeatureConventionPlugin"
+        }
+
     }
 }
