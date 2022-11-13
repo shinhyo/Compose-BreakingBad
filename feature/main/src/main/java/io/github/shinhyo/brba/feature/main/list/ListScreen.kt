@@ -20,6 +20,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -85,12 +86,14 @@ private fun ListScreen(
     ) {
         item {
             Text(
-                stringResource(R.string.brba),
+                text = stringResource(R.string.brba),
                 color = MaterialTheme.colors.primaryVariant,
                 style = MaterialTheme.typography.h1,
                 fontSize = 78.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .statusBarsPadding()
             )
         }
         item {
