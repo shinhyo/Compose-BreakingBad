@@ -22,7 +22,7 @@ allprojects {
             ktlint(ktlintVersion).userData(
                 mapOf(
                     "android" to "true",
-                    "disabled_rules" to "no-wildcard-imports,import-ordering"
+                    "disabled_rules" to "no-wildcard-imports,import-ordering,max-line-length,final-newline"
                 )
             )
             licenseHeaderFile(rootProject.file("spotless/copyright.kt"))

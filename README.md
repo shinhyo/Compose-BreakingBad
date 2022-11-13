@@ -1,7 +1,8 @@
 # Breaking Bad - Jetpack Compose
 <a href='https://developer.android.com'><img src='http://img.shields.io/badge/platform-android-green.svg'/></a>
-<a href = "https://developer.android.com/jetpack/androidx/versions/all-channel#march_24_2021"> <img src = "https://img.shields.io/badge/Jetpack%20Compose-1.2.1-brightgreen" /> </a>
-<a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
+<a href="https://kotlinlang.org/docs/whatsnew1720.html"><img src = "https://shields.io/badge/kotlin-1.7.20-blue" /></a>
+<a href="https://developer.android.com/jetpack/androidx/releases/compose#versions"><img src = "https://img.shields.io/badge/jetpack%20compose-1.2.1-brightgreen" /></a>
+<a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg"/></a>
 [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 
 <p >
@@ -20,7 +21,7 @@
     - Room - Create, store, and manage persistent data backed by a SQLite database.
     - ViewModel - Store and manage UI-related data in a lifecycle conscious.
     - App Startup - initialize components at app startup.
-- Clean Architecture
+- Clean Architecture (nowinandroid)
 - MVVM pattern
 - Kotlin Coroutines & Flows
 - Material Design
@@ -32,7 +33,7 @@
 - [Coil-Compose](https://coil-kt.github.io/coil/compose)
 - [Timber](https://github.com/JakeWharton/timber)
 
-## Multi Module (Clean Architecture)
+## Multi Module ([nowinandroid](https://github.com/android/nowinandroid))
 ![](project.dot.png)
 
 ### If you think this reposittory is useful, please press the star button at the top. ⭐️

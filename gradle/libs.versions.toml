@@ -1,7 +1,7 @@
 [versions]
 targetSdk = "33"
 
-androidGradlePlugin = "7.3.0"
+androidGradlePlugin = "7.3.1"
 kotlin = "1.7.20"
 androidDesugarJdkLibs = "1.1.5"
 
@@ -14,6 +14,7 @@ androidxComposeCompiler = "1.3.2"
 androidxStartup = "1.1.1"
 androidxHiltNavigationCompose = "1.0.0"
 androidxConstraintlayoutCompose = "1.0.1"
+androidxLifecycle = "2.6.0-alpha03"
 
 
 googleMaterial = "1.6.1"
@@ -22,6 +23,8 @@ androidxComposeMaterial3 = "1.0.0-beta03"
 
 hilt = "2.42"
 hiltExt = "1.0.0"
+
+androidxNavigation = "2.5.2"
 
 junit4 = "4.13.2"
 androidxTestCore = "1.5.0-alpha02"
@@ -57,6 +60,8 @@ androidx-startup = { group = "androidx.startup", name = "startup-runtime", versi
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }
 androidx-constraintlayout-compose = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "androidxConstraintlayoutCompose" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
+androidx-lifecycle-runtimeCompose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
+androidx-lifecycle-viewModelCompose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
 
 # compose
 androidx-compose-material = { group = "androidx.compose.material", name = "material", version.ref = "androidxCompose" }
@@ -75,6 +80,10 @@ hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 #hilt-ext-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hiltExt" }
 #hilt-ext-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "hiltExt" }
+
+# navigation
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
+androidx-navigation-testing = { group = "androidx.navigation", name = "navigation-testing", version.ref = "androidxNavigation" }
 
 # room
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }

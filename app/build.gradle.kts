@@ -26,18 +26,15 @@ android {
 
 dependencies {
 
-    implementation(project(":presentation"))
-    implementation(project(":domain"))
-    implementation(project(":data"))
+    implementation(project(":core:designsystem"))
+
+    implementation(project(":feature:main"))
+    implementation(project(":feature:detail"))
 
     implementation(libs.material)
-
     implementation(libs.androidx.startup)
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     implementation(libs.timber)
-
 }
