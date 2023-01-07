@@ -15,20 +15,16 @@
  */
 package io.github.shinhyo.brba.core.model
 
-import java.util.*
+import java.util.Date
 
 data class BrbaCharacter(
     val charId: Long = -1,
     val name: String = "",
     val birthday: String = "",
-    val occupation: List<String> = listOf(),
     val img: String = "",
     val status: String = "",
     val nickname: String = "",
-    val appearance: List<Int> = listOf(),
-    val portrayed: String = "",
     val category: String = "",
-    val betterCallSaulAppearance: List<Int> = listOf(),
     val ratio: Float = 1f,
     val favorite: Boolean = false,
     val ctime: Date? = null,

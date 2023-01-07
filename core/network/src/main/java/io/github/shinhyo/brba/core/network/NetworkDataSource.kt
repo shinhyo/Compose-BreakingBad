@@ -20,7 +20,7 @@ import retrofit2.http.Path
 
 interface NetworkDataSource {
 
-    suspend fun getCharacters(): List<Character>
+    suspend fun getCharacters(): Character
 
-    suspend fun getCharactersById(@Path("id") id: Long): List<Character>
+    suspend fun getCharactersById(@Path("id") id: Long): Character
 }

@@ -22,8 +22,13 @@ import io.github.shinhyo.brba.core.database.model.asExternalModel
 import io.github.shinhyo.brba.core.model.BrbaCharacter
 import io.github.shinhyo.brba.core.network.NetworkDataSource
 import io.github.shinhyo.brba.core.network.model.asExternalModel
-import kotlinx.coroutines.flow.*
-import java.util.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
+import java.util.Calendar
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -57,7 +62,7 @@ open class CharactersRepositoryImpl @Inject constructor(
             }
 
         return flow { emit(api.getCharacters()) }
-            .map { it.map { r -> r.asExternalModel() } }
+            .map { it.data.map { character -> character.asExternalModel() } }
             .map { changeRatio(it) }
             .flatMapConcat { addFavoriteToList(it) }
     }
@@ -68,7 +73,7 @@ open class CharactersRepositoryImpl @Inject constructor(
 
     override fun getCharacterById(id: Long): Flow<BrbaCharacter> =
         flow { emit(api.getCharactersById(id)) }
-            .map { it.first().asExternalModel() }
+            .map { it.data.first().asExternalModel() }
             .combine(characterDao.getCharacter(id)) { res: BrbaCharacter, entity: CharacterEntity? ->
                 res.copy(favorite = entity?.favorite ?: false)
             }

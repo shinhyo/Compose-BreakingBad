@@ -16,33 +16,47 @@
 package io.github.shinhyo.brba.core.network.model
 
 import com.google.gson.annotations.SerializedName
+import io.github.shinhyo.brba.core.model.BrbaCharacter
+import io.github.shinhyo.brba.core.network.model.Character.Data
 
 data class Character(
-    @SerializedName("char_id")
-    val charId: Long = 0,
-    val name: String = "",
-    val birthday: String = "",
-    val occupation: List<String> = listOf(),
-    val img: String = "",
-    val status: String = "",
-    val nickname: String = "",
-    val appearance: List<Int> = listOf(),
-    val portrayed: String = "",
-    val category: String = "",
-    @SerializedName("better_call_saul_appearance")
-    val betterCallSaulAppearance: List<Int> = listOf(),
-)
+    @SerializedName("code")
+    val code: Int?,
+    @SerializedName("data")
+    val `data`: List<Data> = emptyList()
+) {
+    data class Data(
+        @SerializedName("birthday")
+        val birthday: String?,
+        @SerializedName("category")
+        val category: String?,
+        @SerializedName("char_id")
+        val charId: Long?,
+        @SerializedName("created_at")
+        val createdAt: String?,
+        @SerializedName("id")
+        val id: Int?,
+        @SerializedName("img")
+        val img: String?,
+        @SerializedName("name")
+        val name: String?,
+        @SerializedName("nickname")
+        val nickname: String?,
+        @SerializedName("portrayed_by")
+        val portrayedBy: String?,
+        @SerializedName("status")
+        val status: String?
+    )
+}
 
-fun Character.asExternalModel() = io.github.shinhyo.brba.core.model.BrbaCharacter(
-    charId = charId,
-    name = name,
-    birthday = birthday,
-    occupation = occupation,
-    img = img,
-    status = status,
-    nickname = nickname,
-    appearance = appearance,
-    portrayed = portrayed,
-    category = category,
-    betterCallSaulAppearance = betterCallSaulAppearance
-)
+fun Data.asExternalModel(): BrbaCharacter {
+    return BrbaCharacter(
+        charId = charId ?: 0,
+        name = name ?: "",
+        birthday = birthday ?: "",
+        img = img ?: "",
+        status = status ?: "",
+        nickname = nickname ?: "",
+        category = category ?: "",
+    )
+}

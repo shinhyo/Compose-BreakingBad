@@ -36,16 +36,14 @@ import javax.inject.Singleton
 private interface BaBrApi {
 
     companion object {
-        const val BASE_URL = "https://www.breakingbadapi.com"
+        const val BASE_URL = "https://brba.shinhyo.workers.dev"
     }
 
     @GET(value = "/api/characters")
-    suspend fun getCharacters(): List<Character>
+    suspend fun getCharacters(): Character
 
     @GET(value = "/api/characters/{id}")
-    suspend fun getCharactersById(
-        @Path("id") id: Long
-    ): List<Character>
+    suspend fun getCharactersById(@Path("id") id: Long): Character
 }
 
 @Singleton
@@ -86,9 +84,9 @@ class RetrofitNetwork @Inject constructor(
         return response
     }
 
-    override suspend fun getCharacters(): List<Character> =
+    override suspend fun getCharacters(): Character =
         baBrApi.getCharacters()
 
-    override suspend fun getCharactersById(id: Long): List<Character> =
+    override suspend fun getCharactersById(id: Long): Character =
         baBrApi.getCharactersById(id)
 }
