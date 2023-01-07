@@ -53,7 +53,10 @@ class DetailViewModel @Inject constructor(
             when (it) {
                 is Result.Loading -> DetailUiState.Loading
                 is Result.Success -> DetailUiState.Success(it.data)
-                is Result.Error -> DetailUiState.Error(it.exception)
+                is Result.Error -> {
+                    it.exception?.printStackTrace()
+                    DetailUiState.Error(it.exception)
+                }
             }
         }
         .stateIn(

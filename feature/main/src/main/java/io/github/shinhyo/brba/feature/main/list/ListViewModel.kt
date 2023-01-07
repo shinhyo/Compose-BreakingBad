@@ -27,7 +27,9 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import timber.log.Timber
 import javax.inject.Inject
 
 sealed interface ListUiState {
@@ -45,6 +47,9 @@ class ListViewModel
 
     val uiState = getCharacterListUseCase()
         .asResult()
+        .onEach {
+            Timber.i("uiState $it")
+        }
         .map {
             when (it) {
                 is Result.Loading -> ListUiState.Loading
