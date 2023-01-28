@@ -16,33 +16,27 @@
 package io.github.shinhyo.brba.core.network.model
 
 import com.google.gson.annotations.SerializedName
+import io.github.shinhyo.brba.core.model.BrbaCharacter
 
 data class Character(
     @SerializedName("char_id")
-    val charId: Long = 0,
-    val name: String = "",
-    val birthday: String = "",
-    val occupation: List<String> = listOf(),
-    val img: String = "",
-    val status: String = "",
-    val nickname: String = "",
-    val appearance: List<Int> = listOf(),
-    val portrayed: String = "",
-    val category: String = "",
-    @SerializedName("better_call_saul_appearance")
-    val betterCallSaulAppearance: List<Int> = listOf(),
+    val charId: Long?,
+    val name: String?,
+    val birthday: String?,
+    val img: String?,
+    val status: String?,
+    val nickname: String?,
+    val portrayed: String?,
+    val category: String?,
 )
 
-fun Character.asExternalModel() = io.github.shinhyo.brba.core.model.BrbaCharacter(
-    charId = charId,
-    name = name,
-    birthday = birthday,
-    occupation = occupation,
-    img = img,
-    status = status,
-    nickname = nickname,
-    appearance = appearance,
-    portrayed = portrayed,
-    category = category,
-    betterCallSaulAppearance = betterCallSaulAppearance
+fun Character.asExternalModel() = BrbaCharacter(
+    charId = charId ?: -1,
+    name = name ?: "",
+    birthday = birthday ?: "",
+    img = img ?: "",
+    status = status ?: "",
+    nickname = nickname ?: "",
+    portrayed = portrayed ?: "",
+    category = category ?: "",
 )
