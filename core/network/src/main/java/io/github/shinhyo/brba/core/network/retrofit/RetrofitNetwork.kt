@@ -36,7 +36,7 @@ import javax.inject.Singleton
 private interface BaBrApi {
 
     companion object {
-        const val BASE_URL = "https://www.breakingbadapi.com"
+        const val BASE_URL = "https://brba.shinhyo.workers.dev"
     }
 
     @GET(value = "/api/characters")

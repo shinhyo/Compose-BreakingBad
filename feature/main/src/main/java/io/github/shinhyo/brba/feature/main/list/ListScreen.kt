@@ -204,17 +204,11 @@ private fun Preview() {
                     charId = 0,
                     name = "Walter White",
                     birthday = "09-07-1958",
-                    occupation = listOf(
-                        "High School Chemistry Teacher",
-                        "Meth King Pin"
-                    ),
                     img = "img\":\"https://images.amcnetworks.com/amc.com/wp-content/uploads/2015/04/cast_bb_700x1000_walter-white-lg.jpg",
                     status = "Presumed dead",
                     nickname = "Heisenberg",
-                    appearance = listOf(1, 2, 3, 4, 5),
                     portrayed = "",
                     category = "Breaking Bad",
-                    betterCallSaulAppearance = listOf(),
                     ratio = 1.2f,
                     favorite = true,
                     ctime = null
@@ -223,17 +217,11 @@ private fun Preview() {
                     charId = 0,
                     name = "Walter White",
                     birthday = "09-07-1958",
-                    occupation = listOf(
-                        "High School Chemistry Teacher",
-                        "Meth King Pin"
-                    ),
                     img = "img\":\"https://images.amcnetworks.com/amc.com/wp-content/uploads/2015/04/cast_bb_700x1000_walter-white-lg.jpg",
                     status = "Presumed dead",
                     nickname = "Heisenberg",
-                    appearance = listOf(1, 2, 3, 4, 5),
                     portrayed = "",
                     category = "Breaking Bad",
-                    betterCallSaulAppearance = listOf(),
                     ratio = 1.8f,
                     favorite = false,
                     ctime = null
@@ -242,17 +230,11 @@ private fun Preview() {
                     charId = 0,
                     name = "Walter White",
                     birthday = "09-07-1958",
-                    occupation = listOf(
-                        "High School Chemistry Teacher",
-                        "Meth King Pin"
-                    ),
                     img = "img\":\"https://images.amcnetworks.com/amc.com/wp-content/uploads/2015/04/cast_bb_700x1000_walter-white-lg.jpg",
                     status = "Presumed dead",
                     nickname = "Heisenberg",
-                    appearance = listOf(1, 2, 3, 4, 5),
                     portrayed = "",
                     category = "Breaking Bad",
-                    betterCallSaulAppearance = listOf(),
                     ratio = 1.5f,
                     favorite = false,
                     ctime = null
