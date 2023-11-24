@@ -79,9 +79,8 @@ private fun FavoriteScreen(
     uiState: FavoriteUiState,
     scrollState: LazyListState = LazyListState(),
     onCharacterClick: (Long) -> Unit,
-    onFavoriteClick: (BrbaCharacter) -> Unit = {},
+    onFavoriteClick: (BrbaCharacter) -> Unit = {}
 ) {
-
     when (uiState) {
         is FavoriteUiState.Loading -> {}
         is FavoriteUiState.Success -> ListScreen(
@@ -89,7 +88,7 @@ private fun FavoriteScreen(
             state = scrollState,
             list = uiState.list,
             onCharacterClick = onCharacterClick,
-            onFavoriteClick = onFavoriteClick,
+            onFavoriteClick = onFavoriteClick
         )
 
         is FavoriteUiState.Empty -> EmptyScreen()
@@ -103,7 +102,7 @@ private fun ListScreen(
     list: List<BrbaCharacter>,
     state: LazyListState,
     onCharacterClick: (Long) -> Unit,
-    onFavoriteClick: (BrbaCharacter) -> Unit = {},
+    onFavoriteClick: (BrbaCharacter) -> Unit = {}
 ) {
     LazyColumn(
         modifier = modifier,
@@ -114,9 +113,8 @@ private fun ListScreen(
             end = 8.dp,
             bottom = 32.dp
         ),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-
         items(
             items = list,
             key = { it.charId }
@@ -157,9 +155,8 @@ private fun EmptyScreen() {
 private fun ItemContent(
     character: BrbaCharacter,
     onCharacterClick: (Long) -> Unit = {},
-    onFavoriteClick: (BrbaCharacter) -> Unit = {},
+    onFavoriteClick: (BrbaCharacter) -> Unit = {}
 ) {
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -167,7 +164,6 @@ private fun ItemContent(
             .clickable { onCharacterClick.invoke(character.charId) }
             .background(Color(0x4d000000))
     ) {
-
         ConstraintLayout(
             modifier = Modifier
 
@@ -244,7 +240,7 @@ private fun Preview() {
                     favorite = true,
                     ctime = null
                 )
-            ),
+            )
         ),
         onCharacterClick = {}
     )

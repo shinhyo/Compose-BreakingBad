@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 
 sealed interface Result<out T> {
-    object Loading : Result<Nothing>
+    data object Loading : Result<Nothing>
     data class Success<T>(val data: T) : Result<T>
     data class Error(val exception: Throwable? = null) : Result<Nothing>
 }

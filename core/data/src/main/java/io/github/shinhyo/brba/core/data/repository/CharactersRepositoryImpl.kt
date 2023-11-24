@@ -22,14 +22,19 @@ import io.github.shinhyo.brba.core.database.model.asExternalModel
 import io.github.shinhyo.brba.core.model.BrbaCharacter
 import io.github.shinhyo.brba.core.network.NetworkDataSource
 import io.github.shinhyo.brba.core.network.model.asExternalModel
-import kotlinx.coroutines.flow.*
-import java.util.*
+import java.util.Calendar
 import javax.inject.Inject
 import kotlin.random.Random
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 
 open class CharactersRepositoryImpl @Inject constructor(
     private val api: NetworkDataSource,
-    private val characterDao: CharacterDao,
+    private val characterDao: CharacterDao
 ) : CharactersRepository {
 
     companion object {
@@ -39,7 +44,6 @@ open class CharactersRepositoryImpl @Inject constructor(
     private val random: Random by lazy { Random(Calendar.getInstance().timeInMillis) }
 
     override fun getCharacterList(): Flow<List<BrbaCharacter>> {
-
         fun changeRatio(list: List<BrbaCharacter>) = list.map { c ->
             val nextInt = random.nextInt(4) * 0.2f
             c.copy(ratio = MIN_RATIO + nextInt)

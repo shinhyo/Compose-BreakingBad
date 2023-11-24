@@ -23,28 +23,27 @@ import io.github.shinhyo.brba.core.common.result.asResult
 import io.github.shinhyo.brba.core.domain.GetFavoriteListUseCase
 import io.github.shinhyo.brba.core.domain.UpdateFavoriteUseCase
 import io.github.shinhyo.brba.core.model.BrbaCharacter
+import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import javax.inject.Inject
 
 sealed interface FavoriteUiState {
     data class Success(
-        val list: List<BrbaCharacter>,
+        val list: List<BrbaCharacter>
     ) : FavoriteUiState
 
-    object Empty : FavoriteUiState
+    data object Empty : FavoriteUiState
     data class Error(val exception: Throwable? = null) : FavoriteUiState
-    object Loading : FavoriteUiState
+    data object Loading : FavoriteUiState
 }
 
 @HiltViewModel
-class FavoriteViewModel
-@Inject constructor(
-    private val getFavoriteListUseCase: GetFavoriteListUseCase,
-    val updateFavoriteUseCase: UpdateFavoriteUseCase,
+class FavoriteViewModel @Inject constructor(
+    getFavoriteListUseCase: GetFavoriteListUseCase,
+    val updateFavoriteUseCase: UpdateFavoriteUseCase
 ) : ViewModel() {
 
     val uiState = getFavoriteListUseCase()
@@ -59,6 +58,7 @@ class FavoriteViewModel
                         FavoriteUiState.Success(it.data)
                     }
                 }
+
                 is Result.Error -> FavoriteUiState.Error(it.exception)
             }
         }

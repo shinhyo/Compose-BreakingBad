@@ -23,24 +23,23 @@ import io.github.shinhyo.brba.core.common.result.asResult
 import io.github.shinhyo.brba.core.domain.GetCharacterListUseCase
 import io.github.shinhyo.brba.core.domain.UpdateFavoriteUseCase
 import io.github.shinhyo.brba.core.model.BrbaCharacter
+import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import javax.inject.Inject
 
 sealed interface ListUiState {
     data class Success(val list: List<BrbaCharacter>) : ListUiState
     data class Error(val exception: Throwable? = null) : ListUiState
-    object Loading : ListUiState
+    data object Loading : ListUiState
 }
 
 @HiltViewModel
-class ListViewModel
-@Inject constructor(
+class ListViewModel @Inject constructor(
     getCharacterListUseCase: GetCharacterListUseCase,
-    val updateFavoriteUseCase: UpdateFavoriteUseCase,
+    val updateFavoriteUseCase: UpdateFavoriteUseCase
 ) : ViewModel() {
 
     val uiState = getCharacterListUseCase()

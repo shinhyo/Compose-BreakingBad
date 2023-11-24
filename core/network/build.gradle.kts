@@ -8,7 +8,6 @@ android {
     buildFeatures {
         buildConfig = true
     }
-
 }
 
 dependencies {
@@ -18,5 +17,4 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp.logging)
-
 }

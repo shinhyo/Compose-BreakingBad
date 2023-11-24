@@ -33,8 +33,8 @@ fun rememberAppState(
 
 @Stable
 class BrbaAppState(
-    val navController: NavHostController,
-    val coroutineScope: CoroutineScope,
+    private val navController: NavHostController,
+    val coroutineScope: CoroutineScope
 ) {
 
     fun onBackClick() {

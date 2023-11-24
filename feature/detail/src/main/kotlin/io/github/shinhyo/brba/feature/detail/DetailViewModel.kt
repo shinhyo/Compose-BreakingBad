@@ -35,7 +35,7 @@ import javax.inject.Inject
 sealed interface DetailUiState {
     data class Success(val character: BrbaCharacter) : DetailUiState
     data class Error(val exception: Throwable? = null) : DetailUiState
-    object Loading : DetailUiState
+    data object Loading : DetailUiState
 }
 
 @HiltViewModel

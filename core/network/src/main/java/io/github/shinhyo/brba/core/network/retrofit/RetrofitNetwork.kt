@@ -20,6 +20,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import io.github.shinhyo.brba.core.network.BuildConfig
 import io.github.shinhyo.brba.core.network.NetworkDataSource
 import io.github.shinhyo.brba.core.network.model.Character
+import javax.inject.Inject
+import javax.inject.Singleton
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -30,8 +32,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Singleton
 
 private interface BaBrApi {
 

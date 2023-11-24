@@ -58,7 +58,6 @@ internal fun ListRoute(
     scrollState: LazyListState,
     navigateToDetail: (Long) -> Unit
 ) {
-
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ListScreen(
@@ -76,7 +75,7 @@ private fun ListScreen(
     uiState: ListUiState,
     scrollState: LazyListState = rememberLazyListState(),
     onCharacterClick: (Long) -> Unit = {},
-    onFavoriteClick: (BrbaCharacter) -> Unit = {},
+    onFavoriteClick: (BrbaCharacter) -> Unit = {}
 ) {
     LazyColumn(
         modifier = modifier,
@@ -162,7 +161,7 @@ fun FeaturedList(
                     .background(
                         Brush.verticalGradient(
                             0.6f to Color.Transparent,
-                            1f to Color(0x4d000000),
+                            1f to Color(0x4d000000)
                         )
                     )
             ) { }
@@ -238,6 +237,6 @@ private fun Preview() {
                     ctime = null
                 )
             )
-        ),
+        )
     )
 }

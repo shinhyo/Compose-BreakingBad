@@ -28,7 +28,7 @@ fun NavGraphBuilder.mainScreen(
         route = mainRoute
     ) {
         MainScreen(
-            navigateToDetail = navigateToDetail,
+            navigateToDetail = navigateToDetail
         )
     }
 }

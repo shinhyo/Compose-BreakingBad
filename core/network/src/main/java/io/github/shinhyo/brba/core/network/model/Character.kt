@@ -27,7 +27,7 @@ data class Character(
     val status: String?,
     val nickname: String?,
     val portrayed: String?,
-    val category: String?,
+    val category: String?
 )
 
 fun Character.asExternalModel() = BrbaCharacter(
@@ -38,5 +38,5 @@ fun Character.asExternalModel() = BrbaCharacter(
     status = status ?: "",
     nickname = nickname ?: "",
     portrayed = portrayed ?: "",
-    category = category ?: "",
+    category = category ?: ""
 )

@@ -36,14 +36,13 @@ import io.github.shinhyo.brba.feature.main.list.ListRoute
 
 private enum class BottomNavTabs(val label: String, val icon: Int) {
     LIST("Character", R.drawable.ic_account_cowboy_hat),
-    FAVORITE("Favorite", R.drawable.ic_heart),
+    FAVORITE("Favorite", R.drawable.ic_heart)
 }
 
 @Composable
 fun MainScreen(
     navigateToDetail: (Long) -> Unit
 ) {
-
     val selectedTab: MutableState<BottomNavTabs> = rememberSaveable {
         mutableStateOf(BottomNavTabs.LIST)
     }
@@ -68,11 +67,11 @@ fun MainScreen(
                             )
                         },
                         unselectedContentColor = Color.LightGray,
-                        selectedContentColor = MaterialTheme.colors.primaryVariant,
+                        selectedContentColor = MaterialTheme.colors.primaryVariant
                     )
                 }
             }
-        },
+        }
     ) {
         val modifier = Modifier.padding(it)
         val listScrollState = rememberLazyListState()

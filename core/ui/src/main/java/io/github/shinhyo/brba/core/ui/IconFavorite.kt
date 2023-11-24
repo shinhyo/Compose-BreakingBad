@@ -54,7 +54,7 @@ fun IconFavorite(
 private fun Preview() {
     IconFavorite(
         enable = false,
-        modifier = Modifier,
+        modifier = Modifier
     ) {
     }
 }

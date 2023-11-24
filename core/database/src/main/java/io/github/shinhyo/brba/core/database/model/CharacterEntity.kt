@@ -33,7 +33,7 @@ data class CharacterEntity(
     val img: String = "",
     val nickname: String,
     val favorite: Boolean = false,
-    var ctime: Date = Date(),
+    var ctime: Date = Date()
 ) {
 
     companion object {

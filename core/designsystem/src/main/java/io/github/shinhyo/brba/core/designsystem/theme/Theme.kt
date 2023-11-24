@@ -26,7 +26,7 @@ private val DarkColorPalette = darkColors(
     primary = forestGreen,
     primaryVariant = SeaGreen,
     secondary = forestGreen,
-    background = Color.Black,
+    background = Color.Black
 )
 
 private val LightColorPalette = lightColors()
@@ -34,13 +34,13 @@ private val LightColorPalette = lightColors()
 @Composable
 fun BrBaComposeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable() () -> Unit
+    content: @Composable
+    () -> Unit
 ) {
-
     MaterialTheme(
         colors = DarkColorPalette,
         typography = Typography,
         shapes = Shapes,
-        content = content,
+        content = content
     )
 }
