@@ -43,7 +43,6 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -52,7 +51,6 @@ import io.github.shinhyo.brba.core.ui.IconFavorite
 import io.github.shinhyo.brba.core.ui.StaggeredVerticalGrid
 import io.github.shinhyo.brba.feature.main.R
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 internal fun ListRoute(
     modifier: Modifier = Modifier,

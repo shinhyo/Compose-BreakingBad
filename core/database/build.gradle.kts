@@ -1,7 +1,6 @@
 plugins {
     id("brba.android.library")
-    id("brba.android.hilt")
-    alias(libs.plugins.ksp)
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -15,6 +14,4 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
-
-    implementation(libs.kotlinx.coroutines.android)
 }

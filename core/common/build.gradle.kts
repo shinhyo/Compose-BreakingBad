@@ -1,6 +1,5 @@
 plugins {
     id("brba.android.library")
-    id("brba.android.hilt")
 }
 
 android {
@@ -8,5 +7,4 @@ android {
 }
 
 dependencies {
-    implementation(libs.kotlinx.coroutines.android)
 }

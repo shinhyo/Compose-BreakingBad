@@ -16,7 +16,12 @@
 package io.github.shinhyo.brba.feature.detail
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -35,14 +40,12 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import io.github.shinhyo.brba.core.model.BrbaCharacter
 import io.github.shinhyo.brba.core.ui.IconFavorite
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun DetailRoute(
     modifier: Modifier = Modifier,
@@ -93,6 +96,7 @@ private fun DetailScreen(
                     }
                 }
             }
+
             is DetailUiState.Error -> {}
         }
     }

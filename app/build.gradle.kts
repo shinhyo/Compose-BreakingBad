@@ -1,7 +1,5 @@
 plugins {
     id("brba.android.application")
-    id("brba.android.application.compose")
-    id("brba.android.hilt")
 }
 
 android {
@@ -21,6 +19,10 @@ android {
                 "proguard-rules.pro"
             )
         }
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 }
 

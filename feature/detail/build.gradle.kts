@@ -1,6 +1,5 @@
 plugins {
     id("brba.android.feature")
-    id("brba.android.library.compose")
 }
 
 android {

@@ -1,48 +1,25 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     `kotlin-dsl`
+    `kotlin-dsl-precompiled-script-plugins`
 }
 
 group = "io.github.shinhyo.brba.buildlogic"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+tasks.withType<KotlinCompile>().configureEach {
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17.toString()
+    }
 }
 
 dependencies {
     compileOnly(libs.android.gradlePlugin)
+    compileOnly(libs.android.tools.common)
     compileOnly(libs.kotlin.gradlePlugin)
-}
-
-gradlePlugin {
-    plugins {
-        register("androidApplication") {
-            id = "brba.android.application"
-            implementationClass = "AndroidApplicationConventionPlugin"
-        }
-        register("androidApplicationCompose") {
-            id = "brba.android.application.compose"
-            implementationClass = "AndroidApplicationComposeConventionPlugin"
-        }
-
-        register("androidHilt") {
-            id = "brba.android.hilt"
-            implementationClass = "AndroidHiltConventionPlugin"
-        }
-
-        register("androidLibrary") {
-            id = "brba.android.library"
-            implementationClass = "AndroidLibraryConventionPlugin"
-        }
-        register("androidLibraryCompose") {
-            id = "brba.android.library.compose"
-            implementationClass = "AndroidLibraryComposeConventionPlugin"
-        }
-
-        register("androidFeature") {
-            id = "brba.android.feature"
-            implementationClass = "AndroidFeatureConventionPlugin"
-        }
-
-    }
+    compileOnly(libs.ksp.gradlePlugin)
 }

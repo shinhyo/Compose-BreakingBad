@@ -17,7 +17,14 @@ package io.github.shinhyo.brba.feature.main.favorite
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
@@ -41,7 +48,6 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -49,7 +55,6 @@ import io.github.shinhyo.brba.core.model.BrbaCharacter
 import io.github.shinhyo.brba.core.ui.IconFavorite
 import io.github.shinhyo.brba.feature.main.R
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun FavoriteRoute(
     modifier: Modifier = Modifier,
@@ -86,6 +91,7 @@ private fun FavoriteScreen(
             onCharacterClick = onCharacterClick,
             onFavoriteClick = onFavoriteClick,
         )
+
         is FavoriteUiState.Empty -> EmptyScreen()
         is FavoriteUiState.Error -> {}
     }
