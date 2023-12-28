@@ -26,6 +26,7 @@ include(
     ":core:designsystem",
     ":core:ui",
 
-    ":feature:main",
+    ":feature:list",
+    ":feature:favorite",
     ":feature:detail"
 )

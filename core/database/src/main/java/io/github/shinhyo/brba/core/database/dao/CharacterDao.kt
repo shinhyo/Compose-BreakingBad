@@ -52,5 +52,5 @@ interface CharacterDao {
             CASE WHEN :isAsc = 0 THEN t.ctime END DESC
         """
     )
-    fun getFavorite(isAsc: Boolean = true): Flow<List<CharacterEntity>>
+    fun getCharacter(isAsc: Boolean = true): Flow<List<CharacterEntity>>
 }

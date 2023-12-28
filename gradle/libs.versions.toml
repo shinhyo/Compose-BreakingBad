@@ -3,9 +3,10 @@ compileSdkVer = "34"
 targetSdkVer = "34"
 minSdkVer = "28"
 
-androidGradlePlugin = "8.1.4"
-androidTools = "31.1.4"
-kotlin = "1.9.20"
+androidGradlePlugin = "8.2.0"
+androidTools = "31.2.0"
+kotlin = "1.9.21"
+ksp = "1.9.21-1.0.16"
 androidDesugarJdkLibs = "2.0.4"
 
 kotlinxCoroutines = "1.7.3"
@@ -13,37 +14,39 @@ ktlint = "11.6.1"
 
 androidxCore = "1.12.0"
 androidxAppCompat = "1.6.1"
-androidxActivity = "1.8.1"
-androidxComposeCompiler = "1.5.4"
+androidxActivity = "1.8.2"
+androidxComposeCompiler = "1.5.7"
 androidxStartup = "1.1.1"
 androidxHiltNavigationCompose = "1.1.0"
 androidxConstraintlayoutCompose = "1.0.1"
 androidxLifecycle = "2.6.2"
 
-
-googleMaterial = "1.10.0"
+#googleMaterial = "1.11.0"
+androidxComposeBom = "2023.10.01"
 androidxCompose = "1.5.4"
 androidxComposeMaterial3 = "1.1.2"
 
-hilt = "2.48.1"
+hilt = "2.50"
 hiltExt = "1.0.0"
 
-androidxNavigation = "2.7.5"
+androidxNavigation = "2.7.6"
 
 junit4 = "4.13.2"
 androidxTestCore = "1.5.0"
 androidxTestExt = "1.1.5"
 androidxEspresso = "3.5.1"
 
-coil = "2.4.0"
+coil = "2.5.0"
 javaxInject = "1"
 timber = "5.0.1"
-okhttp = "4.11.0"
+okhttp = "4.12.0"
 retrofit = "2.9.0"
 gson = "2.10.1"
-room = "2.6.0"
+room = "2.6.1"
 turbine = "0.9.0"
-ksp = "1.9.20-1.0.13"
+junit = "1.1.5"
+material = "1.11.0"
+
 
 [libraries]
 
@@ -71,16 +74,18 @@ androidx-lifecycle-runtimeCompose = { group = "androidx.lifecycle", name = "life
 androidx-lifecycle-viewModelCompose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
 
 # compose
-androidx-compose-material = { group = "androidx.compose.material", name = "material", version.ref = "androidxCompose" }
-androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "androidxCompose" }
-androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidxComposeMaterial3" }
-androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "androidxCompose" }
-androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "androidxCompose" }
-androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "androidxCompose" }
-androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "androidxCompose" }
-androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "androidxCompose" }
-androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "androidxCompose" }
-androidx-compose-ui-util = { group = "androidx.compose.ui", name = "ui-util", version.ref = "androidxCompose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
+androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
+androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
+androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-material3-windowSizeClass = { group = "androidx.compose.material3", name = "material3-window-size-class" }
+androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
+androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-compose-ui-testManifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-compose-ui-util = { group = "androidx.compose.ui", name = "ui-util" }
 
 # hilt
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
@@ -110,12 +115,14 @@ androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espres
 
 # Etc
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }
+#material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "javaxInject" }
 coil-kt = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 coil-kt-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

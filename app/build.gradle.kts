@@ -11,13 +11,29 @@ android {
         versionName = "1.0"
     }
 
+    signingConfigs {
+        getByName("debug") {
+            storeFile = rootProject.file("debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+    }
+
     buildTypes {
+        getByName("debug") {
+            isDebuggable = false
+        }
+
         getByName("release") {
-            isMinifyEnabled = false
+            isDebuggable = false
+            isShrinkResources = true
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 
@@ -28,15 +44,21 @@ android {
 
 dependencies {
 
+    implementation(project(":core:data"))
     implementation(project(":core:designsystem"))
 
-    implementation(project(":feature:main"))
+    implementation(project(":feature:list"))
+    implementation(project(":feature:favorite"))
     implementation(project(":feature:detail"))
 
-    implementation(libs.material)
     implementation(libs.androidx.startup)
+    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity.compose)
+
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.hilt.navigation.compose)
+
+    implementation(libs.androidx.compose.material3)
 
     implementation(libs.timber)
 }

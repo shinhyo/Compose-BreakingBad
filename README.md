@@ -1,7 +1,7 @@
 # Breaking Bad - Jetpack Compose
 <a href='https://developer.android.com'><img src='http://img.shields.io/badge/platform-android-green.svg'/></a>
-<a href="https://kotlinlang.org/docs/whatsnew1720.html"><img src = "https://shields.io/badge/kotlin-1.7.20-blue" /></a>
-<a href="https://developer.android.com/jetpack/androidx/releases/compose#versions"><img src = "https://img.shields.io/badge/jetpack%20compose-1.2.1-brightgreen" /></a>
+<a href="https://kotlinlang.org/docs/whatsnew1920.html"><img src = "https://shields.io/badge/kotlin-1.9.20-blue" /></a>
+<a href="https://developer.android.com/jetpack/compose/bom"><img src = "https://img.shields.io/badge/jetpack%20compose-2023.10.01-brightgreen" /></a>
 <a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg"/></a>
 [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 
@@ -24,11 +24,10 @@
 - Clean Architecture (nowinandroid)
 - MVVM pattern
 - Kotlin Coroutines & Flows
-- Material Design
+- Material Design3
 - Single Activity
 - StaggeredVerticalGrid
 - [Gradle Version Catalog](https://docs.gradle.org/7.4/userguide/platforms.html)
-- [Accompanist](https://google.github.io/accompanist)
 - [Retrofit2](https://github.com/square/retrofit)
 - [Coil-Compose](https://coil-kt.github.io/coil/compose)
 - [Timber](https://github.com/JakeWharton/timber)

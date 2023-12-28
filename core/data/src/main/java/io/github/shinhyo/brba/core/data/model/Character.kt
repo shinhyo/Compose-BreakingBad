@@ -15,9 +15,11 @@
  */
 package io.github.shinhyo.brba.core.data.model
 
+import androidx.annotation.Keep
 import io.github.shinhyo.brba.core.database.model.CharacterEntity
 import io.github.shinhyo.brba.core.model.BrbaCharacter
 
+@Keep
 fun BrbaCharacter.asEntity() = CharacterEntity(
     charId = charId,
     name = name,

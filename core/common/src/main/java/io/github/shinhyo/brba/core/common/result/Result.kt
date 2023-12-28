@@ -27,31 +27,12 @@ sealed interface Result<out T> {
     data class Error(val exception: Throwable? = null) : Result<Nothing>
 }
 
-//
-// /**
-// * `true` if [Result] is of type [Success] & holds non-null [Success.data].
-// */
 val Result<*>.succeeded
     get() = this is Success && data != null
 
 fun <T> Result<T>.successOr(fallback: T): T {
     return (this as? Success<T>)?.data ?: fallback
 }
-//
-// inline fun <R, T> Result<T>.mapTransform(transform: (T) -> R): Result<R> = when (this) {
-//    is Success -> Success(transform(data))
-//    is Error -> Error(exception)
-//    else -> Error(IllegalStateException())
-// }
-//
-// inline fun <R, T> Flow<Result<T>>.mapTransform(crossinline transform: (T) -> R): Flow<Result<R>> =
-//    this.map {
-//        when (it) {
-//            is Success -> Success(transform(it.data))
-//            is Error -> Error(it.exception)
-//            else -> Error(IllegalStateException())
-//        }
-//    }
 
 fun <T> Flow<T>.asResult(): Flow<Result<T>> = this
     .map<T, Result<T>> { Success(it) }

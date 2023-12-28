@@ -23,29 +23,25 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import io.github.shinhyo.brba.feature.detail.DetailRoute
 
-internal const val idArg = "id"
-const val detailRoute = "detail_route"
+internal const val ARG_ID = "id"
+const val DETAIL_ROUTE = "detail_route"
 
 internal class DetailArgs(val characterId: Long) {
     constructor(savedStateHandle: SavedStateHandle) : this(
-        checkNotNull(
-            savedStateHandle.get<Long>(
-                idArg
-            )
-        )
+        checkNotNull(savedStateHandle.get<Long>(ARG_ID))
     )
 }
 
 fun NavController.navigateToDetail(characterId: Long) {
-    this.navigate("$detailRoute/$characterId")
+    this.navigate("$DETAIL_ROUTE/$characterId")
 }
 
 fun NavGraphBuilder.detailScreen() {
     composable(
-        route = "$detailRoute/{$idArg}",
+        route = "$DETAIL_ROUTE/{$ARG_ID}",
         arguments = listOf(
-            navArgument(idArg) { type = NavType.LongType },
-        )
+            navArgument(ARG_ID) { type = NavType.LongType },
+        ),
     ) {
         DetailRoute()
     }

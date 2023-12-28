@@ -12,6 +12,7 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
+        android:enableOnBackInvokedCallback="true"
         android:theme="@style/Theme.BrBaCompose">
         <activity
             android:name=".app.MainActivity"

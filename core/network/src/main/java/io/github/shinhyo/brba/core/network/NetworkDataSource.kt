@@ -15,12 +15,14 @@
  */
 package io.github.shinhyo.brba.core.network
 
-import io.github.shinhyo.brba.core.network.model.Character
+import androidx.annotation.Keep
+import io.github.shinhyo.brba.core.network.model.CharacterResponse
 import retrofit2.http.Path
 
+@Keep
 interface NetworkDataSource {
 
-    suspend fun getCharacters(): List<Character>
+    suspend fun getCharacter(): List<CharacterResponse>
 
-    suspend fun getCharactersById(@Path("id") id: Long): List<Character>
+    suspend fun getCharacter(@Path("id") id: Long): List<CharacterResponse>
 }

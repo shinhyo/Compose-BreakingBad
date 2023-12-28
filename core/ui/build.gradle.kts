@@ -13,8 +13,8 @@ dependencies {
     implementation(libs.coil.kt)
     implementation(libs.coil.kt.compose)
 
-    implementation(libs.androidx.compose.material)
-    implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.androidx.compose.material3)
+//    implementation(libs.androidx.compose.material.icons.extended)
 
     debugApi(libs.androidx.compose.ui.tooling)
     api(libs.androidx.compose.ui.tooling.preview)
