@@ -27,7 +27,7 @@ import io.github.shinhyo.brba.core.network.retrofit.RetrofitNetwork
 interface NetworkModule {
 
     @Binds
-    fun bindsNiaNetwork(
+    fun bindNetworkDataSource(
         network: RetrofitNetwork
     ): NetworkDataSource
 }

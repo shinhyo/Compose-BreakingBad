@@ -15,6 +15,7 @@
  */
 package io.github.shinhyo.brba.core.database.model
 
+import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
@@ -22,6 +23,7 @@ import io.github.shinhyo.brba.core.database.model.CharacterEntity.Companion.TABL
 import io.github.shinhyo.brba.core.model.BrbaCharacter
 import java.util.Date
 
+@Keep
 @Entity(
     tableName = TABLE_NAME,
     indices = [(Index(value = ["charId"], unique = true))]
@@ -33,7 +35,7 @@ data class CharacterEntity(
     val img: String = "",
     val nickname: String,
     val favorite: Boolean = false,
-    var ctime: Date = Date(),
+    var ctime: Date = Date()
 ) {
 
     companion object {

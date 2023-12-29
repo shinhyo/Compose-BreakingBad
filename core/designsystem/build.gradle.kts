@@ -1,5 +1,4 @@
 plugins {
-    id("brba.android.library")
     id("brba.android.library.compose")
 }
 
@@ -8,8 +7,5 @@ android {
 }
 
 dependencies {
-
-    implementation(libs.androidx.compose.material)
-    implementation(libs.androidx.compose.material.icons.extended)
-
+    implementation(libs.androidx.compose.material3)
 }

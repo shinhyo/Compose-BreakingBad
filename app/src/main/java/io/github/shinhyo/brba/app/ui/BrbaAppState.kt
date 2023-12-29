@@ -19,25 +19,45 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import io.github.shinhyo.brba.app.ui.main.Tab
+import io.github.shinhyo.brba.feature.favorate.navigation.navigateFavorite
+import io.github.shinhyo.brba.feature.main.navigation.navigateList
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun rememberAppState(
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
-    navController: NavHostController = rememberNavController()
-) = remember(navController, coroutineScope) {
-    BrbaAppState(navController, coroutineScope)
+    navController: NavHostController = rememberNavController(),
+    navTabController: NavHostController = rememberNavController()
+): BrbaAppState = remember(
+    navController,
+    navTabController,
+    coroutineScope
+) {
+    BrbaAppState(coroutineScope, navController, navTabController)
 }
 
 @Stable
 class BrbaAppState(
-    val navController: NavHostController,
     val coroutineScope: CoroutineScope,
+    val navController: NavHostController,
+    val navTabController: NavHostController
 ) {
 
-    fun onBackClick() {
-        navController.popBackStack()
+    val currentDestination: NavDestination?
+        @Composable get() = navController.currentBackStackEntryAsState().value?.destination
+
+    val currentTabDestination: NavDestination?
+        @Composable get() = navTabController.currentBackStackEntryAsState().value?.destination
+
+    fun navigateTopDestination(destination: Tab) {
+        when (destination) {
+            Tab.LIST -> navTabController.navigateList()
+            Tab.FAVORITE -> navTabController.navigateFavorite()
+        }
     }
 }

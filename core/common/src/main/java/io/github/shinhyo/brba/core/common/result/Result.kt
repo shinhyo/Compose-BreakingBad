@@ -22,36 +22,17 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 
 sealed interface Result<out T> {
-    object Loading : Result<Nothing>
+    data object Loading : Result<Nothing>
     data class Success<T>(val data: T) : Result<T>
     data class Error(val exception: Throwable? = null) : Result<Nothing>
 }
 
-//
-// /**
-// * `true` if [Result] is of type [Success] & holds non-null [Success.data].
-// */
 val Result<*>.succeeded
     get() = this is Success && data != null
 
 fun <T> Result<T>.successOr(fallback: T): T {
     return (this as? Success<T>)?.data ?: fallback
 }
-//
-// inline fun <R, T> Result<T>.mapTransform(transform: (T) -> R): Result<R> = when (this) {
-//    is Success -> Success(transform(data))
-//    is Error -> Error(exception)
-//    else -> Error(IllegalStateException())
-// }
-//
-// inline fun <R, T> Flow<Result<T>>.mapTransform(crossinline transform: (T) -> R): Flow<Result<R>> =
-//    this.map {
-//        when (it) {
-//            is Success -> Success(transform(it.data))
-//            is Error -> Error(it.exception)
-//            else -> Error(IllegalStateException())
-//        }
-//    }
 
 fun <T> Flow<T>.asResult(): Flow<Result<T>> = this
     .map<T, Result<T>> { Success(it) }

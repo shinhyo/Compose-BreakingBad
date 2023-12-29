@@ -21,8 +21,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.shinhyo.brba.core.common.result.Result
 import io.github.shinhyo.brba.core.common.result.asResult
-import io.github.shinhyo.brba.core.domain.GetCharacterUseCase
-import io.github.shinhyo.brba.core.domain.UpdateFavoriteUseCase
+import io.github.shinhyo.brba.core.domain.usecase.GetCharacterUseCase
+import io.github.shinhyo.brba.core.domain.usecase.UpdateFavoriteUseCase
 import io.github.shinhyo.brba.core.model.BrbaCharacter
 import io.github.shinhyo.brba.feature.detail.navigaion.DetailArgs
 import kotlinx.coroutines.flow.SharingStarted
@@ -35,13 +35,13 @@ import javax.inject.Inject
 sealed interface DetailUiState {
     data class Success(val character: BrbaCharacter) : DetailUiState
     data class Error(val exception: Throwable? = null) : DetailUiState
-    object Loading : DetailUiState
+    data object Loading : DetailUiState
 }
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val getCharacterUseCase: GetCharacterUseCase,
+    getCharacterUseCase: GetCharacterUseCase,
     val updateFavoriteUseCase: UpdateFavoriteUseCase,
 ) : ViewModel() {
 

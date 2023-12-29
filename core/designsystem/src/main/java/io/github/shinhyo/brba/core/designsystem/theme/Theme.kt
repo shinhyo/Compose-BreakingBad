@@ -15,32 +15,30 @@
  */
 package io.github.shinhyo.brba.core.designsystem.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-private val DarkColorPalette = darkColors(
+private val DarkColor = darkColorScheme(
     primary = forestGreen,
-    primaryVariant = SeaGreen,
+    onPrimary = SeaGreen,
     secondary = forestGreen,
-    background = Color.Black,
+    background = Color.Black
 )
 
-private val LightColorPalette = lightColors()
+// private val LightColor = lightColorScheme()
 
 @Composable
 fun BrBaComposeTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable() () -> Unit
+//    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable
+    () -> Unit
 ) {
-
     MaterialTheme(
-        colors = DarkColorPalette,
         typography = Typography,
         shapes = Shapes,
-        content = content,
+        colorScheme = DarkColor,
+        content = content
     )
 }

@@ -16,10 +16,6 @@ dependencyResolutionManagement {
 rootProject.name = "BrBa-Compose"
 include(
     ":app",
-//    ":presentation",
-//    ":domain",
-//    ":data",
-
 
     ":core:common",
     ":core:data",
@@ -30,9 +26,7 @@ include(
     ":core:designsystem",
     ":core:ui",
 
-    ":feature:main",
+    ":feature:list",
+    ":feature:favorite",
     ":feature:detail"
-//    ":feature:bottom:list",
-//    ":feature:bottom:favorite",
-
 )

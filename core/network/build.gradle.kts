@@ -1,10 +1,13 @@
 plugins {
     id("brba.android.library")
-    id("brba.android.hilt")
 }
 
 android {
     namespace = "io.github.shinhyo.brba.core.network"
+
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
@@ -14,5 +17,4 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp.logging)
-
 }

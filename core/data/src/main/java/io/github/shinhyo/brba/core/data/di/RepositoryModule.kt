@@ -19,12 +19,17 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import io.github.shinhyo.brba.core.data.repository.CharactersRepository
 import io.github.shinhyo.brba.core.data.repository.CharactersRepositoryImpl
+import io.github.shinhyo.brba.core.domain.repository.CharactersRepository
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
+
     @Binds
-    abstract fun bindCharactersRepository(repo: CharactersRepositoryImpl): CharactersRepository
+    @Singleton
+    abstract fun bindCharactersRepository(
+        repo: CharactersRepositoryImpl
+    ): CharactersRepository
 }

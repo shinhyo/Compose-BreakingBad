@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">BrBa-Compose</string>
-    <string name="brba">BrBa</string>
-    <string name="empty">Empty</string>
-    <string name="error_load">Can\'t update</string>
-</resources>

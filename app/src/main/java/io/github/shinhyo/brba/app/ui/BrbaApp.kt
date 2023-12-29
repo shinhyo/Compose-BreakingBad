@@ -15,10 +15,25 @@
  */
 package io.github.shinhyo.brba.app.ui
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import io.github.shinhyo.brba.app.navigation.BrbaNavHost
+import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
+import io.github.shinhyo.brba.app.ui.main.navigation.ROUTE_MAIN
+import io.github.shinhyo.brba.app.ui.main.navigation.mainScreen
+import io.github.shinhyo.brba.feature.detail.navigaion.detailScreen
 
 @Composable
-fun BrbaApp() {
-    BrbaNavHost()
+fun BrbaApp(
+    appState: BrbaAppState = rememberAppState()
+) {
+    // root
+    NavHost(
+        navController = appState.navController,
+        startDestination = ROUTE_MAIN,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        mainScreen(appState = appState)
+        detailScreen()
+    }
 }
