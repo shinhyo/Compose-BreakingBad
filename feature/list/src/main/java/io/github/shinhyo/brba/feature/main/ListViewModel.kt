@@ -50,8 +50,7 @@ class ListViewModel @Inject constructor(
                 is Result.Success -> ListUiState.Success(it.data)
                 is Result.Error -> ListUiState.Error(it.exception)
             }
-        }
-        .stateIn(
+        }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = ListUiState.Loading

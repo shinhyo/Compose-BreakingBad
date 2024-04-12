@@ -3,49 +3,54 @@ compileSdkVer = "34"
 targetSdkVer = "34"
 minSdkVer = "28"
 
-androidGradlePlugin = "8.2.0"
-androidTools = "31.2.0"
-kotlin = "1.9.21"
-ksp = "1.9.21-1.0.16"
+androidGradlePlugin = "8.3.2"
+androidTools = "31.3.2"
+
+kotlin = "1.9.23"
+#https://github.com/google/ksp/releases
+ksp = "1.9.23-1.0.20"
+#https://developer.android.com/jetpack/androidx/releases/compose-kotlin
+androidxComposeCompiler = "1.5.11"
 androidDesugarJdkLibs = "2.0.4"
 
-kotlinxCoroutines = "1.7.3"
+kotlinxCoroutines = "1.8.0"
 ktlint = "11.6.1"
 
 androidxCore = "1.12.0"
+androidxCoreSplashscreen = "1.0.1"
 androidxAppCompat = "1.6.1"
 androidxActivity = "1.8.2"
-androidxComposeCompiler = "1.5.7"
 androidxStartup = "1.1.1"
-androidxHiltNavigationCompose = "1.1.0"
+androidxHiltNavigationCompose = "1.2.0"
 androidxConstraintlayoutCompose = "1.0.1"
-androidxLifecycle = "2.6.2"
+androidxLifecycle = "2.7.0"
+androidxDataStore = "1.0.0"
 
-#googleMaterial = "1.11.0"
-androidxComposeBom = "2023.10.01"
+androidxComposeBom = "2024.04.00"
 androidxCompose = "1.5.4"
 androidxComposeMaterial3 = "1.1.2"
 
-hilt = "2.50"
+hilt = "2.51.1"
 hiltExt = "1.0.0"
 
-androidxNavigation = "2.7.6"
+androidxNavigation = "2.7.7"
 
 junit4 = "4.13.2"
 androidxTestCore = "1.5.0"
 androidxTestExt = "1.1.5"
 androidxEspresso = "3.5.1"
 
-coil = "2.5.0"
+coil = "2.6.0"
 javaxInject = "1"
 timber = "5.0.1"
 okhttp = "4.12.0"
-retrofit = "2.9.0"
+retrofit = "2.11.0"
 gson = "2.10.1"
 room = "2.6.1"
 turbine = "0.9.0"
 junit = "1.1.5"
 material = "1.11.0"
+haze = "0.6.2"
 
 
 [libraries]
@@ -65,6 +70,7 @@ ktlint-gradlePlugin = { group = "org.jlleitschuh.gradle", name = "ktlint-gradle"
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
+androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
 androidx-startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "androidxStartup" }
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }
@@ -72,6 +78,7 @@ androidx-constraintlayout-compose = { group = "androidx.constraintlayout", name 
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
 androidx-lifecycle-runtimeCompose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewModelCompose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidxDataStore" }
 
 # compose
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
@@ -123,6 +130,7 @@ coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "
 coil-kt-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+haze = { group = "dev.chrisbanes.haze", name = "haze", version.ref = "haze" }
 
 [plugins]
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

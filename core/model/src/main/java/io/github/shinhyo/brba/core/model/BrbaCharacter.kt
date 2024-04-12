@@ -15,7 +15,7 @@
  */
 package io.github.shinhyo.brba.core.model
 
-import java.util.*
+import java.util.Date
 
 data class BrbaCharacter(
     val charId: Long = -1,
@@ -27,6 +27,6 @@ data class BrbaCharacter(
     val portrayed: String = "",
     val category: String = "",
     val ratio: Float = 1f,
-    val favorite: Boolean = false,
+    val isFavorite: Boolean = false,
     val ctime: Date? = null,
 )

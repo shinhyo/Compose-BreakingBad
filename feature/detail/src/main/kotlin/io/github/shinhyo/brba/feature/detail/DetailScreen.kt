@@ -15,7 +15,8 @@
  */
 package io.github.shinhyo.brba.feature.detail
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -23,9 +24,13 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -34,22 +39,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import io.github.shinhyo.brba.core.model.BrbaCharacter
-import io.github.shinhyo.brba.core.ui.IconFavorite
-import io.github.shinhyo.brba.core.ui.ProgressScreen
+import io.github.shinhyo.brba.core.ui.BrBaCircleProgress
+import io.github.shinhyo.brba.core.ui.BrbaIconFavorite
 
 @Composable
 fun DetailRoute(
@@ -69,7 +71,7 @@ fun DetailRoute(
 private fun DetailScreen(
     modifier: Modifier = Modifier,
     uiState: DetailUiState,
-    onFavoriteClick: (BrbaCharacter) -> Unit = {},
+    onFavoriteClick: (BrbaCharacter) -> Unit,
 ) {
     Scaffold(
         contentWindowInsets = WindowInsets(0.dp),
@@ -81,7 +83,7 @@ private fun DetailScreen(
         ) {
             when (uiState) {
                 is DetailUiState.Loading -> {
-                    ProgressScreen(modifier)
+                    BrBaCircleProgress(modifier)
                 }
 
                 is DetailUiState.Success -> {
@@ -102,7 +104,10 @@ private fun DetailScreen(
                             )
                         }
                         item {
-                            Extra(character, onFavoriteClick)
+                            Extra(
+                                character = character,
+                                clickFavorite = onFavoriteClick
+                            )
                         }
                     }
                 }
@@ -120,85 +125,74 @@ private fun Extra(
     character: BrbaCharacter,
     clickFavorite: (BrbaCharacter) -> Unit
 ) {
-    ConstraintLayout(
+
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
     ) {
-        val (name, favorite, nick, _, category) = createRefs()
-        Text(
-            text = character.name,
-            style = MaterialTheme.typography.headlineLarge,
-            fontWeight = FontWeight.Bold,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.constrainAs(name) {
-                start.linkTo(parent.start)
-                top.linkTo(parent.top)
-                end.linkTo(favorite.start)
-                width = Dimension.fillToConstraints
-            }
-        )
 
-        IconFavorite(
-            character.favorite,
-            modifier = Modifier.constrainAs(favorite) {
-                start.linkTo(name.end, margin = 8.dp)
-                top.linkTo(name.top)
-                end.linkTo(parent.end)
-            }
-        ) { clickFavorite.invoke(character) }
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(
+                text = character.name,
+                style = MaterialTheme.typography.headlineLarge,
+                fontWeight = FontWeight.Bold,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.weight(1.0f),
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+            BrbaIconFavorite(
+                character.isFavorite,
+                modifier = Modifier
+                    .size(24.dp)
+            ) { clickFavorite.invoke(character) }
+        }
+        Spacer(modifier = Modifier.width(4.dp))
 
         Text(
             text = character.nickname,
             style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Thin,
-            modifier = Modifier.constrainAs(nick) {
-                start.linkTo(name.start)
-                top.linkTo(name.bottom)
-            }
         )
-        GetCategoryText(
-            character = character,
-            modifier = Modifier
-                .constrainAs(category) {
-                    start.linkTo(name.start)
-                    top.linkTo(nick.bottom, 8.dp)
-                }
-        )
+        Spacer(modifier = Modifier.width(4.dp))
+
+        val category = character.category
+        if (category.isEmpty()) return
+        if (category.contains(",")) {
+            Chips(category.split(",").map { "#${it.trim()}" })
+        } else {
+            Chips(listOf("#$category"))
+        }
     }
 }
 
 @Composable
-private fun GetCategoryText(character: BrbaCharacter, modifier: Modifier) {
+private fun Chips(
+    textList: List<String>,
+    modifier: Modifier = Modifier
+) {
+    FlowRow(modifier = modifier.fillMaxWidth()) {
+        textList.forEachIndexed { index, text ->
+            if (index != 0) Spacer(modifier = modifier.width(4.dp))
+            AssistChip(
+                onClick = { },
+                label = {
+                    Text(
+                        text = text,
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.tertiary
 
-    @Composable
-    fun Chips(
-        textList: List<String>,
-        modifier: Modifier
-    ) {
-        Row(modifier = modifier.fillMaxWidth()) {
-            textList.forEachIndexed { index, text ->
-                if (index != 0) Spacer(modifier = modifier.padding(start = 4.dp))
-                Text(
-                    text = text,
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Light,
-                    color = Color.Black,
-                    modifier = Modifier
-                        .background(MaterialTheme.colorScheme.onPrimary, RoundedCornerShape(8.dp))
-                        .padding(horizontal = 4.dp, vertical = 2.dp)
-                )
-            }
+                    )
+                },
+                shape = RoundedCornerShape(16.dp),
+                colors = AssistChipDefaults.assistChipColors(
+                    containerColor = MaterialTheme.colorScheme.onTertiary,
+                ),
+                modifier = Modifier.padding(0.dp),
+            )
         }
-    }
-
-    val category = character.category
-    if (category.isEmpty()) return
-    if (category.contains(",")) {
-        Chips(category.split(",").map { "#$it" }, modifier)
-    } else {
-        Chips(listOf("#$category"), modifier)
     }
 }
 
@@ -215,9 +209,9 @@ private fun Preview() {
                 status = "Presumed dead",
                 nickname = "Heisenberg, Heisenberg, Heisenberg, Heisenberg, Heisenberg, Heisenberg",
                 portrayed = "",
-                category = "Breaking Bad, Better Call Saul, Breaking Bad, Better Call Saul, Breaking Bad, Better Call Saul",
+                category = "Breaking Bad1, Call Saul2, Breaking Bad3, Better Call Saul4, Breaking Bad5, Better Call Saul6",
                 ratio = 1.5f,
-                favorite = false,
+                isFavorite = false,
                 ctime = null
             )
         ),

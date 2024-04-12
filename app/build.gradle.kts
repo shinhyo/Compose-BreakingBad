@@ -43,22 +43,9 @@ android {
 }
 
 dependencies {
-
-    implementation(project(":core:data"))
-    implementation(project(":core:designsystem"))
-
-    implementation(project(":feature:list"))
-    implementation(project(":feature:favorite"))
-    implementation(project(":feature:detail"))
+    implementation(project(":feature:main"))
 
     implementation(libs.androidx.startup)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.activity.compose)
-
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.hilt.navigation.compose)
-
     implementation(libs.androidx.compose.material3)
-
     implementation(libs.timber)
 }

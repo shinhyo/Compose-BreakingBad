@@ -20,7 +20,9 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.github.shinhyo.brba.core.data.repository.CharactersRepositoryImpl
+import io.github.shinhyo.brba.core.data.repository.DeviceRepositoryImpl
 import io.github.shinhyo.brba.core.domain.repository.CharactersRepository
+import io.github.shinhyo.brba.core.domain.repository.DeviceRepository
 import javax.inject.Singleton
 
 @Module
@@ -32,4 +34,10 @@ abstract class RepositoryModule {
     abstract fun bindCharactersRepository(
         repo: CharactersRepositoryImpl
     ): CharactersRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindDeviceRepository(
+        repo: DeviceRepositoryImpl
+    ): DeviceRepository
 }

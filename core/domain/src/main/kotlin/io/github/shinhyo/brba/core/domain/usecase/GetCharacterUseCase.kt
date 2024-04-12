@@ -35,6 +35,6 @@ class GetCharacterUseCase @Inject constructor(
         .combine(
             repo.getDatabaseList(id = id)
         ) { api: BrbaCharacter, db: BrbaCharacter? ->
-            api.copy(favorite = db?.favorite ?: false)
+            api.copy(isFavorite = db?.isFavorite ?: false)
         }.flowOn(ioDispatcher)
 }

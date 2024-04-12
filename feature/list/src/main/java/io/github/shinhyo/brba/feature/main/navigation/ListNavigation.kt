@@ -27,13 +27,16 @@ fun NavController.navigateList() {
     navigate(
         route = LIST_ROUTE,
         navOptions = navOptions {
-            popUpTo(LIST_ROUTE)
+            popUpTo(graph.startDestinationId) {
+                saveState = true
+            }
             launchSingleTop = true
+            restoreState = true
         }
     )
 }
 
-fun NavGraphBuilder.listScreen(
+fun NavGraphBuilder.listTab(
     navigateToDetail: (Long) -> Unit
 ) {
     composable(

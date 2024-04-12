@@ -20,13 +20,16 @@ include(
     ":core:common",
     ":core:data",
     ":core:database",
+    ":core:datastore",
     ":core:network",
     ":core:model",
     ":core:domain",
     ":core:designsystem",
-    ":core:ui",
 
+    ":feature:main",
+    ":feature:bottombar",
     ":feature:list",
     ":feature:favorite",
+    ":feature:setting",
     ":feature:detail"
 )

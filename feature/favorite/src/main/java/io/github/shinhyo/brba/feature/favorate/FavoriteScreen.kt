@@ -15,47 +15,31 @@
  */
 package io.github.shinhyo.brba.feature.favorate
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import dev.chrisbanes.haze.HazeDefaults
+import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.haze
 import io.github.shinhyo.brba.core.model.BrbaCharacter
-import io.github.shinhyo.brba.core.ui.IconFavorite
-import io.github.shinhyo.brba.core.ui.ProgressScreen
-import io.github.shinhyo.brba.feature.favorite.R
+import io.github.shinhyo.brba.core.ui.BrBaCircleProgress
+import io.github.shinhyo.brba.core.ui.BrbaCharacterRow
+import io.github.shinhyo.brba.core.ui.BrbaEmptyScreen
+import io.github.shinhyo.brba.core.ui.BrbaTopAppBar
 
 @Composable
 fun FavoriteRoute(
@@ -80,168 +64,60 @@ private fun FavoriteScreen(
     onCharacterClick: (Long) -> Unit,
     onFavoriteClick: (BrbaCharacter) -> Unit = {}
 ) {
-    when (uiState) {
-        is FavoriteUiState.Loading -> {
-            ProgressScreen(modifier.fillMaxSize())
-        }
+    val hazeState: HazeState = remember { HazeState() }
 
-        is FavoriteUiState.Success -> ListScreen(
-            modifier = modifier.fillMaxSize(),
-            state = rememberLazyListState(),
-            list = uiState.list,
-            onCharacterClick = onCharacterClick,
-            onFavoriteClick = onFavoriteClick
-        )
-
-        is FavoriteUiState.Empty -> EmptyScreen()
-        is FavoriteUiState.Error -> {
-            uiState.exception?.printStackTrace()
-        }
-    }
-}
-
-@Composable
-private fun ListScreen(
-    modifier: Modifier,
-    list: List<BrbaCharacter>,
-    state: LazyListState,
-    onCharacterClick: (Long) -> Unit,
-    onFavoriteClick: (BrbaCharacter) -> Unit = {}
-) {
-    LazyColumn(
-        modifier = modifier,
-        state = state,
-        contentPadding = PaddingValues(
-            start = 16.dp,
-            top = 0.dp,
-            end = 16.dp,
-            bottom = 0.dp
-        ),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        itemsIndexed(
-            items = list,
-            key = { _, item -> item.charId }
-        ) { index, item ->
-            CharacterCard(
-                modifier = Modifier
-                    .run {
-                        if (index == 0) statusBarsPadding() else this
-                    },
-                character = item,
-                onCharacterClick = onCharacterClick,
-                onFavoriteClick = onFavoriteClick
+    Scaffold(
+        topBar = {
+            BrbaTopAppBar(
+                hazeState = hazeState,
+                title = "Favorite"
             )
-        }
-
-//        items(
-//            items = list,
-//            key = { it.charId }
-//        ) {
-//            CharacterCard(
-//                character = it,
-//                onCharacterClick = onCharacterClick,
-//                onFavoriteClick = onFavoriteClick
-//            )
-//        }
-    }
-}
-
-@Composable
-private fun EmptyScreen() {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+        },
+        contentWindowInsets = WindowInsets(16.dp, 4.dp, 16.dp, 16.dp),
         modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-    ) {
-        Icon(
-            painterResource(id = R.drawable.ic_flask_outline),
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.onPrimary,
-            modifier = Modifier.size(50.dp)
-        )
-        Text(
-            stringResource(R.string.empty),
-            style = MaterialTheme.typography.bodySmall,
-            fontWeight = FontWeight.Normal
-        )
-    }
-}
+            .fillMaxSize()
+    ) { contentPadding ->
 
-@Composable
-private fun CharacterCard(
-    modifier: Modifier,
-    character: BrbaCharacter,
-    onCharacterClick: (Long) -> Unit = {},
-    onFavoriteClick: (BrbaCharacter) -> Unit = {}
-) {
-    ConstraintLayout(
-        modifier = modifier
-            .height(120.dp)
-            .fillMaxWidth()
-            .clickable { onCharacterClick.invoke(character.charId) }
-    ) {
-        val (img, name, nickname, favorite) = createRefs()
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(character.img)
-                .crossfade(true)
-                .build(),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            alignment = Alignment.TopCenter,
-            modifier = Modifier
-                .aspectRatio(1f)
-                .constrainAs(img) {
-                    start.linkTo(parent.start)
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                }
-                .clip(MaterialTheme.shapes.medium)
-        )
-
-        Text(
-            text = character.name,
-            style = MaterialTheme.typography.headlineSmall,
-            overflow = TextOverflow.Ellipsis,
-            maxLines = 2,
-            modifier = Modifier
-                .fillMaxWidth()
-                .constrainAs(name) {
-                    start.linkTo(img.end, 8.dp)
-                    top.linkTo(img.top)
-                    end.linkTo(parent.end)
-                    width = Dimension.fillToConstraints
-                }
-        )
-
-        Text(
-            text = character.nickname,
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.ExtraLight,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier
-                .fillMaxWidth()
-                .constrainAs(nickname) {
-                    start.linkTo(name.start)
-                    top.linkTo(name.bottom, 4.dp)
-                    end.linkTo(parent.end)
-                    width = Dimension.fillToConstraints
-                }
-        )
-
-        IconFavorite(
-            enable = character.favorite,
-            modifier = Modifier.constrainAs(favorite) {
-                end.linkTo(parent.end)
-                bottom.linkTo(parent.bottom)
+        when (uiState) {
+            is FavoriteUiState.Loading -> {
+                BrBaCircleProgress()
             }
-        ) { onFavoriteClick.invoke(character) }
+
+            is FavoriteUiState.Success -> {
+                LazyColumn(
+                    modifier = modifier
+                        .haze(
+                            state = hazeState,
+                            style = HazeDefaults.style(backgroundColor = MaterialTheme.colorScheme.surface)
+                        ),
+                    state = rememberLazyListState(),
+                    contentPadding = contentPadding,
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(
+                        items = uiState.list,
+                        key = { item -> item.charId }
+                    ) { item ->
+                        Column {
+                            BrbaCharacterRow(
+                                character = item,
+                                onCharacterClick = onCharacterClick,
+                                onFavoriteClick = onFavoriteClick
+                            )
+                        }
+                    }
+                }
+            }
+
+            is FavoriteUiState.Empty -> {
+                BrbaEmptyScreen()
+            }
+
+            is FavoriteUiState.Error -> {
+                uiState.exception?.printStackTrace()
+            }
+        }
     }
-//    }
 }
 
 @Preview(showBackground = true)
@@ -260,7 +136,7 @@ private fun Preview() {
                     portrayed = "",
                     category = "Breaking Bad",
                     ratio = 1.5f,
-                    favorite = true,
+                    isFavorite = true,
                     ctime = null
                 )
             )

@@ -27,13 +27,16 @@ fun NavController.navigateFavorite() {
     navigate(
         route = FAVORITE_ROUTE,
         navOptions = navOptions {
-            popUpTo(FAVORITE_ROUTE)
+            popUpTo(graph.startDestinationId) {
+                saveState = true
+            }
             launchSingleTop = true
+            restoreState = true
         }
     )
 }
 
-fun NavGraphBuilder.favoriteScreen(
+fun NavGraphBuilder.favoriteTab(
     navigateToDetail: (Long) -> Unit
 ) {
     composable(

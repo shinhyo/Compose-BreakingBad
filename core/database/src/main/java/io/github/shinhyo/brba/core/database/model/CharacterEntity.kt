@@ -48,6 +48,6 @@ fun CharacterEntity.asExternalModel() = BrbaCharacter(
     name = name,
     img = img,
     nickname = nickname,
-    favorite = favorite,
+    isFavorite = favorite,
     ctime = ctime
 )

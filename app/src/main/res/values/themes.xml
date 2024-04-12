@@ -1,15 +1,5 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="Theme.BrBaCompose" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/immersive_sys_ui</item>
-    </style>
 
-    <style name="Theme.BrBaCompose.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
+    <style name="Theme.BrBaCompose" parent="android:Theme.Material.Light.NoActionBar" />
 
-    <style name="Theme.BrBaCompose.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.BrBaCompose.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

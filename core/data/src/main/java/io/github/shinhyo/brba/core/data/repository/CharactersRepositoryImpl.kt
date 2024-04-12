@@ -48,7 +48,7 @@ open class CharactersRepositoryImpl @Inject constructor(
         .map { it?.asExternalModel() }
 
     override fun updateFavorite(character: BrbaCharacter): Flow<Boolean> = flowOf(character)
-        .map { it.asEntity().copy(favorite = !character.favorite) }
+        .map { it.asEntity().copy(favorite = !character.isFavorite) }
         .map { dao.insert(it) }
         .map { it != 0L }
 }

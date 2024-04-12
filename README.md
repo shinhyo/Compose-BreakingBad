@@ -1,17 +1,20 @@
-# Breaking Bad - Jetpack Compose
-<a href='https://developer.android.com'><img src='http://img.shields.io/badge/platform-android-green.svg'/></a>
-<a href="https://kotlinlang.org/docs/whatsnew1920.html"><img src = "https://shields.io/badge/kotlin-1.9.20-blue" /></a>
-<a href="https://developer.android.com/jetpack/compose/bom"><img src = "https://img.shields.io/badge/jetpack%20compose-2023.10.01-brightgreen" /></a>
-<a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg"/></a>
-[![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
+<h1 align="center">Breaking Bad - Jetpack Compose</h1>
 
-<p >
-<img src="/gif/0.gif" width="32%"/>
-<img src="/gif/1.gif" width="32%"/>
-<img src="/gif/2.gif" width="32%"/>
+<p align="center">
+  <a href='https://developer.android.com'><img src='http://img.shields.io/badge/platform-android-green.svg'/></a>
+  <a href="https://kotlinlang.org/docs/whatsnew1920.html"><img src = "https://shields.io/badge/kotlin-1.9.23-blue" /></a>
+  <a href="https://developer.android.com/jetpack/compose/bom"><img src = "https://img.shields.io/badge/jetpack%20compose-2024.04.00-brightgreen" /></a>
+  <a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg"/></a>
+</p>
+
+<p align="center">
+  <img src="/gif/0.gif" width="32%"/>
+  <img src="/gif/1.gif" width="32%"/>
+  <img src="/gif/2.gif" width="32%"/>
 </p>
 
 ## Tech Stack
+
 - [Jetpack](https://developer.android.com/jetpack)
     - Compose - Define your UI programmatically with composable functions that describe its shape
       and data dependencies.
@@ -24,7 +27,7 @@
 - Clean Architecture (nowinandroid)
 - MVVM pattern
 - Kotlin Coroutines & Flows
-- Material Design3
+- Material Design 3
 - Single Activity
 - StaggeredVerticalGrid
 - [Gradle Version Catalog](https://docs.gradle.org/7.4/userguide/platforms.html)
@@ -32,10 +35,28 @@
 - [Coil-Compose](https://coil-kt.github.io/coil/compose)
 - [Timber](https://github.com/JakeWharton/timber)
 
-## Multi Module ([nowinandroid](https://github.com/android/nowinandroid))
-![](project.dot.png)
+## Multi Module
+```
+├── app
+├── core
+│   ├── common
+│   ├── data
+│   ├── database
+│   ├── datastore
+│   ├── designsystem
+│   ├── domain
+│   ├── model
+│   └── network
+└── feature
+    ├── bottombar
+    ├── detail
+    ├── favorite
+    ├── list
+    ├── main
+    └── setting
+```
 
-### If you think this reposittory is useful, please press the star button at the top. ⭐️
+![](project.dot.png)
 
 # License
 
