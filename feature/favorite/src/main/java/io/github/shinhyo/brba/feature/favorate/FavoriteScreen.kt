@@ -45,14 +45,14 @@ import io.github.shinhyo.brba.core.ui.BrbaTopAppBar
 fun FavoriteRoute(
     modifier: Modifier = Modifier,
     viewModel: FavoriteViewModel = hiltViewModel(),
-    navigateToDetail: (Long) -> Unit
+    onCharacterClick: (Long) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     FavoriteScreen(
         modifier = modifier,
         uiState = uiState,
-        onCharacterClick = navigateToDetail,
+        onCharacterClick = onCharacterClick,
         onFavoriteClick = viewModel::updateFavorite
     )
 }

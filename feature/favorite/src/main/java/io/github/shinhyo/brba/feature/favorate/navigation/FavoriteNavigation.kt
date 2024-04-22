@@ -37,13 +37,13 @@ fun NavController.navigateFavorite() {
 }
 
 fun NavGraphBuilder.favoriteTab(
-    navigateToDetail: (Long) -> Unit
+    onCharacterClick: (Long) -> Unit
 ) {
     composable(
         route = FAVORITE_ROUTE
     ) {
         FavoriteRoute(
-            navigateToDetail = navigateToDetail
+            onCharacterClick = onCharacterClick
         )
     }
 }

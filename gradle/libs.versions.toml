@@ -10,23 +10,23 @@ kotlin = "1.9.23"
 #https://github.com/google/ksp/releases
 ksp = "1.9.23-1.0.20"
 #https://developer.android.com/jetpack/androidx/releases/compose-kotlin
-androidxComposeCompiler = "1.5.11"
+androidxComposeCompiler = "1.5.12"
 androidDesugarJdkLibs = "2.0.4"
 
 kotlinxCoroutines = "1.8.0"
 ktlint = "11.6.1"
 
-androidxCore = "1.12.0"
+androidxCore = "1.13.0"
 androidxCoreSplashscreen = "1.0.1"
 androidxAppCompat = "1.6.1"
-androidxActivity = "1.8.2"
+androidxActivity = "1.9.0"
 androidxStartup = "1.1.1"
 androidxHiltNavigationCompose = "1.2.0"
 androidxConstraintlayoutCompose = "1.0.1"
 androidxLifecycle = "2.7.0"
-androidxDataStore = "1.0.0"
+androidxDataStore = "1.1.0"
 
-androidxComposeBom = "2024.04.00"
+androidxComposeBom = "2024.04.01"
 androidxCompose = "1.5.4"
 androidxComposeMaterial3 = "1.1.2"
 
@@ -93,6 +93,7 @@ androidx-compose-ui-testManifest = { group = "androidx.compose.ui", name = "ui-t
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-compose-ui-util = { group = "androidx.compose.ui", name = "ui-util" }
+androidx-compose-animation = { group = "androidx.compose.animation", name = "animation", version = "1.7.0-alpha07" }
 
 # hilt
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }

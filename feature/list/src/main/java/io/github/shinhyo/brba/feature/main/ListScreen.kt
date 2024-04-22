@@ -21,12 +21,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -35,6 +38,7 @@ import dev.chrisbanes.haze.HazeDefaults
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.haze
 import io.github.shinhyo.brba.core.model.BrbaCharacter
+import io.github.shinhyo.brba.core.model.BrbaThemeMode
 import io.github.shinhyo.brba.core.ui.BrBaCircleProgress
 import io.github.shinhyo.brba.core.ui.BrbaCharacterCard
 import io.github.shinhyo.brba.core.ui.BrbaTopAppBar
@@ -51,7 +55,8 @@ internal fun ListRoute(
         modifier = modifier,
         uiState = uiState,
         onCharacterClick = navigateToDetail,
-        onFavoriteClick = viewModel::updateFavorite
+        onFavoriteClick = viewModel::onFavoriteClick,
+        onChangeThemeClick = viewModel::onChangeThemeClick
     )
 }
 
@@ -60,14 +65,41 @@ private fun ListScreen(
     modifier: Modifier = Modifier,
     uiState: ListUiState,
     onCharacterClick: (Long) -> Unit = {},
-    onFavoriteClick: (BrbaCharacter) -> Unit = {}
+    onFavoriteClick: (BrbaCharacter) -> Unit = {},
+    onChangeThemeClick: (BrbaThemeMode) -> Unit = {}
 ) {
     val hazeState: HazeState = remember { HazeState() }
 
     Scaffold(
         topBar = {
             BrbaTopAppBar(
-                hazeState = hazeState
+                hazeState = hazeState,
+                actions = {
+                    when (uiState) {
+                        is ListUiState.Loading,
+                        is ListUiState.Error -> {
+                        }
+
+                        is ListUiState.Success -> {
+                            val icTheme = when (uiState.themeMode) {
+                                BrbaThemeMode.Light -> io.github.shinhyo.brba.core.designsystem.R.drawable.ic_theme_light
+                                BrbaThemeMode.Dark -> io.github.shinhyo.brba.core.designsystem.R.drawable.ic_theme_night
+                                BrbaThemeMode.System -> io.github.shinhyo.brba.core.designsystem.R.drawable.ic_theme_light_dark
+                            }
+
+                            IconButton(
+                                onClick = { onChangeThemeClick.invoke(uiState.themeMode) },
+                            ) {
+                                Icon(
+                                    painterResource(id = icTheme),
+                                    contentDescription = "ic_theme",
+                                    tint = MaterialTheme.colorScheme.tertiary,
+                                )
+                            }
+                        }
+                    }
+
+                }
             )
         },
         contentWindowInsets = WindowInsets(16.dp, 4.dp, 16.dp, 16.dp)
@@ -98,7 +130,7 @@ private fun ListScreen(
                         .fillMaxSize()
                 ) {
                     items(
-                        items = uiState.list,
+                        items = uiState.characters,
                         key = { it.charId }
                     ) { character ->
                         BrbaCharacterCard(
@@ -131,12 +163,13 @@ private fun Preview() {
     )
     ListScreen(
         uiState = ListUiState.Success(
-            listOf(
+            characters = listOf(
                 character,
                 character.copy(charId = 1, ratio = 1.8f),
                 character.copy(charId = 2, ratio = 1.6f, isFavorite = false),
                 character.copy(charId = 3, ratio = 1.4f, isFavorite = false)
-            )
+            ),
+            themeMode = BrbaThemeMode.System
         )
     )
 }

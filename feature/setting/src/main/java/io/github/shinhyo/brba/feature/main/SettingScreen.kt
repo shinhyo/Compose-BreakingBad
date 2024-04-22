@@ -38,7 +38,6 @@ import io.github.shinhyo.brba.core.model.BrbaThemeMode
 import io.github.shinhyo.brba.core.ui.BrbaPreference
 import io.github.shinhyo.brba.core.ui.BrbaThemeSelectDialog
 import io.github.shinhyo.brba.core.ui.BrbaTopAppBar
-import io.github.shinhyo.brba.feature.setting.R
 
 @Composable
 internal fun SettingRoute(
@@ -50,7 +49,7 @@ internal fun SettingRoute(
     SettingScreen(
         modifier = modifier,
         uiState = uiState,
-        changeTheme = viewModel::changeTheme
+        onChangeThemeClick = viewModel::onChangeThemeClick
     )
 }
 
@@ -58,7 +57,7 @@ internal fun SettingRoute(
 private fun SettingScreen(
     modifier: Modifier = Modifier,
     uiState: SettingUiState,
-    changeTheme: (BrbaThemeMode) -> Unit
+    onChangeThemeClick: (BrbaThemeMode) -> Unit
 ) {
     val hazeState: HazeState = remember { HazeState() }
 
@@ -84,7 +83,7 @@ private fun SettingScreen(
                             showSettingsDialog = false
                         },
                         onConfirm = { mode ->
-                            changeTheme(mode)
+                            onChangeThemeClick(mode)
                             showSettingsDialog = false
                         }
                     )
@@ -98,7 +97,7 @@ private fun SettingScreen(
                         BrbaPreference(
                             icon = {
                                 Icon(
-                                    painter = painterResource(id = R.drawable.theme_light_dark),
+                                    painter = painterResource(id = io.github.shinhyo.brba.core.designsystem.R.drawable.ic_theme_light_dark),
                                     tint = MaterialTheme.colorScheme.tertiary,
                                     contentDescription = null
                                 )

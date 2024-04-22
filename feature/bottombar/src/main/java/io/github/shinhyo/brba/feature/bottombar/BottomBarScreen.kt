@@ -90,7 +90,7 @@ fun BottomBarScreen(
             exitTransition = { fadeOut(animationSpec = tween(300)) }
         ) {
             listTab(navigateToDetail = navController::navigateToDetail)
-            favoriteTab(navigateToDetail = navController::navigateToDetail)
+            favoriteTab(onCharacterClick = navController::navigateToDetail)
             settingTab()
         }
     }
