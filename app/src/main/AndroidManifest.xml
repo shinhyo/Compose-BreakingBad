@@ -6,6 +6,7 @@
 
     <application
         android:name=".BrBaApplication"
+        android:allowBackup="false"
         android:enableOnBackInvokedCallback="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,6 +22,10 @@
             tools:node="merge">
             <meta-data
                 android:name="io.github.shinhyo.brba.initializer.TimberInitializer"
+                android:value="androidx.startup" />
+
+            <meta-data
+                android:name="io.github.shinhyo.brba.initializer.CoilInitializer"
                 android:value="androidx.startup" />
         </provider>
 

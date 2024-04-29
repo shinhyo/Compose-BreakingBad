@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class SettingData(
-    val deviceData: BrbaDeviceData
+    val deviceData: BrbaDeviceData,
 )
 
 sealed interface SettingUiState {
@@ -39,7 +39,7 @@ sealed interface SettingUiState {
 
 @HiltViewModel
 class SettingViewModel @Inject constructor(
-    private val deviceRepository: DeviceRepository
+    private val deviceRepository: DeviceRepository,
 ) : ViewModel() {
 
     val uiState: StateFlow<SettingUiState> = deviceRepository.deviceData
@@ -49,7 +49,7 @@ class SettingViewModel @Inject constructor(
         .stateIn(
             scope = viewModelScope,
             initialValue = SettingUiState.Loading,
-            started = SharingStarted.WhileSubscribed(5000)
+            started = SharingStarted.WhileSubscribed(5000),
         )
 
     fun onChangeThemeClick(themeMode: BrbaThemeMode) {

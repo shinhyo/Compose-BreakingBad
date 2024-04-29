@@ -32,10 +32,10 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideAppDatabase(
-        @ApplicationContext appContext: Context
+        @ApplicationContext appContext: Context,
     ): AppDatabase = Room.databaseBuilder(
         appContext,
         AppDatabase::class.java,
-        AppDatabase.NAME
+        AppDatabase.NAME,
     ).build()
 }

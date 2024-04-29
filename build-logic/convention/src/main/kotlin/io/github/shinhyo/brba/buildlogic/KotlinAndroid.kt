@@ -37,10 +37,12 @@ private fun Project.configureKotlin() {
                 "plugin:androidx.compose.compiler.plugins.kotlin:experimentalStrongSkipping=true",
             )
             freeCompilerArgs = freeCompilerArgs + listOf(
+                "-Xcontext-receivers",
                 "-opt-in=kotlin.RequiresOptIn",
                 "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                 "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
                 "-opt-in=androidx.compose.foundation.layout.ExperimentalLayoutApi",
+                "-opt-in=androidx.compose.animation.ExperimentalSharedTransitionApi",
             )
         }
     }

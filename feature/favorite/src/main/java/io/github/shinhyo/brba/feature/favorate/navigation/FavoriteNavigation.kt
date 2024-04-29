@@ -15,10 +15,13 @@
  */
 package io.github.shinhyo.brba.feature.favorate.navigation
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.SharedTransitionScope
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navOptions
+import io.github.shinhyo.brba.core.model.BrbaCharacter
 import io.github.shinhyo.brba.feature.favorate.FavoriteRoute
 
 const val FAVORITE_ROUTE = "favorite_route"
@@ -32,18 +35,21 @@ fun NavController.navigateFavorite() {
             }
             launchSingleTop = true
             restoreState = true
-        }
+        },
     )
 }
 
-fun NavGraphBuilder.favoriteTab(
-    onCharacterClick: (Long) -> Unit
+context(SharedTransitionScope)
+fun NavGraphBuilder.favoriteComposable(
+    onCharacterClick: (BrbaCharacter) -> Unit,
+    animatedVisibilityScope: AnimatedVisibilityScope,
 ) {
     composable(
-        route = FAVORITE_ROUTE
+        route = FAVORITE_ROUTE,
     ) {
         FavoriteRoute(
-            onCharacterClick = onCharacterClick
+            onCharacterClick = onCharacterClick,
+            animatedVisibilityScope = animatedVisibilityScope,
         )
     }
 }

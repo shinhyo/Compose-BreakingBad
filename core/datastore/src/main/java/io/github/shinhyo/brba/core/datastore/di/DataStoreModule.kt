@@ -37,6 +37,6 @@ object DataStoreModule {
     @Provides
     @Singleton
     fun provideDeviceDataStore(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
     ): DataStore<Preferences> = context.deviceDataStore
 }

@@ -48,4 +48,5 @@ dependencies {
     implementation(libs.androidx.startup)
     implementation(libs.androidx.compose.material3)
     implementation(libs.timber)
+    implementation(libs.coil.kt)
 }

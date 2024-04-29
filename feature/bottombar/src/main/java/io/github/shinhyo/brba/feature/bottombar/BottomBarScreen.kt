@@ -15,9 +15,8 @@
  */
 package io.github.shinhyo.brba.feature.bottombar
 
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -36,18 +35,19 @@ import androidx.navigation.compose.rememberNavController
 import io.github.shinhyo.brba.core.ui.BrBaNavigationBar
 import io.github.shinhyo.brba.core.ui.BrbaNavigationBarItem
 import io.github.shinhyo.brba.feature.detail.navigaion.navigateToDetail
-import io.github.shinhyo.brba.feature.favorate.navigation.favoriteTab
+import io.github.shinhyo.brba.feature.favorate.navigation.favoriteComposable
 import io.github.shinhyo.brba.feature.favorate.navigation.navigateFavorite
 import io.github.shinhyo.brba.feature.main.navigation.LIST_ROUTE
-import io.github.shinhyo.brba.feature.main.navigation.listTab
+import io.github.shinhyo.brba.feature.main.navigation.listComposable
 import io.github.shinhyo.brba.feature.main.navigation.navigateList
 import io.github.shinhyo.brba.feature.main.navigation.navigateSetting
-import io.github.shinhyo.brba.feature.main.navigation.settingTab
+import io.github.shinhyo.brba.feature.main.navigation.settingComposable
 
 @Composable
-fun BottomBarScreen(
+fun SharedTransitionScope.BottomBarScreen(
     navController: NavHostController,
-    navTabController: NavHostController = rememberNavController()
+    navTabController: NavHostController = rememberNavController(),
+    animatedVisibilityScope: AnimatedVisibilityScope,
 ) {
     Scaffold(
         contentWindowInsets = WindowInsets(0.dp),
@@ -55,7 +55,7 @@ fun BottomBarScreen(
             val currentRoute = navTabController.currentBackStackEntryAsState().value?.destination?.route
             BrBaNavigationBar(
                 modifier = Modifier
-                    .navigationBarsPadding()
+                    .navigationBarsPadding(),
             ) {
                 for (tab in remember { Tab.entries }) {
                     BrbaNavigationBarItem(
@@ -71,14 +71,14 @@ fun BottomBarScreen(
                         icon = {
                             Icon(
                                 painterResource(id = tab.icon),
-                                contentDescription = tab.label
+                                contentDescription = tab.label,
                             )
-                        }
+                        },
                     )
                 }
             }
         },
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) { paddingValues ->
         NavHost(
             navController = navTabController,
@@ -86,12 +86,28 @@ fun BottomBarScreen(
             modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize(),
-            enterTransition = { fadeIn(animationSpec = tween(300)) },
-            exitTransition = { fadeOut(animationSpec = tween(300)) }
+//            enterTransition = { fadeIn(animationSpec = tween(300)) },
+//            exitTransition = { fadeOut(animationSpec = tween(300)) }
         ) {
-            listTab(navigateToDetail = navController::navigateToDetail)
-            favoriteTab(onCharacterClick = navController::navigateToDetail)
-            settingTab()
+            listComposable(
+                navigateToDetail = {
+                    navController.navigateToDetail(
+                        character = it,
+                        from = Tab.LIST.name,
+                    )
+                },
+                animatedVisibilityScope = animatedVisibilityScope,
+            )
+            favoriteComposable(
+                onCharacterClick = {
+                    navController.navigateToDetail(
+                        character = it,
+                        from = Tab.FAVORITE.name,
+                    )
+                },
+                animatedVisibilityScope = animatedVisibilityScope,
+            )
+            settingComposable()
         }
     }
 }

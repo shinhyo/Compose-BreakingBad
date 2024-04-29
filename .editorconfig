@@ -6,8 +6,8 @@ root = true
 ktlint_code_style = ktlint_official
 indent_size = 4
 indent_style = space
-ij_kotlin_allow_trailing_comma = false
-ij_kotlin_allow_trailing_comma_on_call_site = false
+ij_kotlin_allow_trailing_comma = true
+ij_kotlin_allow_trailing_comma_on_call_site = true
 
 # enabled, disabled
 ktlint_standard = enabled
@@ -18,5 +18,6 @@ max_line_length = off
 insert_final_newline = false
 
 # ktlint_standard_multiline-expression-wrapping = disabled
-# ktlint_standard_import-ordering = disabled
+ktlint_standard_import-ordering = disabled
 # ktlint_standard_trailing-comma-on-declaration-site = disabled
+# ktlint_function_naming_ignore_when_annotated_with = Composable, Test

@@ -24,15 +24,15 @@ import io.github.shinhyo.brba.core.model.BrbaCharacter
 import io.github.shinhyo.brba.core.network.NetworkDataSource
 import io.github.shinhyo.brba.core.network.model.CharacterResponse
 import io.github.shinhyo.brba.core.network.model.asExternalModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 open class CharactersRepositoryImpl @Inject constructor(
     private val api: NetworkDataSource,
-    private val dao: CharacterDao
+    private val dao: CharacterDao,
 ) : CharactersRepository {
 
     override fun getCharacterList(): Flow<List<BrbaCharacter>> = flow { emit(api.getCharacter()) }

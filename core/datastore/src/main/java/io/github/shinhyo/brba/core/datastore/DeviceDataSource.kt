@@ -21,11 +21,11 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import io.github.shinhyo.brba.core.datastore.model.DeviceData
 import io.github.shinhyo.brba.core.model.BrbaThemeMode
-import javax.inject.Inject
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 class DeviceDataSource @Inject constructor(
-    private val dataStore: DataStore<Preferences>
+    private val dataStore: DataStore<Preferences>,
 ) {
 
     object PreferencesKey {
@@ -36,7 +36,7 @@ class DeviceDataSource @Inject constructor(
         DeviceData(
             themeMode = preferences[PreferencesKey.MODE_THEME]?.let {
                 BrbaThemeMode.entries[it]
-            } ?: BrbaThemeMode.Dark
+            } ?: BrbaThemeMode.Dark,
         )
     }
 

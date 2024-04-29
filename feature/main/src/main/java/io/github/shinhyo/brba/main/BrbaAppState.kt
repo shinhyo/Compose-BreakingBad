@@ -28,10 +28,10 @@ import kotlinx.coroutines.CoroutineScope
 @Composable
 fun rememberAppState(
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
 ): BrbaAppState = remember(
     coroutineScope,
-    navController
+    navController,
 ) {
     BrbaAppState(coroutineScope, navController)
 }
@@ -39,7 +39,7 @@ fun rememberAppState(
 @Stable
 class BrbaAppState(
     val coroutineScope: CoroutineScope,
-    val navController: NavHostController
+    val navController: NavHostController,
 ) {
 
     val currentDestination: NavDestination?

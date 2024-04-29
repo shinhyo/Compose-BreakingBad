@@ -15,6 +15,7 @@
  */
 package io.github.shinhyo.brba.feature.main
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -34,7 +35,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.chrisbanes.haze.HazeState
+import io.github.shinhyo.brba.core.model.BrbaDeviceData
 import io.github.shinhyo.brba.core.model.BrbaThemeMode
+import io.github.shinhyo.brba.core.theme.BrbaPreviewTheme
 import io.github.shinhyo.brba.core.ui.BrbaPreference
 import io.github.shinhyo.brba.core.ui.BrbaThemeSelectDialog
 import io.github.shinhyo.brba.core.ui.BrbaTopAppBar
@@ -42,14 +45,14 @@ import io.github.shinhyo.brba.core.ui.BrbaTopAppBar
 @Composable
 internal fun SettingRoute(
     modifier: Modifier = Modifier,
-    viewModel: SettingViewModel = hiltViewModel()
+    viewModel: SettingViewModel = hiltViewModel(),
 ) {
     val uiState: SettingUiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     SettingScreen(
         modifier = modifier,
         uiState = uiState,
-        onChangeThemeClick = viewModel::onChangeThemeClick
+        onChangeThemeClick = viewModel::onChangeThemeClick,
     )
 }
 
@@ -57,7 +60,7 @@ internal fun SettingRoute(
 private fun SettingScreen(
     modifier: Modifier = Modifier,
     uiState: SettingUiState,
-    onChangeThemeClick: (BrbaThemeMode) -> Unit
+    onChangeThemeClick: (BrbaThemeMode) -> Unit,
 ) {
     val hazeState: HazeState = remember { HazeState() }
 
@@ -65,10 +68,10 @@ private fun SettingScreen(
         topBar = {
             BrbaTopAppBar(
                 hazeState = hazeState,
-                title = "Setting"
+                title = "Setting",
             )
         },
-        modifier = modifier
+        modifier = modifier,
     ) {
         when (uiState) {
             is SettingUiState.Loading -> {}
@@ -85,13 +88,13 @@ private fun SettingScreen(
                         onConfirm = { mode ->
                             onChangeThemeClick(mode)
                             showSettingsDialog = false
-                        }
+                        },
                     )
                 }
                 LazyColumn(
                     modifier = Modifier
                         .padding(it)
-                        .fillMaxSize()
+                        .fillMaxSize(),
                 ) {
                     item {
                         BrbaPreference(
@@ -99,14 +102,14 @@ private fun SettingScreen(
                                 Icon(
                                     painter = painterResource(id = io.github.shinhyo.brba.core.designsystem.R.drawable.ic_theme_light_dark),
                                     tint = MaterialTheme.colorScheme.tertiary,
-                                    contentDescription = null
+                                    contentDescription = null,
                                 )
                             },
                             title = { Text(text = "Theme") },
                             summary = { Text(text = themeMode.name) },
                             onClick = {
                                 showSettingsDialog = true
-                            }
+                            },
                         )
                     }
                 }
@@ -115,7 +118,19 @@ private fun SettingScreen(
     }
 }
 
-@Preview(showBackground = true, showSystemUi = false)
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun Preview() {
+    BrbaPreviewTheme {
+        SettingScreen(
+            uiState = SettingUiState.Success(
+                SettingData(
+                    deviceData = BrbaDeviceData(themeMode = BrbaThemeMode.Dark),
+                ),
+            ),
+            onChangeThemeClick = {},
+
+            )
+    }
 }

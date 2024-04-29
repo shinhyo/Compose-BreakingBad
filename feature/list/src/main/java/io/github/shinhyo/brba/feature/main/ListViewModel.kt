@@ -37,7 +37,7 @@ import javax.inject.Inject
 sealed interface ListUiState {
     data class Success(
         val characters: List<BrbaCharacter>,
-        val themeMode: BrbaThemeMode
+        val themeMode: BrbaThemeMode,
     ) : ListUiState
 
     data class Error(val exception: Throwable? = null) : ListUiState
@@ -53,7 +53,7 @@ class ListViewModel @Inject constructor(
 
     val uiState = combine(
         getCharacterListUseCase(),
-        deviceRepository.deviceData
+        deviceRepository.deviceData,
     ) { characters, deviceData ->
         characters to deviceData.themeMode
     }
@@ -71,7 +71,7 @@ class ListViewModel @Inject constructor(
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = ListUiState.Loading
+            initialValue = ListUiState.Loading,
         )
 
     fun onFavoriteClick(character: BrbaCharacter) {
@@ -79,7 +79,6 @@ class ListViewModel @Inject constructor(
             .catch { e -> e.printStackTrace() }
             .launchIn(viewModelScope)
     }
-
 
     fun onChangeThemeClick(currentMode: BrbaThemeMode) {
         viewModelScope.launch {

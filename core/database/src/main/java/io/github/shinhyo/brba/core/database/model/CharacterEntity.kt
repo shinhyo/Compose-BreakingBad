@@ -26,7 +26,7 @@ import java.util.Date
 @Keep
 @Entity(
     tableName = TABLE_NAME,
-    indices = [(Index(value = ["charId"], unique = true))]
+    indices = [(Index(value = ["charId"], unique = true))],
 )
 data class CharacterEntity(
     @PrimaryKey
@@ -35,7 +35,7 @@ data class CharacterEntity(
     val img: String = "",
     val nickname: String,
     val favorite: Boolean = false,
-    var ctime: Date = Date()
+    var ctime: Date = Date(),
 ) {
 
     companion object {
@@ -49,5 +49,5 @@ fun CharacterEntity.asExternalModel() = BrbaCharacter(
     img = img,
     nickname = nickname,
     isFavorite = favorite,
-    ctime = ctime
+    ctime = ctime,
 )

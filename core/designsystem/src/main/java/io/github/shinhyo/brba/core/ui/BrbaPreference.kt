@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import io.github.shinhyo.brba.core.theme.BrbaPreviewTheme
 
 @Composable
 fun BrbaPreference(
@@ -42,7 +43,7 @@ fun BrbaPreference(
     title: @Composable () -> Unit,
     enabled: Boolean = true,
     summary: @Composable (() -> Unit)? = null,
-    onClick: (() -> Unit)? = null
+    onClick: (() -> Unit)? = null,
 ) {
     val colorScheme = MaterialTheme.colorScheme
     val typography = MaterialTheme.typography
@@ -53,9 +54,9 @@ fun BrbaPreference(
                 Modifier.clickable(enabled, onClick = onClick)
             } else {
                 Modifier
-            }
+            },
         ),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         icon?.let {
             Box(
@@ -66,9 +67,9 @@ fun BrbaPreference(
                         start = 16.dp,
                         top = 16.dp,
                         end = 0.dp,
-                        bottom = 16.dp
+                        bottom = 16.dp,
                     ),
-                contentAlignment = Alignment.CenterStart
+                contentAlignment = Alignment.CenterStart,
             ) {
                 CompositionLocalProvider(
                     LocalContentColor.provides(
@@ -76,9 +77,9 @@ fun BrbaPreference(
                             colorScheme.onSurfaceVariant
                         } else {
                             colorScheme.onSurfaceVariant.copy(0.38f)
-                        }
+                        },
                     ),
-                    content = icon
+                    content = icon,
                 )
             }
         }
@@ -90,8 +91,8 @@ fun BrbaPreference(
                         start = if (icon != null) 0.dp else 16.dp,
                         top = 16.dp,
                         end = 16.dp,
-                        bottom = 16.dp
-                    )
+                        bottom = 16.dp,
+                    ),
             ) {
                 CompositionLocalProvider(
                     LocalContentColor.provides(
@@ -99,8 +100,8 @@ fun BrbaPreference(
                             colorScheme.onSurface
                         } else {
                             colorScheme.onSurface.copy(alpha = 0.38f)
-                        }
-                    )
+                        },
+                    ),
                 ) {
                     ProvideTextStyle(value = typography.bodyLarge, content = title)
                     summary?.let { ProvideTextStyle(value = typography.bodyMedium, content = summary) }
@@ -110,23 +111,25 @@ fun BrbaPreference(
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun Preview() {
-    BrbaPreference(
-        enabled = true,
-        title = {
-            Text(text = "title")
-        },
-        summary = {
-            Text(text = "summary")
-        },
-        icon = {
-            Icon(
-                imageVector = Icons.AutoMirrored.Default.List,
-                contentDescription = null
-            )
-        },
-        onClick = {}
-    )
+    BrbaPreviewTheme {
+        BrbaPreference(
+            enabled = true,
+            title = {
+                Text(text = "title")
+            },
+            summary = {
+                Text(text = "summary")
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Default.List,
+                    contentDescription = null,
+                )
+            },
+            onClick = {},
+        )
+    }
 }

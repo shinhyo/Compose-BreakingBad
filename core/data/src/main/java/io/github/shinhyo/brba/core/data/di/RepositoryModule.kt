@@ -32,12 +32,12 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindCharactersRepository(
-        repo: CharactersRepositoryImpl
+        repo: CharactersRepositoryImpl,
     ): CharactersRepository
 
     @Binds
     @Singleton
     abstract fun bindDeviceRepository(
-        repo: DeviceRepositoryImpl
+        repo: DeviceRepositoryImpl,
     ): DeviceRepository
 }

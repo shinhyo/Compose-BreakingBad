@@ -15,8 +15,10 @@
  */
 package io.github.shinhyo.brba.feature.favorate
 
+import android.content.res.Configuration
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -36,33 +38,37 @@ import dev.chrisbanes.haze.HazeDefaults
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.haze
 import io.github.shinhyo.brba.core.model.BrbaCharacter
+import io.github.shinhyo.brba.core.theme.BrbaPreviewTheme
 import io.github.shinhyo.brba.core.ui.BrBaCircleProgress
 import io.github.shinhyo.brba.core.ui.BrbaCharacterRow
 import io.github.shinhyo.brba.core.ui.BrbaEmptyScreen
 import io.github.shinhyo.brba.core.ui.BrbaTopAppBar
 
 @Composable
-fun FavoriteRoute(
+fun SharedTransitionScope.FavoriteRoute(
     modifier: Modifier = Modifier,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     viewModel: FavoriteViewModel = hiltViewModel(),
-    onCharacterClick: (Long) -> Unit
+    onCharacterClick: (BrbaCharacter) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     FavoriteScreen(
         modifier = modifier,
         uiState = uiState,
+        animatedVisibilityScope = animatedVisibilityScope,
         onCharacterClick = onCharacterClick,
-        onFavoriteClick = viewModel::updateFavorite
+        onFavoriteClick = viewModel::updateFavorite,
     )
 }
 
 @Composable
-private fun FavoriteScreen(
+private fun SharedTransitionScope.FavoriteScreen(
     modifier: Modifier = Modifier,
     uiState: FavoriteUiState,
-    onCharacterClick: (Long) -> Unit,
-    onFavoriteClick: (BrbaCharacter) -> Unit = {}
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    onCharacterClick: (BrbaCharacter) -> Unit = {},
+    onFavoriteClick: (BrbaCharacter) -> Unit = {},
 ) {
     val hazeState: HazeState = remember { HazeState() }
 
@@ -70,12 +76,12 @@ private fun FavoriteScreen(
         topBar = {
             BrbaTopAppBar(
                 hazeState = hazeState,
-                title = "Favorite"
+                title = "Favorite",
             )
         },
         contentWindowInsets = WindowInsets(16.dp, 4.dp, 16.dp, 16.dp),
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize(),
     ) { contentPadding ->
 
         when (uiState) {
@@ -88,23 +94,22 @@ private fun FavoriteScreen(
                     modifier = modifier
                         .haze(
                             state = hazeState,
-                            style = HazeDefaults.style(backgroundColor = MaterialTheme.colorScheme.surface)
+                            style = HazeDefaults.style(backgroundColor = MaterialTheme.colorScheme.surface),
                         ),
                     state = rememberLazyListState(),
                     contentPadding = contentPadding,
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     items(
                         items = uiState.list,
-                        key = { item -> item.charId }
+                        key = { item -> item.charId },
                     ) { item ->
-                        Column {
-                            BrbaCharacterRow(
-                                character = item,
-                                onCharacterClick = onCharacterClick,
-                                onFavoriteClick = onFavoriteClick
-                            )
-                        }
+                        BrbaCharacterRow(
+                            character = item,
+                            animatedVisibilityScope = animatedVisibilityScope,
+                            onCharacterClick = onCharacterClick,
+                            onFavoriteClick = onFavoriteClick,
+                        )
                     }
                 }
             }
@@ -120,27 +125,31 @@ private fun FavoriteScreen(
     }
 }
 
-@Preview(showBackground = true)
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun Preview() {
-    FavoriteScreen(
-        uiState = FavoriteUiState.Success(
-            list = listOf(
-                BrbaCharacter(
-                    charId = 0,
-                    name = "Walter White Walter White Walter White",
-                    birthday = "09-07-1958",
-                    img = "https://~~~.jpg",
-                    status = "Presumed dead",
-                    nickname = "Heisenberg, Heisenberg, Heisenberg, Heisenberg",
-                    portrayed = "",
-                    category = "Breaking Bad",
-                    ratio = 1.5f,
-                    isFavorite = true,
-                    ctime = null
-                )
-            )
-        ),
-        onCharacterClick = {}
-    )
+    BrbaPreviewTheme {
+        FavoriteScreen(
+            uiState = FavoriteUiState.Success(
+                list = listOf(
+                    BrbaCharacter(
+                        charId = 0,
+                        name = "Walter White Walter White Walter White",
+                        birthday = "09-07-1958",
+                        img = "https://~~~.jpg",
+                        status = "Presumed dead",
+                        nickname = "Heisenberg, Heisenberg, Heisenberg, Heisenberg",
+                        portrayed = "",
+                        category = "Breaking Bad",
+                        ratio = 1.5f,
+                        isFavorite = true,
+                        ctime = null,
+                    ),
+                ),
+            ),
+            onCharacterClick = {},
+            animatedVisibilityScope = it,
+        )
+    }
 }

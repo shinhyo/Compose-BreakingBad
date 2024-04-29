@@ -30,12 +30,12 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun BrBaNavigationBar(
     modifier: Modifier = Modifier,
-    content: @Composable RowScope.() -> Unit
+    content: @Composable RowScope.() -> Unit,
 ) {
     NavigationBar(
         modifier = modifier,
         windowInsets = WindowInsets(0.dp),
-        content = content
+        content = content,
     )
 }
 
@@ -44,14 +44,14 @@ fun RowScope.BrbaNavigationBarItem(
     label: String? = null,
     onSelected: () -> Boolean,
     onClick: () -> Unit,
-    icon: @Composable () -> Unit
+    icon: @Composable () -> Unit,
 ) {
     NavigationBarItem(
         label = {
             label?.let {
                 Text(
                     text = it,
-                    style = MaterialTheme.typography.bodySmall
+                    style = MaterialTheme.typography.bodySmall,
                 )
             }
         },
@@ -61,6 +61,6 @@ fun RowScope.BrbaNavigationBarItem(
         icon = icon,
         colors = NavigationBarItemDefaults.colors(),
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth(),
     )
 }
