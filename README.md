@@ -28,6 +28,7 @@
 - MVVM pattern
 - Kotlin Coroutines & Flows
 - Material Design 3
+  - [Material Theme Builder](https://material-foundation.github.io/material-theme-builder/)
 - Single Activity
 - StaggeredVerticalGrid
 - [Gradle Version Catalog](https://docs.gradle.org/7.4/userguide/platforms.html)
