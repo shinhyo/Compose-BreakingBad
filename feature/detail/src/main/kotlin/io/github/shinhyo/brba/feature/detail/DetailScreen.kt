@@ -90,7 +90,6 @@ private fun SharedTransitionScope.DetailScreen(
                 .fillMaxSize()
                 .padding(padding),
         ) {
-
             items(uiState.items) { detailListType ->
                 when (val type: DetailListType = detailListType) {
                     is DetailListType.Loading -> {
@@ -112,10 +111,8 @@ private fun SharedTransitionScope.DetailScreen(
                     }
 
                     is DetailListType.Error -> {
-
                     }
                 }
-
             }
         }
     }
@@ -150,13 +147,11 @@ private fun Description(
     character: BrbaCharacter,
     onFavoriteClick: (BrbaCharacter) -> Unit,
 ) {
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),
     ) {
-
         Row(
             modifier = Modifier.fillMaxWidth(),
         ) {
@@ -187,7 +182,6 @@ private fun Description(
         )
         Spacer(modifier = Modifier.width(4.dp))
 
-
         val category = character.category
         if (category.isEmpty()) return
         if (category.contains(",")) {
@@ -195,9 +189,7 @@ private fun Description(
         } else {
             Chips(listOf("#$category"))
         }
-
     }
-
 }
 
 @Composable
@@ -217,8 +209,7 @@ private fun Chips(
                         text = text,
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.tertiary,
-
-                        )
+                    )
                 },
                 shape = RoundedCornerShape(16.dp),
                 colors = AssistChipDefaults.assistChipColors(
@@ -242,7 +233,6 @@ private fun Preview() {
                     DetailListType.Image(
                         id = 8569,
                         image = "https://~~~.jpg",
-                        from = "pellentesque",
                     ),
                     DetailListType.Description(
                         character = BrbaCharacter(
@@ -263,6 +253,5 @@ private fun Preview() {
             ),
             onFavoriteClick = {},
         )
-
     }
 }

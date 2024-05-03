@@ -52,7 +52,8 @@ fun SharedTransitionScope.BottomBarScreen(
     Scaffold(
         contentWindowInsets = WindowInsets(0.dp),
         bottomBar = {
-            val currentRoute = navTabController.currentBackStackEntryAsState().value?.destination?.route
+            val currentRoute =
+                navTabController.currentBackStackEntryAsState().value?.destination?.route
             BrBaNavigationBar(
                 modifier = Modifier
                     .navigationBarsPadding(),
@@ -86,25 +87,13 @@ fun SharedTransitionScope.BottomBarScreen(
             modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize(),
-//            enterTransition = { fadeIn(animationSpec = tween(300)) },
-//            exitTransition = { fadeOut(animationSpec = tween(300)) }
         ) {
             listComposable(
-                navigateToDetail = {
-                    navController.navigateToDetail(
-                        character = it,
-                        from = Tab.LIST.name,
-                    )
-                },
+                navigateToDetail = { navController.navigateToDetail(character = it) },
                 animatedVisibilityScope = animatedVisibilityScope,
             )
             favoriteComposable(
-                onCharacterClick = {
-                    navController.navigateToDetail(
-                        character = it,
-                        from = Tab.FAVORITE.name,
-                    )
-                },
+                onCharacterClick = { navController.navigateToDetail(character = it) },
                 animatedVisibilityScope = animatedVisibilityScope,
             )
             settingComposable()

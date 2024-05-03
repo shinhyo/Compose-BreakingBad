@@ -26,11 +26,11 @@ import javax.inject.Inject
 
 class GetFavoriteListUseCase @Inject constructor(
     @Dispatcher(BrbaDispatcher.IO) private val ioDispatcher: CoroutineDispatcher,
-    private val repo: CharactersRepository
+    private val repo: CharactersRepository,
 ) {
     operator fun invoke(
-        isAsc: Boolean = true
+        isAsc: Boolean = true,
     ): Flow<List<BrbaCharacter>> = repo.getDatabaseList(
-        isAsc = isAsc
+        isAsc = isAsc,
     ).flowOn(ioDispatcher)
 }

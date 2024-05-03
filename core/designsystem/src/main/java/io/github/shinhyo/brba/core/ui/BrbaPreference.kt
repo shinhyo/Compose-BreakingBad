@@ -104,7 +104,12 @@ fun BrbaPreference(
                     ),
                 ) {
                     ProvideTextStyle(value = typography.bodyLarge, content = title)
-                    summary?.let { ProvideTextStyle(value = typography.bodyMedium, content = summary) }
+                    summary?.let {
+                        ProvideTextStyle(
+                            value = typography.bodyMedium,
+                            content = summary,
+                        )
+                    }
                 }
             }
         }

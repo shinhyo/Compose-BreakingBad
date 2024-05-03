@@ -57,7 +57,7 @@ fun SharedTransitionScope.BrbaCharacterRow(
 ) {
     Card(
         onClick = { onCharacterClick.invoke(character) },
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(120.dp),
     ) {

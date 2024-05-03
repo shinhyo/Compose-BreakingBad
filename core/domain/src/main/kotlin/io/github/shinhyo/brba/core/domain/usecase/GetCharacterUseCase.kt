@@ -19,21 +19,21 @@ import io.github.shinhyo.brba.core.common.di.BrbaDispatcher
 import io.github.shinhyo.brba.core.common.di.Dispatcher
 import io.github.shinhyo.brba.core.domain.repository.CharactersRepository
 import io.github.shinhyo.brba.core.model.BrbaCharacter
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
+import javax.inject.Inject
 
 class GetCharacterUseCase @Inject constructor(
     @Dispatcher(BrbaDispatcher.IO) private val ioDispatcher: CoroutineDispatcher,
-    private val repo: CharactersRepository
+    private val repo: CharactersRepository,
 ) {
     operator fun invoke(
-        id: Long
+        id: Long,
     ): Flow<BrbaCharacter> = repo.getCharacterList(id = id)
         .combine(
-            repo.getDatabaseList(id = id)
+            repo.getDatabaseList(id = id),
         ) { api: BrbaCharacter, db: BrbaCharacter? ->
             api.copy(isFavorite = db?.isFavorite ?: false)
         }.flowOn(ioDispatcher)

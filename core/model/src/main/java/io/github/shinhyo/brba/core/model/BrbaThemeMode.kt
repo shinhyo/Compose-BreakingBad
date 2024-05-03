@@ -18,5 +18,5 @@ package io.github.shinhyo.brba.core.model
 enum class BrbaThemeMode {
     Light,
     Dark,
-    System
+    System,
 }

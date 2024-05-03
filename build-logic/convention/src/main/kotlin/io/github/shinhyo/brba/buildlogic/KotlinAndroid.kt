@@ -34,7 +34,7 @@ private fun Project.configureKotlin() {
             allWarningsAsErrors = properties["warningsAsErrors"] as? Boolean ?: false
             compilerOptions.freeCompilerArgs.addAll(
                 "-P",
-                "plugin:androidx.compose.compiler.plugins.kotlin:experimentalStrongSkipping=true",
+                "plugin:androidx.compose.compiler.plugins.kotlin:strongSkipping=true",
             )
             freeCompilerArgs = freeCompilerArgs + listOf(
                 "-Xcontext-receivers",

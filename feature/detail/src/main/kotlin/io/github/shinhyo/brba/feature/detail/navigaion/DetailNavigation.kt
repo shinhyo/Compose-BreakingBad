@@ -28,40 +28,36 @@ import io.github.shinhyo.brba.feature.detail.DetailRoute
 
 internal const val ARG_ID = "id"
 internal const val ARG_IMAGE = "image"
-internal const val ARG_FROM = "from"
 
 const val DETAIL_ROUTE = "detail_route"
 
 internal data class DetailArgs(
     val id: Long,
     val image: String,
-    val from: String
 ) {
     constructor(savedStateHandle: SavedStateHandle) : this(
         id = savedStateHandle.get<Long>(ARG_ID)!!,
         image = Uri.decode(savedStateHandle.get<String>(ARG_IMAGE))!!,
-        from = Uri.decode(savedStateHandle.get<String>(ARG_FROM))!!
     )
 }
 
-fun NavController.navigateToDetail(character: BrbaCharacter, from: String) {
+fun NavController.navigateToDetail(character: BrbaCharacter) {
     this.navigate(
-        route = "$DETAIL_ROUTE/${from}/${character.charId}/${Uri.encode(character.img)}"
+        route = "$DETAIL_ROUTE/${character.charId}/${Uri.encode(character.img)}",
     )
 }
 
 context(SharedTransitionScope)
 fun NavGraphBuilder.detailComposable() {
     composable(
-        route = "$DETAIL_ROUTE/{$ARG_FROM}/{$ARG_ID}/{$ARG_IMAGE}",
+        route = "$DETAIL_ROUTE/{$ARG_ID}/{$ARG_IMAGE}",
         arguments = listOf(
-            navArgument(ARG_FROM) { type = NavType.StringType },
             navArgument(ARG_ID) { type = NavType.LongType },
             navArgument(ARG_IMAGE) { type = NavType.StringType },
         ),
     ) {
         DetailRoute(
-            animatedVisibilityScope = this
+            animatedVisibilityScope = this,
         )
     }
 }

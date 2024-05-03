@@ -37,24 +37,21 @@ sealed interface DetailListType {
     data class Image(
         val id: Long,
         val image: String,
-        val from: String
     ) : DetailListType
 
     data object Loading : DetailListType
 
     data class Description(
-        val character: BrbaCharacter
+        val character: BrbaCharacter,
     ) : DetailListType
 
     data class Error(
-        val exception: Throwable
+        val exception: Throwable,
     ) : DetailListType
-
 }
 
-
 sealed class DetailUiState(
-    open val items: List<DetailListType>
+    open val items: List<DetailListType>,
 ) {
     data class Init(override val items: List<DetailListType>) : DetailUiState(items)
     data class Loading(override val items: List<DetailListType>) : DetailUiState(items)
@@ -80,10 +77,9 @@ class DetailViewModel @Inject constructor(
                         DetailListType.Image(
                             id = args.id,
                             image = args.image,
-                            from = args.from
                         ),
-                        DetailListType.Loading
-                    )
+                        DetailListType.Loading,
+                    ),
                 )
 
                 is Result.Success -> {
@@ -93,21 +89,20 @@ class DetailViewModel @Inject constructor(
                             DetailListType.Image(
                                 id = args.id,
                                 image = args.image,
-                                from = args.from
                             ),
                             DetailListType.Description(
-                                character = character
-                            )
-                        )
+                                character = character,
+                            ),
+                        ),
                     )
                 }
 
                 is Result.Error -> DetailUiState.Error(
                     listOf(
                         DetailListType.Error(
-                            exception = it.exception
-                        )
-                    )
+                            exception = it.exception,
+                        ),
+                    ),
                 )
             }
         }
@@ -119,10 +114,9 @@ class DetailViewModel @Inject constructor(
                     DetailListType.Image(
                         id = args.id,
                         image = args.image,
-                        from = args.from
-                    )
-                )
-            )
+                    ),
+                ),
+            ),
         )
 
     fun updateFavorite(character: BrbaCharacter) {

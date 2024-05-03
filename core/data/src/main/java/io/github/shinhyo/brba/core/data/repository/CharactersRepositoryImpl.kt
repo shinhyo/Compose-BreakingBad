@@ -38,11 +38,13 @@ open class CharactersRepositoryImpl @Inject constructor(
     override fun getCharacterList(): Flow<List<BrbaCharacter>> = flow { emit(api.getCharacter()) }
         .map { it.map(CharacterResponse::asExternalModel) }
 
-    override fun getCharacterList(id: Long): Flow<BrbaCharacter> = flow { emit(api.getCharacter(id)) }
-        .map { it.first().asExternalModel() }
+    override fun getCharacterList(id: Long): Flow<BrbaCharacter> =
+        flow { emit(api.getCharacter(id)) }
+            .map { it.first().asExternalModel() }
 
-    override fun getDatabaseList(isAsc: Boolean): Flow<List<BrbaCharacter>> = dao.getCharacter(isAsc = isAsc)
-        .map { it.map(CharacterEntity::asExternalModel) }
+    override fun getDatabaseList(isAsc: Boolean): Flow<List<BrbaCharacter>> =
+        dao.getCharacter(isAsc = isAsc)
+            .map { it.map(CharacterEntity::asExternalModel) }
 
     override fun getDatabaseList(id: Long): Flow<BrbaCharacter?> = dao.getCharacter(charId = id)
         .map { it?.asExternalModel() }
