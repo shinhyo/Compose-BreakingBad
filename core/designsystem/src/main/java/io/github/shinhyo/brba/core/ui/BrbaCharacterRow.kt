@@ -65,7 +65,6 @@ fun SharedTransitionScope.BrbaCharacterRow(
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(character.img)
-                    .crossfade(true)
                     .build(),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,

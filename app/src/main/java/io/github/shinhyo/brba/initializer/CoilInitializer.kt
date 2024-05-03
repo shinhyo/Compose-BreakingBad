@@ -32,7 +32,7 @@ class CoilInitializer : Initializer<Unit> {
                         .maxSizePercent(0.25)
                         .build()
                 }
-                .crossfade(false)
+                .crossfade(true)
 //                .logger(if (BuildConfig.DEBUG) DebugLogger() else null)
                 .respectCacheHeaders(false)
                 .diskCache {
