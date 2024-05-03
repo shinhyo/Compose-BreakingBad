@@ -34,13 +34,15 @@ private fun Project.configureKotlin() {
             allWarningsAsErrors = properties["warningsAsErrors"] as? Boolean ?: false
             compilerOptions.freeCompilerArgs.addAll(
                 "-P",
-                "plugin:androidx.compose.compiler.plugins.kotlin:experimentalStrongSkipping=true",
+                "plugin:androidx.compose.compiler.plugins.kotlin:strongSkipping=true",
             )
             freeCompilerArgs = freeCompilerArgs + listOf(
+                "-Xcontext-receivers",
                 "-opt-in=kotlin.RequiresOptIn",
                 "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                 "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
                 "-opt-in=androidx.compose.foundation.layout.ExperimentalLayoutApi",
+                "-opt-in=androidx.compose.animation.ExperimentalSharedTransitionApi",
             )
         }
     }

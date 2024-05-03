@@ -15,11 +15,18 @@
  */
 package io.github.shinhyo.brba.core.ui
 
+import android.content.res.Configuration
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -31,108 +38,117 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import io.github.shinhyo.brba.core.model.BrbaCharacter
+import io.github.shinhyo.brba.core.theme.BrbaPreviewTheme
+import io.github.shinhyo.brba.core.utils.brbaSharedElement
 
 @Composable
-fun BrbaCharacterCard(
+fun SharedTransitionScope.BrbaCharacterCard(
+    modifier: Modifier = Modifier,
     character: BrbaCharacter,
-    onCharacterClick: (Long) -> Unit,
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    onCharacterClick: (BrbaCharacter) -> Unit,
     onFavoriteClick: (BrbaCharacter) -> Unit,
-    modifier: Modifier = Modifier
 ) {
     Card(
         shape = RoundedCornerShape(8.dp),
         modifier = modifier
             .aspectRatio(1f / character.ratio)
-            .clickable { onCharacterClick.invoke(character.charId) }
+            .clickable { onCharacterClick.invoke(character) },
     ) {
-        ConstraintLayout() {
-            val (image, name, dim, favorite) = createRefs()
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current).data(character.img)
-                    .crossfade(true)
-                    .build(),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .constrainAs(image) {
-                        start.linkTo(parent.start)
-                        top.linkTo(parent.top)
-                        end.linkTo(parent.end)
-                        bottom.linkTo(parent.bottom)
-                    }
-            )
+        Box(
+            modifier = Modifier
+                .fillMaxSize(),
+        ) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                AsyncImage(
+                    model = ImageRequest
+                        .Builder(LocalContext.current)
+                        .data(character.img)
+                        .build(),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .brbaSharedElement(
+                            isLocalInspectionMode = LocalInspectionMode.current,
+                            animatedVisibilityScope = animatedVisibilityScope,
+                            rememberSharedContentState(key = "character_${character.charId}_card"),
+                        ),
+                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            Brush.verticalGradient(
+                                0.6f to Color.Transparent,
+                                1f to Color(0xA6000000),
+                            ),
+                        ),
+                )
+            }
 
-            Box(
+            Column(
                 modifier = Modifier
-                    .constrainAs(dim) {
-                        start.linkTo(parent.start)
-                        top.linkTo(parent.top)
-                        end.linkTo(parent.end)
-                        bottom.linkTo(parent.bottom)
-                        width = Dimension.fillToConstraints
-                        height = Dimension.fillToConstraints
-                    }
-                    .background(
-                        Brush.verticalGradient(
-                            0.6f to Color.Transparent,
-                            1f to Color(0xA6000000)
-                        )
-                    )
-            )
+                    .fillMaxWidth(),
+            ) {
+                Row(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                        .padding(horizontal = 4.dp, vertical = 4.dp),
+                    horizontalArrangement = Arrangement.End,
+                ) {
+                    BrbaIconFavorite(
+                        enable = character.isFavorite,
+                        modifier = Modifier,
+                    ) { onFavoriteClick.invoke(character) }
+                }
 
-            BrbaIconFavorite(
-                enable = character.isFavorite,
-                modifier = Modifier
-                    .constrainAs(favorite) {
-                        top.linkTo(parent.top, margin = 4.dp)
-                        end.linkTo(parent.end, margin = 4.dp)
-                    }
-            ) { onFavoriteClick.invoke(character) }
-
-            Text(
-                text = character.name,
-                color = Color.White,
-                style = MaterialTheme.typography.titleSmall,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .padding(horizontal = 4.dp)
-                    .constrainAs(name) {
-                        centerHorizontallyTo(parent)
-                        bottom.linkTo(parent.bottom, margin = 8.dp)
-                    }
-            )
+                Text(
+                    text = character.name,
+                    color = Color.White,
+                    style = MaterialTheme.typography.titleSmall,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 8.dp)
+                        .padding(horizontal = 4.dp),
+                )
+            }
         }
     }
 }
 
-@Preview(showBackground = true)
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun Preview() {
-    BrbaCharacterCard(
-        character = BrbaCharacter(
-            charId = 0,
-            name = "Walter White",
-            birthday = "09-07-1958",
-            img = "https://images.amcnetworks.com/amc.com/wp-content/uploads/2015/04/cast_bb_700x1000_walter-white-lg.jpg",
-            status = "Presumed dead",
-            nickname = "Heisenberg",
-            portrayed = "",
-            category = "Breaking Bad",
-            ratio = 1.2f,
-            isFavorite = true,
-            ctime = null
-        ),
-        onCharacterClick = {},
-        onFavoriteClick = {},
-        modifier = Modifier
-    )
+    BrbaPreviewTheme {
+        BrbaCharacterCard(
+            modifier = Modifier,
+            character = BrbaCharacter(
+                charId = 0,
+                name = "Walter White",
+                birthday = "09-07-1958",
+                img = "https://images.amcnetworks.com/amc.com/wp-content/uploads/2015/04/cast_bb_700x1000_walter-white-lg.jpg",
+                status = "Presumed dead",
+                nickname = "Heisenberg",
+                portrayed = "",
+                category = "Breaking Bad",
+                ratio = 1.2f,
+                isFavorite = true,
+                ctime = null,
+            ),
+            animatedVisibilityScope = it,
+            onCharacterClick = {},
+            onFavoriteClick = {},
+        )
+    }
 }

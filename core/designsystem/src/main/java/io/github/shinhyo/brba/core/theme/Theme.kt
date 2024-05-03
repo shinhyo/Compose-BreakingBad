@@ -19,6 +19,9 @@ import android.graphics.Color
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -26,6 +29,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalInspectionMode
 
 private val LightColors = lightColorScheme(
     primary = md_theme_light_primary,
@@ -56,7 +60,7 @@ private val LightColors = lightColorScheme(
     inversePrimary = md_theme_light_inversePrimary,
     surfaceTint = md_theme_light_surfaceTint,
     outlineVariant = md_theme_light_outlineVariant,
-    scrim = md_theme_light_scrim
+    scrim = md_theme_light_scrim,
 )
 
 private val DarkColors = darkColorScheme(
@@ -88,43 +92,44 @@ private val DarkColors = darkColorScheme(
     inversePrimary = md_theme_dark_inversePrimary,
     surfaceTint = md_theme_dark_surfaceTint,
     outlineVariant = md_theme_dark_outlineVariant,
-    scrim = md_theme_dark_scrim
+    scrim = md_theme_dark_scrim,
 )
 
 @Composable
 fun BrBaTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
-    val context = LocalContext.current as ComponentActivity
+    if (!LocalInspectionMode.current) {
+        val context = LocalContext.current as ComponentActivity
+        LaunchedEffect(darkTheme) {
+            // background color
+            val lightScrim = Color.argb(255, 232, 241, 231)
+            val darkScrim = Color.argb(255, 35, 44, 37)
 
-    LaunchedEffect(darkTheme) {
-        // background color
-        val lightScrim = Color.argb(255, 232, 241, 231)
-        val darkScrim = Color.argb(255, 35, 44, 37)
-
-        context.enableEdgeToEdge(
-            statusBarStyle = SystemBarStyle.auto(
-                Color.TRANSPARENT,
-                Color.TRANSPARENT
-            ) { darkTheme },
+            context.enableEdgeToEdge(
+                statusBarStyle = SystemBarStyle.auto(
+                    Color.TRANSPARENT,
+                    Color.TRANSPARENT,
+                ) { darkTheme },
 
 //            navigationBarStyle = SystemBarStyle.auto(
 //                Color.TRANSPARENT,
 //                Color.TRANSPARENT,
 //            ) { darkTheme }
 
-            navigationBarStyle = if (!darkTheme) {
-                SystemBarStyle.light(
-                    lightScrim,
-                    darkScrim
-                )
-            } else {
-                SystemBarStyle.dark(
-                    darkScrim
-                )
-            }
-        )
+                navigationBarStyle = if (!darkTheme) {
+                    SystemBarStyle.light(
+                        lightScrim,
+                        darkScrim,
+                    )
+                } else {
+                    SystemBarStyle.dark(
+                        darkScrim,
+                    )
+                },
+            )
+        }
     }
 
     val colors = if (!darkTheme) {
@@ -137,6 +142,21 @@ fun BrBaTheme(
         typography = Typography,
         shapes = Shapes,
         colorScheme = colors,
-        content = content
+        content = content,
     )
+}
+
+@Composable
+fun BrbaPreviewTheme(
+    content: @Composable SharedTransitionScope.(AnimatedVisibilityScope) -> Unit,
+) {
+    BrBaTheme {
+        SharedTransitionScope {
+            AnimatedVisibility(
+                visible = true,
+            ) {
+                content(this)
+            }
+        }
+    }
 }

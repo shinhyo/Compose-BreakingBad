@@ -15,31 +15,29 @@
  */
 package io.github.shinhyo.brba.main
 
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import io.github.shinhyo.brba.feature.bottombar.navigation.ROUTE_MAIN
-import io.github.shinhyo.brba.feature.bottombar.navigation.bottomBarScreen
-import io.github.shinhyo.brba.feature.detail.navigaion.detailScreen
+import io.github.shinhyo.brba.feature.bottombar.navigation.bottomBardComposable
+import io.github.shinhyo.brba.feature.detail.navigaion.detailComposable
 
 @Composable
 fun BrbaApp(
-    appState: BrbaAppState = rememberAppState()
+    appState: BrbaAppState = rememberAppState(),
 ) {
-    BrbaNavGraph(appState)
-}
-
-@Composable
-private fun BrbaNavGraph(appState: BrbaAppState) {
-    NavHost(
-        navController = appState.navController,
-        startDestination = ROUTE_MAIN,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        bottomBarScreen(
-            navController = appState.navController
-        )
-        detailScreen()
+    SharedTransitionLayout {
+        NavHost(
+            navController = appState.navController,
+            startDestination = ROUTE_MAIN,
+            modifier = Modifier.fillMaxSize(),
+        ) {
+            bottomBardComposable(
+                navController = appState.navController,
+            )
+            detailComposable()
+        }
     }
 }

@@ -18,5 +18,5 @@ package io.github.shinhyo.brba.core.datastore.model
 import io.github.shinhyo.brba.core.model.BrbaThemeMode
 
 data class DeviceData(
-    val themeMode: BrbaThemeMode
+    val themeMode: BrbaThemeMode,
 )

@@ -32,10 +32,31 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
-sealed interface DetailUiState {
-    data class Success(val character: BrbaCharacter) : DetailUiState
-    data class Error(val exception: Throwable? = null) : DetailUiState
-    data object Loading : DetailUiState
+sealed interface DetailListType {
+
+    data class Image(
+        val id: Long,
+        val image: String,
+    ) : DetailListType
+
+    data object Loading : DetailListType
+
+    data class Description(
+        val character: BrbaCharacter,
+    ) : DetailListType
+
+    data class Error(
+        val exception: Throwable,
+    ) : DetailListType
+}
+
+sealed class DetailUiState(
+    open val items: List<DetailListType>,
+) {
+    data class Init(override val items: List<DetailListType>) : DetailUiState(items)
+    data class Loading(override val items: List<DetailListType>) : DetailUiState(items)
+    data class Success(override val items: List<DetailListType>) : DetailUiState(items)
+    data class Error(override val items: List<DetailListType>) : DetailUiState(items)
 }
 
 @HiltViewModel
@@ -45,21 +66,57 @@ class DetailViewModel @Inject constructor(
     val updateFavoriteUseCase: UpdateFavoriteUseCase,
 ) : ViewModel() {
 
-    private val args by lazy { DetailArgs(savedStateHandle = savedStateHandle) }
+    private val args: DetailArgs by lazy { DetailArgs(savedStateHandle = savedStateHandle) }
 
-    val uiState = getCharacterUseCase(args.characterId)
+    val uiState = getCharacterUseCase(id = args.id)
         .asResult()
         .map {
             when (it) {
-                is Result.Loading -> DetailUiState.Loading
-                is Result.Success -> DetailUiState.Success(it.data)
-                is Result.Error -> DetailUiState.Error(it.exception)
+                is Result.Loading -> DetailUiState.Loading(
+                    listOf(
+                        DetailListType.Image(
+                            id = args.id,
+                            image = args.image,
+                        ),
+                        DetailListType.Loading,
+                    ),
+                )
+
+                is Result.Success -> {
+                    val character: BrbaCharacter = it.data
+                    DetailUiState.Success(
+                        listOf(
+                            DetailListType.Image(
+                                id = args.id,
+                                image = args.image,
+                            ),
+                            DetailListType.Description(
+                                character = character,
+                            ),
+                        ),
+                    )
+                }
+
+                is Result.Error -> DetailUiState.Error(
+                    listOf(
+                        DetailListType.Error(
+                            exception = it.exception,
+                        ),
+                    ),
+                )
             }
         }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = DetailUiState.Loading
+            initialValue = DetailUiState.Init(
+                listOf(
+                    DetailListType.Image(
+                        id = args.id,
+                        image = args.image,
+                    ),
+                ),
+            ),
         )
 
     fun updateFavorite(character: BrbaCharacter) {

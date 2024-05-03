@@ -22,9 +22,9 @@ import io.github.shinhyo.brba.feature.main.navigation.SETTING_ROUTE
 enum class Tab(
     val label: String,
     val icon: Int,
-    val route: String
+    val route: String,
 ) {
     LIST(label = "Character", icon = R.drawable.ic_account_cowboy_hat, route = LIST_ROUTE),
     FAVORITE(label = "Favorite", icon = R.drawable.ic_heart, route = FAVORITE_ROUTE),
-    SETTING(label = "Setting", icon = R.drawable.ic_flask_empty, route = SETTING_ROUTE)
+    SETTING(label = "Setting", icon = R.drawable.ic_flask_empty, route = SETTING_ROUTE),
 }

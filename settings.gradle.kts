@@ -31,5 +31,5 @@ include(
     ":feature:list",
     ":feature:favorite",
     ":feature:setting",
-    ":feature:detail"
+    ":feature:detail",
 )

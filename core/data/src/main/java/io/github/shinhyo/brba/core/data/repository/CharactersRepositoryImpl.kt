@@ -24,25 +24,27 @@ import io.github.shinhyo.brba.core.model.BrbaCharacter
 import io.github.shinhyo.brba.core.network.NetworkDataSource
 import io.github.shinhyo.brba.core.network.model.CharacterResponse
 import io.github.shinhyo.brba.core.network.model.asExternalModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 open class CharactersRepositoryImpl @Inject constructor(
     private val api: NetworkDataSource,
-    private val dao: CharacterDao
+    private val dao: CharacterDao,
 ) : CharactersRepository {
 
     override fun getCharacterList(): Flow<List<BrbaCharacter>> = flow { emit(api.getCharacter()) }
         .map { it.map(CharacterResponse::asExternalModel) }
 
-    override fun getCharacterList(id: Long): Flow<BrbaCharacter> = flow { emit(api.getCharacter(id)) }
-        .map { it.first().asExternalModel() }
+    override fun getCharacterList(id: Long): Flow<BrbaCharacter> =
+        flow { emit(api.getCharacter(id)) }
+            .map { it.first().asExternalModel() }
 
-    override fun getDatabaseList(isAsc: Boolean): Flow<List<BrbaCharacter>> = dao.getCharacter(isAsc = isAsc)
-        .map { it.map(CharacterEntity::asExternalModel) }
+    override fun getDatabaseList(isAsc: Boolean): Flow<List<BrbaCharacter>> =
+        dao.getCharacter(isAsc = isAsc)
+            .map { it.map(CharacterEntity::asExternalModel) }
 
     override fun getDatabaseList(id: Long): Flow<BrbaCharacter?> = dao.getCharacter(charId = id)
         .map { it?.asExternalModel() }

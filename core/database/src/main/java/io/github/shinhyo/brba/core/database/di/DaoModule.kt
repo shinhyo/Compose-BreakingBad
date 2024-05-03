@@ -30,6 +30,6 @@ object DaoModule {
     @Provides
     @Singleton
     fun provideCharacterDao(
-        appDatabase: AppDatabase
+        appDatabase: AppDatabase,
     ): CharacterDao = appDatabase.characterDao()
 }

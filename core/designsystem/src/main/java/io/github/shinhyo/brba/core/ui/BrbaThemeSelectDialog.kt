@@ -15,6 +15,7 @@
  */
 package io.github.shinhyo.brba.core.ui
 
+import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,12 +42,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import io.github.shinhyo.brba.core.model.BrbaThemeMode
+import io.github.shinhyo.brba.core.theme.BrbaPreviewTheme
 
 @Composable
 fun BrbaThemeSelectDialog(
     themeMode: BrbaThemeMode,
     onDismissRequest: (() -> Unit)? = null,
-    onConfirm: (BrbaThemeMode) -> Unit
+    onConfirm: (BrbaThemeMode) -> Unit,
 ) {
     val typography = MaterialTheme.typography
     val colorScheme = MaterialTheme.colorScheme
@@ -59,7 +61,7 @@ fun BrbaThemeSelectDialog(
         title = {
             Text(
                 text = "Theme",
-                style = typography.headlineSmall
+                style = typography.headlineSmall,
             )
         },
         text = {
@@ -68,7 +70,7 @@ fun BrbaThemeSelectDialog(
                     ThemeRow(
                         text = it.name,
                         selected = it.name == mode.name,
-                        onClick = { mode = it }
+                        onClick = { mode = it },
                     )
                 }
             }
@@ -81,10 +83,12 @@ fun BrbaThemeSelectDialog(
                 color = colorScheme.primary,
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
-                    .clickable(onClick = {
-                        onConfirm.invoke(mode)
-                        onDismissRequest?.invoke()
-                    })
+                    .clickable(
+                        onClick = {
+                            onConfirm.invoke(mode)
+                            onDismissRequest?.invoke()
+                        },
+                    ),
             )
         },
         dismissButton = {
@@ -94,9 +98,9 @@ fun BrbaThemeSelectDialog(
                 color = colorScheme.primary,
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
-                    .clickable(onClick = { onDismissRequest?.invoke() })
+                    .clickable(onClick = { onDismissRequest?.invoke() }),
             )
-        }
+        },
     )
 }
 
@@ -104,7 +108,7 @@ fun BrbaThemeSelectDialog(
 private fun ThemeRow(
     text: String,
     selected: Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Row(
         Modifier
@@ -112,27 +116,30 @@ private fun ThemeRow(
             .selectable(
                 selected = selected,
                 role = Role.RadioButton,
-                onClick = onClick
+                onClick = onClick,
             )
             .padding(12.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         RadioButton(
             selected = selected,
-            onClick = null
+            onClick = null,
         )
         Spacer(Modifier.width(8.dp))
         Text(text)
     }
 }
 
-@Preview(showBackground = true)
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun Preview() {
-    var themeMode by remember { mutableStateOf(BrbaThemeMode.Dark) }
-    BrbaThemeSelectDialog(
-        onDismissRequest = { },
-        onConfirm = { themeMode = it },
-        themeMode = themeMode
-    )
+    BrbaPreviewTheme {
+        var themeMode by remember { mutableStateOf(BrbaThemeMode.Dark) }
+        BrbaThemeSelectDialog(
+            onDismissRequest = { },
+            onConfirm = { themeMode = it },
+            themeMode = themeMode,
+        )
+    }
 }

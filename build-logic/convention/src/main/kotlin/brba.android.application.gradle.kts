@@ -2,7 +2,6 @@ import com.android.build.api.dsl.ApplicationExtension
 import io.github.shinhyo.brba.buildlogic.configureAndroidCompose
 import io.github.shinhyo.brba.buildlogic.configureHiltAndroid
 import io.github.shinhyo.brba.buildlogic.configureKotlinAndroid
-import io.github.shinhyo.brba.buildlogic.configureKtlintAndroid
 import io.github.shinhyo.brba.buildlogic.findVersion
 
 with(pluginManager) {
@@ -16,4 +15,3 @@ extensions.configure<ApplicationExtension> {
 configureKotlinAndroid()
 configureAndroidCompose()
 configureHiltAndroid()
-configureKtlintAndroid()

@@ -3,7 +3,7 @@
 <p align="center">
   <a href='https://developer.android.com'><img src='http://img.shields.io/badge/platform-android-green.svg'/></a>
   <a href="https://kotlinlang.org/docs/whatsnew1920.html"><img src = "https://shields.io/badge/kotlin-1.9.23-blue" /></a>
-  <a href="https://developer.android.com/jetpack/compose/bom"><img src = "https://img.shields.io/badge/jetpack%20compose-2024.04.00-brightgreen" /></a>
+  <a href="https://developer.android.com/jetpack/compose/bom"><img src = "https://img.shields.io/badge/jetpack%20compose-2024.05.00-brightgreen" /></a>
   <a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg"/></a>
 </p>
 
@@ -28,14 +28,18 @@
 - MVVM pattern
 - Kotlin Coroutines & Flows
 - Material Design 3
+  - [Material Theme Builder](https://material-foundation.github.io/material-theme-builder/)
 - Single Activity
 - StaggeredVerticalGrid
 - [Gradle Version Catalog](https://docs.gradle.org/7.4/userguide/platforms.html)
 - [Retrofit2](https://github.com/square/retrofit)
 - [Coil-Compose](https://coil-kt.github.io/coil/compose)
 - [Timber](https://github.com/JakeWharton/timber)
+- [Haze](https://github.com/chrisbanes/haze)
+- [sharedElement](https://developer.android.com/guide/fragments/animate#shared)
 
 ## Multi Module
+
 ```
 ├── app
 ├── core

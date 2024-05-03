@@ -28,6 +28,6 @@ interface NetworkModule {
 
     @Binds
     fun bindNetworkDataSource(
-        network: RetrofitNetwork
+        network: RetrofitNetwork,
     ): NetworkDataSource
 }

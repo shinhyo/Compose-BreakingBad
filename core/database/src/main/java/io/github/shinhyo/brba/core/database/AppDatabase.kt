@@ -25,10 +25,10 @@ import io.github.shinhyo.brba.core.database.util.DateTypeConverter
 
 @Database(
     entities = [
-        CharacterEntity::class
+        CharacterEntity::class,
     ],
     version = DB_VERSION,
-    exportSchema = false
+    exportSchema = false,
 )
 @TypeConverters(DateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
