@@ -16,5 +16,5 @@
 package io.github.shinhyo.brba.core.model
 
 data class BrbaDeviceData(
-    val themeMode: BrbaThemeMode
+    val themeMode: BrbaThemeMode,
 )

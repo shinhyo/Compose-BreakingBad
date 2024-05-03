@@ -21,15 +21,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.shinhyo.brba.core.domain.repository.DeviceRepository
 import io.github.shinhyo.brba.core.model.BrbaDeviceData
 import io.github.shinhyo.brba.core.model.BrbaThemeMode
-import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 data class SettingData(
-    val deviceData: BrbaDeviceData
+    val deviceData: BrbaDeviceData,
 )
 
 sealed interface SettingUiState {
@@ -39,7 +39,7 @@ sealed interface SettingUiState {
 
 @HiltViewModel
 class SettingViewModel @Inject constructor(
-    private val deviceRepository: DeviceRepository
+    private val deviceRepository: DeviceRepository,
 ) : ViewModel() {
 
     val uiState: StateFlow<SettingUiState> = deviceRepository.deviceData
@@ -49,10 +49,10 @@ class SettingViewModel @Inject constructor(
         .stateIn(
             scope = viewModelScope,
             initialValue = SettingUiState.Loading,
-            started = SharingStarted.WhileSubscribed(5000)
+            started = SharingStarted.WhileSubscribed(5000),
         )
 
-    fun changeTheme(themeMode: BrbaThemeMode) {
+    fun onChangeThemeClick(themeMode: BrbaThemeMode) {
         viewModelScope.launch {
             deviceRepository.setThemeMode(themeMode)
         }

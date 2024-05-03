@@ -32,11 +32,13 @@ object DataStoreModule {
 
     private const val PREFERENCES_DEVICE = "PREFERENCES_DEVICE"
 
-    private val Context.deviceDataStore: DataStore<Preferences> by preferencesDataStore(PREFERENCES_DEVICE)
+    private val Context.deviceDataStore: DataStore<Preferences> by preferencesDataStore(
+        PREFERENCES_DEVICE,
+    )
 
     @Provides
     @Singleton
     fun provideDeviceDataStore(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
     ): DataStore<Preferences> = context.deviceDataStore
 }

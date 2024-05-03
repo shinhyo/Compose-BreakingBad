@@ -71,7 +71,7 @@ class MainActivity : ComponentActivity() {
                         },
                         content = {
                             BrbaApp()
-                        }
+                        },
                     )
                 }
             }

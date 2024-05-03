@@ -15,34 +15,49 @@
  */
 package io.github.shinhyo.brba.feature.detail.navigaion
 
+import android.net.Uri
+import androidx.compose.animation.SharedTransitionScope
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import io.github.shinhyo.brba.core.model.BrbaCharacter
 import io.github.shinhyo.brba.feature.detail.DetailRoute
 
 internal const val ARG_ID = "id"
+internal const val ARG_IMAGE = "image"
+
 const val DETAIL_ROUTE = "detail_route"
 
-internal class DetailArgs(val characterId: Long) {
+internal data class DetailArgs(
+    val id: Long,
+    val image: String,
+) {
     constructor(savedStateHandle: SavedStateHandle) : this(
-        checkNotNull(savedStateHandle.get<Long>(ARG_ID))
+        id = savedStateHandle.get<Long>(ARG_ID)!!,
+        image = Uri.decode(savedStateHandle.get<String>(ARG_IMAGE))!!,
     )
 }
 
-fun NavController.navigateToDetail(characterId: Long) {
-    this.navigate("$DETAIL_ROUTE/$characterId")
+fun NavController.navigateToDetail(character: BrbaCharacter) {
+    this.navigate(
+        route = "$DETAIL_ROUTE/${character.charId}/${Uri.encode(character.img)}",
+    )
 }
 
-fun NavGraphBuilder.detailScreen() {
+context(SharedTransitionScope)
+fun NavGraphBuilder.detailComposable() {
     composable(
-        route = "$DETAIL_ROUTE/{$ARG_ID}",
+        route = "$DETAIL_ROUTE/{$ARG_ID}/{$ARG_IMAGE}",
         arguments = listOf(
             navArgument(ARG_ID) { type = NavType.LongType },
+            navArgument(ARG_IMAGE) { type = NavType.StringType },
         ),
     ) {
-        DetailRoute()
+        DetailRoute(
+            animatedVisibilityScope = this,
+        )
     }
 }

@@ -20,11 +20,11 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.shinhyo.brba.core.domain.repository.DeviceRepository
 import io.github.shinhyo.brba.core.model.BrbaDeviceData
-import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
 sealed interface MainUiState {
     data class Success(val deviceData: BrbaDeviceData) : MainUiState
@@ -33,7 +33,7 @@ sealed interface MainUiState {
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    deviceRepository: DeviceRepository
+    deviceRepository: DeviceRepository,
 ) : ViewModel() {
 
     val uiState: StateFlow<MainUiState> = deviceRepository.deviceData
@@ -41,6 +41,6 @@ class MainViewModel @Inject constructor(
         .stateIn(
             scope = viewModelScope,
             initialValue = MainUiState.Loading,
-            started = SharingStarted.WhileSubscribed(5000)
+            started = SharingStarted.WhileSubscribed(5000),
         )
 }

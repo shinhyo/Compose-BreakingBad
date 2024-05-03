@@ -20,8 +20,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import io.github.shinhyo.brba.core.network.BuildConfig
 import io.github.shinhyo.brba.core.network.NetworkDataSource
 import io.github.shinhyo.brba.core.network.model.CharacterResponse
-import javax.inject.Inject
-import javax.inject.Singleton
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -31,6 +29,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import timber.log.Timber
+import javax.inject.Inject
+import javax.inject.Singleton
 
 private interface BaBrApi {
 
@@ -43,13 +43,13 @@ private interface BaBrApi {
 
     @GET(value = "/api/characters/{id}")
     suspend fun getCharactersById(
-        @Path("id") id: Long
+        @Path("id") id: Long,
     ): List<CharacterResponse>
 }
 
 @Singleton
 class RetrofitNetwork @Inject constructor(
-    @ApplicationContext context: Context
+    @ApplicationContext context: Context,
 ) : NetworkDataSource {
 
     private val baBrApi by lazy {
@@ -66,7 +66,7 @@ class RetrofitNetwork @Inject constructor(
                     }
                     .cache(Cache(context.cacheDir, 5L * 1024 * 1024))
                     .addInterceptor { forceCache(it) }
-                    .build()
+                    .build(),
             )
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -76,7 +76,7 @@ class RetrofitNetwork @Inject constructor(
     private fun forceCache(it: Interceptor.Chain, day: Int = 7): Response {
         val request = it.request().newBuilder().header(
             "Cache-Control",
-            "max-stale=" + 60 * 60 * 24 * day
+            "max-stale=" + 60 * 60 * 24 * day,
         ).build()
         val response = it.proceed(request)
         Timber.d("provideOkHttpClient: response: $response")

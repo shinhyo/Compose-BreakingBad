@@ -3,31 +3,30 @@ compileSdkVer = "34"
 targetSdkVer = "34"
 minSdkVer = "28"
 
-androidGradlePlugin = "8.3.2"
-androidTools = "31.3.2"
+androidGradlePlugin = "8.4.0"
+androidTools = "31.4.0"
 
 kotlin = "1.9.23"
 #https://github.com/google/ksp/releases
 ksp = "1.9.23-1.0.20"
 #https://developer.android.com/jetpack/androidx/releases/compose-kotlin
-androidxComposeCompiler = "1.5.11"
+androidxComposeCompiler = "1.5.13"
 androidDesugarJdkLibs = "2.0.4"
 
 kotlinxCoroutines = "1.8.0"
-ktlint = "11.6.1"
 
-androidxCore = "1.12.0"
+androidxCore = "1.13.1"
 androidxCoreSplashscreen = "1.0.1"
 androidxAppCompat = "1.6.1"
-androidxActivity = "1.8.2"
+androidxActivity = "1.9.0"
 androidxStartup = "1.1.1"
 androidxHiltNavigationCompose = "1.2.0"
 androidxConstraintlayoutCompose = "1.0.1"
 androidxLifecycle = "2.7.0"
-androidxDataStore = "1.0.0"
+androidxDataStore = "1.1.1"
 
-androidxComposeBom = "2024.04.00"
-androidxCompose = "1.5.4"
+androidxComposeBom = "2024.05.00"
+androidxCompose = "1.7.0-alpha08"
 androidxComposeMaterial3 = "1.1.2"
 
 hilt = "2.51.1"
@@ -47,10 +46,10 @@ okhttp = "4.12.0"
 retrofit = "2.11.0"
 gson = "2.10.1"
 room = "2.6.1"
-turbine = "0.9.0"
+turbine = "1.1.0"
 junit = "1.1.5"
-material = "1.11.0"
-haze = "0.6.2"
+material = "1.12.0"
+haze = "0.7.1"
 
 
 [libraries]
@@ -64,7 +63,6 @@ android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", ver
 android-tools-common = { group = "com.android.tools", name = "common", version.ref = "androidTools" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
-ktlint-gradlePlugin = { group = "org.jlleitschuh.gradle", name = "ktlint-gradle", version.ref = "ktlint" }
 
 # android
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
@@ -74,7 +72,7 @@ androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscree
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
 androidx-startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "androidxStartup" }
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }
-androidx-constraintlayout-compose = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "androidxConstraintlayoutCompose" }
+#androidx-constraintlayout-compose = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "androidxConstraintlayoutCompose" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
 androidx-lifecycle-runtimeCompose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewModelCompose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
@@ -93,6 +91,7 @@ androidx-compose-ui-testManifest = { group = "androidx.compose.ui", name = "ui-t
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-compose-ui-util = { group = "androidx.compose.ui", name = "ui-util" }
+androidx-compose-animation = { group = "androidx.compose.animation", name = "animation", version.ref = "androidxCompose" }
 
 # hilt
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
@@ -138,4 +137,3 @@ android-application = { id = "com.android.application", version.ref = "androidGr
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-jlleitschuh-gradle-ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }

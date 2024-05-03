@@ -15,6 +15,7 @@
  */
 package io.github.shinhyo.brba.feature.bottombar.navigation
 
+import androidx.compose.animation.SharedTransitionScope
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -22,12 +23,16 @@ import io.github.shinhyo.brba.feature.bottombar.BottomBarScreen
 
 const val ROUTE_MAIN = "route_main"
 
-fun NavGraphBuilder.bottomBarScreen(
-    navController: NavHostController
+context(SharedTransitionScope)
+fun NavGraphBuilder.bottomBardComposable(
+    navController: NavHostController,
 ) {
     composable(
-        route = ROUTE_MAIN
+        route = ROUTE_MAIN,
     ) {
-        BottomBarScreen(navController = navController)
+        BottomBarScreen(
+            navController = navController,
+            animatedVisibilityScope = this,
+        )
     }
 }

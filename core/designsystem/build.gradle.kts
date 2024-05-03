@@ -17,7 +17,7 @@ dependencies {
     implementation(libs.coil.kt.compose)
 
     implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.constraintlayout.compose)
+    implementation(libs.androidx.compose.animation)
     implementation(libs.haze)
 
     debugApi(libs.androidx.compose.ui.tooling)

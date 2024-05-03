@@ -39,7 +39,7 @@ fun BrbaTopAppBar(
     modifier: Modifier = Modifier,
     title: String? = null,
     hazeState: HazeState,
-    actions: @Composable RowScope.() -> Unit = {}
+    actions: @Composable RowScope.() -> Unit = {},
 ) {
     TopAppBar(
         title = {
@@ -48,7 +48,7 @@ fun BrbaTopAppBar(
                 color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.displaySmall,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier
+                modifier = Modifier,
             )
         },
         colors = TopAppBarDefaults.mediumTopAppBarColors(Color.Transparent),
@@ -58,11 +58,11 @@ fun BrbaTopAppBar(
                 hazeState,
                 style = HazeDefaults.style(
                     blurRadius = 12.dp,
-                    noiseFactor = 0.1f
-                )
+                    noiseFactor = 0.1f,
+                ),
             )
             .fillMaxWidth(),
-        actions = actions
+        actions = actions,
     )
 }
 
@@ -71,6 +71,6 @@ fun BrbaTopAppBar(
 private fun Preview() {
     BrbaTopAppBar(
         title = "Title",
-        hazeState = HazeState()
+        hazeState = HazeState(),
     )
 }

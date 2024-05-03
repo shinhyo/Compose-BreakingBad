@@ -22,5 +22,6 @@ import javax.inject.Qualifier
 annotation class Dispatcher(val dispatcher: BrbaDispatcher)
 
 enum class BrbaDispatcher {
-    IO, MAIN
+    IO,
+    MAIN,
 }

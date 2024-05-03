@@ -32,13 +32,13 @@ fun NavController.navigateSetting() {
             }
             launchSingleTop = true
             restoreState = true
-        }
+        },
     )
 }
 
-fun NavGraphBuilder.settingTab() {
+fun NavGraphBuilder.settingComposable() {
     composable(
-        route = SETTING_ROUTE
+        route = SETTING_ROUTE,
     ) {
         SettingRoute()
     }

@@ -43,10 +43,12 @@ class GetCharacterListUseCase @Inject constructor(
             it.map { i -> i.copy(ratio = MIN_RATIO + random.nextInt(4) * 0.12f) }
         }
         .combine(
-            repo.getDatabaseList()
+            repo.getDatabaseList(),
         ) { listApi, listDb ->
             listApi.map { item ->
-                item.copy(isFavorite = listDb.find { it.charId == item.charId }?.isFavorite ?: false)
+                item.copy(
+                    isFavorite = listDb.find { it.charId == item.charId }?.isFavorite ?: false,
+                )
             }
         }
         .flowOn(ioDispatcher)

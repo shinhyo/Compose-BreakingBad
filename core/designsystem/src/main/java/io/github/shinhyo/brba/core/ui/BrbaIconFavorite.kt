@@ -15,8 +15,10 @@
  */
 package io.github.shinhyo.brba.core.ui
 
+import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -29,13 +31,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import io.github.shinhyo.brba.core.theme.BrbaPreviewTheme
 import io.github.shinhyo.brba.core.theme.favorite
 
 @Composable
 fun BrbaIconFavorite(
     enable: Boolean,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Icon(
         imageVector = if (enable) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
@@ -46,17 +49,28 @@ fun BrbaIconFavorite(
             .clickable(
                 onClick = onClick,
                 interactionSource = remember { MutableInteractionSource() },
-                indication = rememberRipple(bounded = false)
-            )
+                indication = rememberRipple(bounded = false),
+            ),
     )
 }
 
-@Preview(showBackground = true)
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun Preview() {
-    BrbaIconFavorite(
-        enable = false,
-        modifier = Modifier
-    ) {
+    BrbaPreviewTheme {
+        Column {
+            BrbaIconFavorite(
+                enable = false,
+                modifier = Modifier,
+            ) {
+            }
+
+            BrbaIconFavorite(
+                enable = true,
+                modifier = Modifier,
+            ) {
+            }
+        }
     }
 }

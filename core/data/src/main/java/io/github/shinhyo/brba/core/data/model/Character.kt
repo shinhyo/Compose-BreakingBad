@@ -24,5 +24,5 @@ fun BrbaCharacter.asEntity() = CharacterEntity(
     charId = charId,
     name = name,
     img = img,
-    nickname = nickname
+    nickname = nickname,
 )
