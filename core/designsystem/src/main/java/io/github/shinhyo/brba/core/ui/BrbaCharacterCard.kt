@@ -60,7 +60,12 @@ fun SharedTransitionScope.BrbaCharacterCard(
         shape = RoundedCornerShape(8.dp),
         modifier = modifier
             .aspectRatio(1f / character.ratio)
-            .clickable { onCharacterClick.invoke(character) },
+            .clickable { onCharacterClick.invoke(character) }
+            .brbaSharedElement(
+                isLocalInspectionMode = LocalInspectionMode.current,
+                animatedVisibilityScope = animatedVisibilityScope,
+                rememberSharedContentState(key = "character_${character.charId}_card"),
+            ),
     ) {
         Box(
             modifier = Modifier
@@ -75,12 +80,7 @@ fun SharedTransitionScope.BrbaCharacterCard(
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .fillMaxSize()
-                        .brbaSharedElement(
-                            isLocalInspectionMode = LocalInspectionMode.current,
-                            animatedVisibilityScope = animatedVisibilityScope,
-                            rememberSharedContentState(key = "character_${character.charId}_card"),
-                        ),
+                        .fillMaxSize(),
                 )
                 Box(
                     modifier = Modifier
