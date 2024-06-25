@@ -3,30 +3,28 @@ compileSdkVer = "34"
 targetSdkVer = "34"
 minSdkVer = "28"
 
-androidGradlePlugin = "8.4.0"
-androidTools = "31.4.0"
+androidGradlePlugin = "8.5.0"
+androidTools = "31.5.0"
 
-kotlin = "1.9.23"
+kotlin = "2.0.0"
 #https://github.com/google/ksp/releases
-ksp = "1.9.23-1.0.20"
-#https://developer.android.com/jetpack/androidx/releases/compose-kotlin
-androidxComposeCompiler = "1.5.13"
+ksp = "2.0.0-1.0.22"
 androidDesugarJdkLibs = "2.0.4"
 
-kotlinxCoroutines = "1.8.0"
+kotlinxCoroutines = "1.8.1"
 
 androidxCore = "1.13.1"
 androidxCoreSplashscreen = "1.0.1"
-androidxAppCompat = "1.6.1"
+androidxAppCompat = "1.7.0"
 androidxActivity = "1.9.0"
 androidxStartup = "1.1.1"
 androidxHiltNavigationCompose = "1.2.0"
 androidxConstraintlayoutCompose = "1.0.1"
-androidxLifecycle = "2.7.0"
+androidxLifecycle = "2.8.2"
 androidxDataStore = "1.1.1"
 
-androidxComposeBom = "2024.05.00"
-androidxCompose = "1.7.0-alpha08"
+androidxComposeBom = "2024.06.00"
+androidxCompose = "1.7.0-beta03"
 androidxComposeMaterial3 = "1.1.2"
 
 hilt = "2.51.1"
@@ -35,9 +33,9 @@ hiltExt = "1.0.0"
 androidxNavigation = "2.7.7"
 
 junit4 = "4.13.2"
-androidxTestCore = "1.5.0"
-androidxTestExt = "1.1.5"
-androidxEspresso = "3.5.1"
+androidxTestCore = "1.6.0"
+androidxTestExt = "1.2.0"
+androidxEspresso = "3.6.0"
 
 coil = "2.6.0"
 javaxInject = "1"
@@ -47,7 +45,7 @@ retrofit = "2.11.0"
 gson = "2.10.1"
 room = "2.6.1"
 turbine = "1.1.0"
-junit = "1.1.5"
+junit = "1.2.0"
 material = "1.12.0"
 haze = "0.7.1"
 
@@ -63,6 +61,7 @@ android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", ver
 android-tools-common = { group = "com.android.tools", name = "common", version.ref = "androidTools" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+compose-gradlePlugin = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
 
 # android
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
@@ -133,6 +132,7 @@ haze = { group = "dev.chrisbanes.haze", name = "haze", version.ref = "haze" }
 
 [plugins]
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }

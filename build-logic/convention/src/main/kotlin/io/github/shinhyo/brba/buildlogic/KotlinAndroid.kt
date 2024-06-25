@@ -3,7 +3,9 @@ package io.github.shinhyo.brba.buildlogic
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 internal fun Project.configureKotlinAndroid() {
@@ -29,20 +31,19 @@ internal fun Project.configureKotlinAndroid() {
 
 private fun Project.configureKotlin() {
     tasks.withType<KotlinCompile>().configureEach {
-        kotlinOptions {
-            jvmTarget = JavaVersion.VERSION_17.toString()
-            allWarningsAsErrors = properties["warningsAsErrors"] as? Boolean ?: false
-            compilerOptions.freeCompilerArgs.addAll(
-                "-P",
-                "plugin:androidx.compose.compiler.plugins.kotlin:strongSkipping=true",
-            )
-            freeCompilerArgs = freeCompilerArgs + listOf(
-                "-Xcontext-receivers",
-                "-opt-in=kotlin.RequiresOptIn",
-                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-                "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
-                "-opt-in=androidx.compose.foundation.layout.ExperimentalLayoutApi",
-                "-opt-in=androidx.compose.animation.ExperimentalSharedTransitionApi",
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+            val warningsAsErrors: String? by project
+            allWarningsAsErrors.set(warningsAsErrors.toBoolean())
+            freeCompilerArgs.set(
+                freeCompilerArgs.get() + listOf(
+                    "-Xcontext-receivers",
+                    "-opt-in=kotlin.RequiresOptIn",
+                    "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                    "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
+                    "-opt-in=androidx.compose.foundation.layout.ExperimentalLayoutApi",
+                    "-opt-in=androidx.compose.animation.ExperimentalSharedTransitionApi",
+                ),
             )
         }
     }

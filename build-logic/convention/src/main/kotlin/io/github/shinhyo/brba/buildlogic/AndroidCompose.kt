@@ -2,15 +2,18 @@ package io.github.shinhyo.brba.buildlogic
 
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.getByType
+import org.jetbrains.kotlin.compose.compiler.gradle.ComposeCompilerGradlePluginExtension
 
 internal fun Project.configureAndroidCompose() {
     androidExtension.apply {
-        buildFeatures {
-            compose = true
+
+        with(plugins) {
+            apply("org.jetbrains.kotlin.plugin.compose")
         }
 
-        composeOptions {
-            kotlinCompilerExtensionVersion = findVersion("androidxComposeCompiler").toString()
+        buildFeatures {
+            compose = true
         }
 
         dependencies {
@@ -18,5 +21,10 @@ internal fun Project.configureAndroidCompose() {
             add("implementation", platform(bom))
         }
 
+    }
+
+    extensions.getByType<ComposeCompilerGradlePluginExtension>().apply {
+        enableStrongSkippingMode.set(true)
+        includeSourceInformation.set(true)
     }
 }
