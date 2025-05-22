@@ -1,38 +1,38 @@
 [versions]
 versionCode = "1"
 versionName = "1.0.0"
-compileSdkVer = "34"
-targetSdkVer = "34"
+compileSdkVer = "35"
+targetSdkVer = "35"
 minSdkVer = "28"
 
-androidGradlePlugin = "8.5.2"
-androidTools = "31.6.0"
+androidGradlePlugin = "8.10.0"
+androidTools = "31.10.0"
 
 # https://github.com/JetBrains/kotlin/releases
-kotlin = "2.0.20"
+kotlin = "2.1.21"
 # https://github.com/google/ksp/releases
-ksp = "2.0.20-1.0.25"
-androidDesugarJdkLibs = "2.1.2"
+ksp = "2.1.21-2.0.1"
+androidDesugarJdkLibs = "2.1.5"
 
-kotlinxCoroutines = "1.8.1"
+kotlinxCoroutines = "1.10.1"
 kotlinxSerializationJson = "1.7.1"
 
-androidxCore = "1.13.1"
+androidxCore = "1.16.0"
 androidxCoreSplashscreen = "1.0.1"
 androidxAppCompat = "1.7.0"
-androidxActivity = "1.9.2"
-androidxStartup = "1.1.1"
+androidxActivity = "1.10.1"
+androidxStartup = "1.2.0"
 androidxHiltNavigationCompose = "1.2.0"
-androidxLifecycle = "2.8.5"
-androidxDataStore = "1.1.1"
+androidxLifecycle = "2.9.0"
+androidxDataStore = "1.1.7"
 
-androidxComposeBom = "2024.09.00"
+androidxComposeBom = "2025.05.01"
 androidxComposeMaterial3 = "1.1.2"
 
-hilt = "2.51.1"
+hilt = "2.56"
 hiltExt = "1.0.0"
 
-androidxNavigation = "2.8.0"
+androidxNavigation = "2.9.0"
 
 junit4 = "4.13.2"
 androidxTestCore = "1.6.1"
@@ -45,13 +45,13 @@ timber = "5.0.1"
 okhttp = "4.12.0"
 retrofit = "2.11.0"
 retrofitKotlinxSerializationJson = "1.0.0"
-room = "2.6.1"
+room = "2.7.1"
 turbine = "1.1.0"
 junit = "1.2.1"
 material = "1.12.0"
 haze = "0.7.2"
 mockk = "1.13.9"
-kover = "0.8.3"
+kover = "0.9.1"
 
 [libraries]
 
