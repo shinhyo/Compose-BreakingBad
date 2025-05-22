@@ -26,7 +26,6 @@ internal fun Project.configureAndroidCompose() {
     }
 
     extensions.configure<ComposeCompilerGradlePluginExtension> {
-        enableStrongSkippingMode = true
         includeSourceInformation = true
     }
 }
