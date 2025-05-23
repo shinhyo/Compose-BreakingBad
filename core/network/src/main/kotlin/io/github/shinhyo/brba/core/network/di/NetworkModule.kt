@@ -41,6 +41,4 @@ interface NetworkModule {
     fun bindNetworkDataSource(
         network: LocalDataSource,
     ): NetworkDataSource
-
 }
-

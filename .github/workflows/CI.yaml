@@ -1,0 +1,159 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  spotless:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v3
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
+      - name: chmod cache key
+        run: chmod +x ./scripts/checksum.sh
+
+      - name: Generate cache key
+        run: ./scripts/checksum.sh app checksum.txt
+
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches/modules-*
+            ~/.gradle/caches/jars-*
+            ~/.gradle/caches/build-cache-*
+            ~/.gradle/wrapper/
+            ~/.gradle/caches/transforms-*
+          key: gradle-${{ hashFiles('checksum.txt') }}
+          restore-keys: |
+            gradle-
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Check Spotless
+        run: ./gradlew spotlessCheck --init-script gradle/init.gradle.kts --no-configuration-cache --no-daemon --stacktrace
+
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
+      - name: chmod cache key
+        run: chmod +x ./scripts/checksum.sh
+
+      - name: Generate cache key
+        run: ./scripts/checksum.sh app checksum.txt
+
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches/modules-*
+            ~/.gradle/caches/jars-*
+            ~/.gradle/caches/build-cache-*
+            ~/.gradle/wrapper/
+            ~/.gradle/caches/transforms-*
+          key: gradle-${{ hashFiles('checksum.txt') }}
+          restore-keys: |
+            gradle-
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: UnitTest
+        run: ./gradlew testDebugUnitTest --no-daemon --stacktrace
+
+      - name: Check Kover
+        run: ./gradlew koverXmlReportDebug --no-daemon
+
+      - name: Display local test coverage
+        uses: madrapps/jacoco-report@v1.6.1
+        with:
+          title: test coverage report
+          min-coverage-overall: 40
+          min-coverage-changed-files: 60
+          update-comment: true
+          skip-if-no-changes: true
+          continue-on-error: false
+          paths: |
+            ${{ github.workspace }}/feature/**/build/reports/kover/reportDebug.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [spotless, tests]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
+      - name: chmod cache key
+        run: chmod +x ./scripts/checksum.sh
+
+      - name: Generate cache key
+        run: ./scripts/checksum.sh app checksum.txt
+
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches/modules-*
+            ~/.gradle/caches/jars-*
+            ~/.gradle/caches/build-cache-*
+            ~/.gradle/wrapper/
+            ~/.gradle/caches/transforms-*
+          key: gradle-${{ hashFiles('checksum.txt') }}
+          restore-keys: |
+            gradle-
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --no-daemon
+
+      - name: Upload build reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-reports
+          path: app/build/reports
+
