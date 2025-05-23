@@ -19,15 +19,26 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.github.shinhyo.brba.core.network.LocalDataSource
 import io.github.shinhyo.brba.core.network.NetworkDataSource
-import io.github.shinhyo.brba.core.network.retrofit.RetrofitNetwork
 
 @Module
 @InstallIn(SingletonComponent::class)
 interface NetworkModule {
 
+    /**
+     * NOTE: This is a sample app.
+     *
+     * The actual network implementation can be replaced with a local data source
+     * for testing or demo purposes without real network calls.
+     */
+//    @Binds
+//    fun bindNetworkDataSource(
+//        network: RetrofitNetwork,
+//    ): NetworkDataSource
+
     @Binds
     fun bindNetworkDataSource(
-        network: RetrofitNetwork,
+        network: LocalDataSource,
     ): NetworkDataSource
 }

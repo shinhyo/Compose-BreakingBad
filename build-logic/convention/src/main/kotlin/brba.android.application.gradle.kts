@@ -32,7 +32,7 @@ extensions.configure<ApplicationExtension> {
 
     buildTypes {
         getByName("debug") {
-            isDebuggable = false
+            isDebuggable = true
         }
 
         getByName("release") {
