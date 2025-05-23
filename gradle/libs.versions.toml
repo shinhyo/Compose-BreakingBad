@@ -6,8 +6,9 @@ targetSdkVer = "35"
 minSdkVer = "28"
 
 androidGradlePlugin = "8.10.0"
-androidTools = "31.10.0"
 
+# https://mvnrepository.com/artifact/com.android.tools.utp/android-device-provider-ddmlib
+androidTools = "31.10.0"
 # https://github.com/JetBrains/kotlin/releases
 kotlin = "2.1.21"
 # https://github.com/google/ksp/releases
