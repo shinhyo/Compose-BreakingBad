@@ -6,7 +6,7 @@ on:
       - 'v*.*.*'
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -61,24 +61,10 @@ jobs:
           mkdir -p release
           cp app/build/outputs/apk/release/app-release.apk release/BreakingBad-${{ env.RELEASE_VERSION }}.apk
 
-      - name: Generate changelog
-        id: changelog
-        uses: metcalfc/changelog-generator@v4.1.0
-        with:
-          myToken: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           files: release/BreakingBad-${{ env.RELEASE_VERSION }}.apk
           name: Release ${{ env.RELEASE_VERSION }}
-          body: |
-            ${{ steps.changelog.outputs.changelog }}
-          draft: false
-          prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Delete checksum.txt after build
-        if: always()
-        run: rm -f checksum.txt
