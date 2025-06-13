@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 shinhyo
+ * Copyright $YEAR shinhyo
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,13 +13,3 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-plugins {
-    id("brba.android.feature")
-}
-
-android {
-    namespace = "io.github.shinhyo.brba.feature.favorite"
-}
-
-dependencies {
-}
