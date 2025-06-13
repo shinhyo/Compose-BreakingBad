@@ -38,9 +38,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import dev.chrisbanes.haze.HazeDefaults
 import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.haze
+import dev.chrisbanes.haze.hazeSource
 import io.github.shinhyo.brba.core.model.BrbaCharacter
 import io.github.shinhyo.brba.core.model.BrbaThemeMode
 import io.github.shinhyo.brba.core.theme.BrbaPreviewTheme
@@ -151,10 +150,7 @@ private fun SharedTransitionScope.SuccessContent(
         verticalItemSpacing = 6.dp,
         contentPadding = contentPadding,
         modifier = modifier
-            .haze(
-                state = hazeState,
-                style = HazeDefaults.style(backgroundColor = MaterialTheme.colorScheme.surface),
-            )
+            .hazeSource(state = hazeState)
             .fillMaxSize(),
     ) {
         items(

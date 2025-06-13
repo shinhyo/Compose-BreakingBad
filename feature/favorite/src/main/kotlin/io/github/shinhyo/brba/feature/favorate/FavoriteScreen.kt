@@ -24,7 +24,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -34,9 +33,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import dev.chrisbanes.haze.HazeDefaults
 import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.haze
+import dev.chrisbanes.haze.hazeSource
 import io.github.shinhyo.brba.core.model.BrbaCharacter
 import io.github.shinhyo.brba.core.theme.BrbaPreviewTheme
 import io.github.shinhyo.brba.core.ui.BrBaCircleProgress
@@ -92,10 +90,7 @@ private fun SharedTransitionScope.FavoriteScreen(
             is FavoriteUiState.Success -> {
                 LazyColumn(
                     modifier = modifier
-                        .haze(
-                            state = hazeState,
-                            style = HazeDefaults.style(backgroundColor = MaterialTheme.colorScheme.surface),
-                        ),
+                        .hazeSource(state = hazeState),
                     state = rememberLazyListState(),
                     contentPadding = contentPadding,
                     verticalArrangement = Arrangement.spacedBy(8.dp),

@@ -31,7 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.haze.HazeDefaults
 import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.hazeChild
+import dev.chrisbanes.haze.hazeEffect
 import io.github.shinhyo.brba.core.designsystem.R
 import io.github.shinhyo.brba.core.theme.BrbaPreviewTheme
 
@@ -55,11 +55,14 @@ fun BrbaTopAppBar(
         colors = TopAppBarDefaults.mediumTopAppBarColors(Color.Transparent),
         modifier = modifier
             .padding(start = 0.dp)
-            .hazeChild(
+            .hazeEffect(
                 hazeState,
                 style = HazeDefaults.style(
                     blurRadius = 12.dp,
                     noiseFactor = 0.1f,
+                    backgroundColor = MaterialTheme.colorScheme.surface.copy(
+                        alpha = 0.5f,
+                    ),
                 ),
             )
             .fillMaxWidth(),
