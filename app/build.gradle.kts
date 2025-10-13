@@ -14,5 +14,5 @@
  * limitations under the License.
  */
 plugins {
-    id("brba.android.application")
+    alias(libs.plugins.brba.android.application)
 }

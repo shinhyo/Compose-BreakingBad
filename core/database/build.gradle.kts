@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 plugins {
-    id("brba.android.library")
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.brba.android.library)
+    alias(libs.plugins.ksp)
 }
 
 android {

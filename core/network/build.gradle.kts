@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 plugins {
-    id("brba.android.library")
-    id("org.jetbrains.kotlin.plugin.serialization")
+    alias(libs.plugins.brba.android.library)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {

@@ -149,3 +149,9 @@ android-library = { id = "com.android.library", version.ref = "androidGradlePlug
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
+
+# Custom plugins from build-logic
+brba-android-application = { id = "brba.android.application" }
+brba-android-library = { id = "brba.android.library" }
+brba-android-library-compose = { id = "brba.android.library.compose" }
+brba-android-feature = { id = "brba.android.feature" }

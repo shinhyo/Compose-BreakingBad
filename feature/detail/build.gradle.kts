@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 plugins {
-    id("brba.android.feature")
+    alias(libs.plugins.brba.android.feature)
 }
 
 android {

@@ -14,12 +14,16 @@
  * limitations under the License.
  */
 plugins {
-    id("brba.android.library")
-    id("brba.android.library.compose")
+    alias(libs.plugins.brba.android.library)
+    alias(libs.plugins.brba.android.library.compose)
 }
 
 android {
     namespace = "io.github.shinhyo.brba.core.designsystem"
+
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
 }
 
 dependencies {
