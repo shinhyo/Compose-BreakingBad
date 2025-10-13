@@ -5,14 +5,14 @@ compileSdkVer = "35"
 targetSdkVer = "35"
 minSdkVer = "28"
 
-androidGradlePlugin = "8.10.1"
+androidGradlePlugin = "8.13.0"
 
 # https://mvnrepository.com/artifact/com.android.tools.utp/android-device-provider-ddmlib
-androidTools = "31.10.1"
+androidTools = "31.13.0"
 # https://github.com/JetBrains/kotlin/releases
-kotlin = "2.1.21"
+kotlin = "2.2.20"
 # https://github.com/google/ksp/releases
-ksp = "2.1.21-2.0.2"
+ksp = "2.2.20-2.0.4"
 androidDesugarJdkLibs = "2.1.5"
 
 kotlinxCoroutines = "1.10.2"
