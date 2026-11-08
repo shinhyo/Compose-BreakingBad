@@ -63,5 +63,7 @@ extensions.configure<ApplicationExtension> {
         add("implementation", findLibrary("androidx.startup"))
         add("implementation", findLibrary("timber"))
         add("implementation", findLibrary("coil.kt"))
+        // coil3 는 네트워크 페처가 기본 제공되지 않는다 — okhttp 페처를 붙여야 원격 이미지가 로드된다.
+        add("implementation", findLibrary("coil.kt.network.okhttp"))
     }
 }

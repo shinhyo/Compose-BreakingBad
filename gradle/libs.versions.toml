@@ -133,6 +133,8 @@ javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "j
 coil-kt = { group = "io.coil-kt.coil3", name = "coil", version.ref = "coil" }
 coil-kt-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
 coil-kt-svg = { group = "io.coil-kt.coil3", name = "coil-svg", version.ref = "coil" }
+# coil3 는 네트워크 페처가 기본 제공되지 않는다 — okhttp 페처를 붙여야 원격 이미지가 로드된다.
+coil-kt-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 haze = { group = "dev.chrisbanes.haze", name = "haze", version.ref = "haze" }
