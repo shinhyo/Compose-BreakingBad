@@ -1,4 +1,5 @@
-val ktlintVersion = "1.5.0"
+// ktlint 1.5.0 은 Kotlin 2.4 의 context parameters 문법(`context(scope: Type)`)을 모른다.
+val ktlintVersion = "1.8.0"
 
 initscript {
     val spotlessVersion = "7.0.2"

@@ -15,28 +15,9 @@
  */
 package io.github.shinhyo.brba.feature.detail.navigaion
 
-import androidx.compose.animation.SharedTransitionScope
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
-import io.github.shinhyo.brba.core.model.BrbaCharacter
-import io.github.shinhyo.brba.feature.detail.DetailRoute
+import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 
+/** 디테일 destination — nav3 키. */
 @Serializable
-data class Detail(val id: Long, val image: String)
-
-fun NavController.navigateToDetail(character: BrbaCharacter) {
-    this.navigate(
-        Detail(id = character.charId, image = character.img),
-    )
-}
-
-context(SharedTransitionScope)
-fun NavGraphBuilder.detailComposable() {
-    composable<Detail> {
-        DetailRoute(
-            animatedVisibilityScope = this,
-        )
-    }
-}
+data class Detail(val id: Long, val image: String) : NavKey

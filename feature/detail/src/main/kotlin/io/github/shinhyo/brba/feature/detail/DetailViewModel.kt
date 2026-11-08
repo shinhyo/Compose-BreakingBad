@@ -15,10 +15,11 @@
  */
 package io.github.shinhyo.brba.feature.detail
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.toRoute
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.shinhyo.brba.core.common.result.Result
 import io.github.shinhyo.brba.core.common.result.asResult
@@ -41,39 +42,53 @@ sealed class DetailInfoState {
     data class Error(val exception: Throwable) : DetailInfoState()
 }
 
-@HiltViewModel
-class DetailViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
+/**
+ * 디테일 ViewModel — nav3 키를 assisted 인자로 받는다.
+ *
+ * Nav2 는 `savedStateHandle.toRoute<Detail>()` 로 인자를 읽었지만 nav3 에는 그게 없다.
+ * nav3 공식 "Passing Arguments to ViewModels" 레시피대로 AssistedInject 로 키를 넘긴다.
+ *
+ * `rememberViewModelStoreNavEntryDecorator` 가 entry 별로 ViewModel store 를 분리하므로
+ * 디테일마다 새 인스턴스가 생긴다.
+ */
+@HiltViewModel(assistedFactory = DetailViewModel.Factory::class)
+class DetailViewModel @AssistedInject constructor(
+    @Assisted private val detail: Detail,
     private val getCharacterUseCase: GetCharacterUseCase,
     private val updateFavoriteUseCase: UpdateFavoriteUseCase,
 ) : ViewModel() {
 
-    private val args = savedStateHandle.toRoute<Detail>()
-
-    private val _imageState = MutableStateFlow(args.id to args.image)
+    private val _imageState = MutableStateFlow(detail.id to detail.image)
     val imageState = _imageState.asStateFlow()
 
-    val infoState = getCharacterUseCase(id = args.id)
-        .asResult()
-        .map {
-            when (it) {
-                is Result.Loading -> DetailInfoState.Loading
-                is Result.Success -> {
-                    DetailInfoState.Success(character = it.data)
-                }
+    val infoState =
+        getCharacterUseCase(id = detail.id)
+            .asResult()
+            .map {
+                when (it) {
+                    is Result.Loading -> DetailInfoState.Loading
 
-                is Result.Error -> DetailInfoState.Error(exception = it.exception)
+                    is Result.Success -> {
+                        DetailInfoState.Success(character = it.data)
+                    }
+
+                    is Result.Error -> DetailInfoState.Error(exception = it.exception)
+                }
             }
-        }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = DetailInfoState.Loading,
-        )
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = DetailInfoState.Loading,
+            )
 
     fun updateFavorite(character: BrbaCharacter) {
         updateFavoriteUseCase(character)
             .catch { e -> e.printStackTrace() }
             .launchIn(viewModelScope)
+    }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(detail: Detail): DetailViewModel
     }
 }

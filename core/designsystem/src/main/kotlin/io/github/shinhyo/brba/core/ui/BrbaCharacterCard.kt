@@ -42,14 +42,15 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
 import io.github.shinhyo.brba.core.model.BrbaCharacter
 import io.github.shinhyo.brba.core.theme.BrbaPreviewTheme
 import io.github.shinhyo.brba.core.utils.brbaSharedElement
 
 @Composable
-fun SharedTransitionScope.BrbaCharacterCard(
+context(scope: SharedTransitionScope)
+fun BrbaCharacterCard(
     modifier: Modifier = Modifier,
     character: BrbaCharacter,
     animatedVisibilityScope: AnimatedVisibilityScope,
@@ -64,7 +65,7 @@ fun SharedTransitionScope.BrbaCharacterCard(
             .brbaSharedElement(
                 isLocalInspectionMode = LocalInspectionMode.current,
                 animatedVisibilityScope = animatedVisibilityScope,
-                rememberSharedContentState(key = "character_${character.charId}_card"),
+                scope.rememberSharedContentState(key = "character_${character.charId}_card"),
             ),
     ) {
         Box(

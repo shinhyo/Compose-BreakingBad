@@ -31,7 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
@@ -43,7 +43,8 @@ import io.github.shinhyo.brba.core.ui.BrbaEmptyScreen
 import io.github.shinhyo.brba.core.ui.BrbaTopAppBar
 
 @Composable
-fun SharedTransitionScope.FavoriteRoute(
+context(scope: SharedTransitionScope)
+fun FavoriteRoute(
     modifier: Modifier = Modifier,
     animatedVisibilityScope: AnimatedVisibilityScope,
     viewModel: FavoriteViewModel = hiltViewModel(),
@@ -61,7 +62,8 @@ fun SharedTransitionScope.FavoriteRoute(
 }
 
 @Composable
-private fun SharedTransitionScope.FavoriteScreen(
+context(scope: SharedTransitionScope)
+private fun FavoriteScreen(
     modifier: Modifier = Modifier,
     uiState: FavoriteUiState,
     animatedVisibilityScope: AnimatedVisibilityScope,

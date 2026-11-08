@@ -15,16 +15,21 @@
  */
 package io.github.shinhyo.brba.feature.bottombar
 
-import io.github.shinhyo.brba.feature.favorate.navigation.FAVORITE_ROUTE
-import io.github.shinhyo.brba.feature.list.navigation.LIST_ROUTE
-import io.github.shinhyo.brba.feature.setting.navigation.SETTING_ROUTE
+import androidx.navigation3.runtime.NavKey
+import kotlinx.serialization.Serializable
 
+/**
+ * 하단 탭 — Navigation 3 키이자 탭 표시 정보의 단일 원천.
+ *
+ * nav3 는 back stack 을 이름으로 직렬화하므로 [Serializable] 이 필요하다.
+ * 문자열 라우트 대신 enum 자체를 키로 쓴다 — 문자열 라우트는 오타가 런타임에만 드러난다.
+ */
+@Serializable
 enum class Tab(
     val label: String,
     val icon: Int,
-    val route: String,
-) {
-    LIST(label = "Character", icon = R.drawable.ic_account_cowboy_hat, route = LIST_ROUTE),
-    FAVORITE(label = "Favorite", icon = R.drawable.ic_heart, route = FAVORITE_ROUTE),
-    SETTING(label = "Setting", icon = R.drawable.ic_flask_empty, route = SETTING_ROUTE),
+) : NavKey {
+    LIST(label = "Character", icon = R.drawable.ic_account_cowboy_hat),
+    FAVORITE(label = "Favorite", icon = R.drawable.ic_heart),
+    SETTING(label = "Setting", icon = R.drawable.ic_flask_empty),
 }

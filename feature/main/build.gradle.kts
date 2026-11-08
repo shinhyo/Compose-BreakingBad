@@ -27,10 +27,18 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:model"))
 
-    implementation(project(":feature:bottombar"))
-    implementation(project(":feature:detail"))
+    // 탭 본문(목록·즐겨찾기·설정)을 직접 그린다 — `api` 로 노출해야 아래 모듈에서 보인다.
+    api(project(":feature:bottombar"))
+    api(project(":feature:detail"))
+    api(project(":feature:list"))
+    api(project(":feature:favorite"))
+    api(project(":feature:setting"))
 
     implementation(libs.androidx.core.splashscreen)
 
     implementation(libs.androidx.activity.compose)
+
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
 }

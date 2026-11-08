@@ -63,6 +63,7 @@ class ListViewModel @Inject constructor(
         .map { result ->
             when (result) {
                 is Result.Loading -> ListUiState.Loading
+
                 is Result.Success -> {
                     val (characters, themeMode) = result.data
                     ListUiState.Success(characters, themeMode)

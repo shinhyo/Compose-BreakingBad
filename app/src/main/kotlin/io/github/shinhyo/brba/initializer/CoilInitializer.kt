@@ -17,27 +17,31 @@ package io.github.shinhyo.brba.initializer
 
 import android.content.Context
 import androidx.startup.Initializer
-import coil.Coil
-import coil.ImageLoader
-import coil.disk.DiskCache
-import coil.memory.MemoryCache
+import coil3.ImageLoader
+import coil3.SingletonImageLoader
+import coil3.disk.DiskCache
+import coil3.memory.MemoryCache
+import coil3.request.CachePolicy
+import okio.Path.Companion.toPath
 
 class CoilInitializer : Initializer<Unit> {
 
     override fun create(context: Context) {
-        Coil.setImageLoader(
+        // coil3 는 `Coil.setImageLoader` 대신 `SingletonImageLoader.setUnsafe` 를 쓴다.
+        SingletonImageLoader.setUnsafe(
             ImageLoader.Builder(context)
                 .memoryCache {
-                    MemoryCache.Builder(context)
-                        .maxSizePercent(0.25)
+                    // coil3 의 `MemoryCache.Builder` 는 인자 없는 생성자다.
+                    MemoryCache.Builder()
+                        .maxSizePercent(context, 0.25)
                         .build()
                 }
-                .crossfade(true)
-//                .logger(if (BuildConfig.DEBUG) DebugLogger() else null)
-                .respectCacheHeaders(false)
+                // coil3 에서 `respectCacheHeaders(false)` 는 사라지고 캐시 정책으로 대신한다.
+                .networkCachePolicy(CachePolicy.ENABLED)
                 .diskCache {
                     DiskCache.Builder()
-                        .directory(context.cacheDir.resolve("image_cache"))
+                        // coil3 는 okio Path 를 받는다 — `File` 을 그대로 넘기면 안 된다.
+                        .directory(context.cacheDir.resolve("image_cache").path.toPath())
                         .maxSizePercent(0.10)
                         .build()
                 }

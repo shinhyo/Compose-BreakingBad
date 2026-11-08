@@ -51,6 +51,7 @@ class FavoriteViewModel @Inject constructor(
         .map {
             when (it) {
                 is Result.Loading -> FavoriteUiState.Loading
+
                 is Result.Success -> {
                     if (it.data.isEmpty()) {
                         FavoriteUiState.Empty

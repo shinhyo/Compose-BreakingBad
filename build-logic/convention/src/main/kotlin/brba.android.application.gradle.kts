@@ -1,7 +1,7 @@
 import com.android.build.api.dsl.ApplicationExtension
-import io.github.shinhyo.brba.buildlogic.configureAndroidCompose
+import io.github.shinhyo.brba.buildlogic.configureAndroidComposeApplication
 import io.github.shinhyo.brba.buildlogic.configureHiltAndroid
-import io.github.shinhyo.brba.buildlogic.configureKotlinAndroid
+import io.github.shinhyo.brba.buildlogic.configureKotlinAndroidApplication
 import io.github.shinhyo.brba.buildlogic.findLibrary
 import io.github.shinhyo.brba.buildlogic.findVersion
 
@@ -53,8 +53,8 @@ extensions.configure<ApplicationExtension> {
         }
     }
 
-    configureKotlinAndroid()
-    configureAndroidCompose()
+    configureKotlinAndroidApplication()
+    configureAndroidComposeApplication()
     configureHiltAndroid()
 
     dependencies {

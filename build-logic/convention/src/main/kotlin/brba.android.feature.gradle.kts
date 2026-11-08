@@ -1,4 +1,4 @@
-import io.github.shinhyo.brba.buildlogic.androidExtension
+import com.android.build.api.dsl.LibraryExtension
 import io.github.shinhyo.brba.buildlogic.configureKoverAndroid
 import io.github.shinhyo.brba.buildlogic.findLibrary
 
@@ -9,7 +9,7 @@ with(pluginManager) {
 
 configureKoverAndroid()
 
-androidExtension.apply {
+extensions.configure<LibraryExtension> {
 
     dependencies {
         add("implementation", project(":core:model"))
@@ -26,8 +26,12 @@ androidExtension.apply {
         add("implementation", findLibrary("androidx.compose.animation"))
         add("implementation", findLibrary("haze"))
 
-        add("implementation", findLibrary("androidx.navigation.compose"))
-        add("implementation", findLibrary("androidx.hilt.navigation.compose"))
+        add("implementation", findLibrary("androidx.navigation3.runtime"))
+        add("implementation", findLibrary("androidx.navigation3.ui"))
+        add("implementation", findLibrary("androidx.lifecycle.viewmodel.navigation3"))
+        // `hilt-navigation-compose` 는 nav2(`navigation-compose`)를 transitively 끌어온다.
+        // nav3 로 완전히 전환하려면 `hilt-lifecycle-viewmodel-compose` 를 쓴다.
+        add("implementation", findLibrary("androidx.hilt.lifecycle.viewmodel.compose"))
         add("implementation", findLibrary("androidx.lifecycle.runtimeCompose"))
         add("implementation", findLibrary("androidx.lifecycle.viewModelCompose"))
 

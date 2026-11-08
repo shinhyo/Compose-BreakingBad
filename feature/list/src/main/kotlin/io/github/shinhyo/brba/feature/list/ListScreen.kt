@@ -36,7 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
@@ -48,7 +48,8 @@ import io.github.shinhyo.brba.core.ui.BrbaCharacterCard
 import io.github.shinhyo.brba.core.ui.BrbaTopAppBar
 
 @Composable
-fun SharedTransitionScope.ListRoute(
+context(scope: SharedTransitionScope)
+fun ListRoute(
     modifier: Modifier = Modifier,
     animatedVisibilityScope: AnimatedVisibilityScope,
     viewModel: ListViewModel = hiltViewModel(),
@@ -67,7 +68,8 @@ fun SharedTransitionScope.ListRoute(
 }
 
 @Composable
-private fun SharedTransitionScope.ListScreen(
+context(scope: SharedTransitionScope)
+private fun ListScreen(
     modifier: Modifier = Modifier,
     uiState: ListUiState,
     animatedVisibilityScope: AnimatedVisibilityScope,
@@ -89,7 +91,9 @@ private fun SharedTransitionScope.ListScreen(
     ) { contentPadding ->
         when (uiState) {
             is ListUiState.Loading -> LoadingContent()
+
             is ListUiState.Error -> ErrorContent(uiState.exception)
+
             is ListUiState.Success -> SuccessContent(
                 modifier = modifier,
                 animatedVisibilityScope = animatedVisibilityScope,
@@ -133,7 +137,8 @@ private fun ErrorContent(exception: Throwable?) {
 }
 
 @Composable
-private fun SharedTransitionScope.SuccessContent(
+context(scope: SharedTransitionScope)
+private fun SuccessContent(
     modifier: Modifier,
     animatedVisibilityScope: AnimatedVisibilityScope,
     contentPadding: PaddingValues,
@@ -169,7 +174,8 @@ private fun SharedTransitionScope.SuccessContent(
 }
 
 @Composable
-private fun SharedTransitionScope.CharacterCard(
+context(scope: SharedTransitionScope)
+private fun CharacterCard(
     animatedVisibilityScope: AnimatedVisibilityScope,
     character: BrbaCharacter,
     onCharacterClick: (BrbaCharacter) -> Unit,
