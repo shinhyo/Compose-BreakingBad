@@ -1,17 +1,17 @@
-import io.github.shinhyo.brba.buildlogic.androidExtension
+import com.android.build.api.dsl.LibraryExtension
 import io.github.shinhyo.brba.buildlogic.configureHiltAndroid
-import io.github.shinhyo.brba.buildlogic.configureKotlinAndroid
+import io.github.shinhyo.brba.buildlogic.configureKotlinAndroidLibrary
 import io.github.shinhyo.brba.buildlogic.findLibrary
 
 with(pluginManager) {
     apply("com.android.library")
 }
 
-androidExtension.apply {
+extensions.configure<LibraryExtension> {
     dependencies {
         add("implementation", findLibrary("timber"))
     }
 }
 
-configureKotlinAndroid()
+configureKotlinAndroidLibrary()
 configureHiltAndroid()

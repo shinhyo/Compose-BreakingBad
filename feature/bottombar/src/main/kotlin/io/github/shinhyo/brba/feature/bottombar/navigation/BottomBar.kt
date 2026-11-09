@@ -15,24 +15,14 @@
  */
 package io.github.shinhyo.brba.feature.bottombar.navigation
 
-import androidx.compose.animation.SharedTransitionScope
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
-import io.github.shinhyo.brba.feature.bottombar.BottomBarScreen
+import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 
+/**
+ * 하단 탭 화면 루트 — nav3 키.
+ *
+ * Nav2 는 이 위에 또 하나의 `NavHost` 를 겹쳐서 탭을 바꿨다. nav3 는 탭마다 back stack 을
+ * 따로 둬서 [BrbaNavigationState] 가 대신 그 역할을 한다.
+ */
 @Serializable
-object BottomBar
-
-context(SharedTransitionScope)
-fun NavGraphBuilder.bottomBarComposable(
-    navController: NavHostController,
-) {
-    composable<BottomBar> {
-        BottomBarScreen(
-            navController = navController,
-            animatedVisibilityScope = this,
-        )
-    }
-}
+data object BottomBar : NavKey

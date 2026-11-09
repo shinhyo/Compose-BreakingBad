@@ -40,14 +40,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
 import io.github.shinhyo.brba.core.model.BrbaCharacter
 import io.github.shinhyo.brba.core.theme.BrbaPreviewTheme
 import io.github.shinhyo.brba.core.utils.brbaSharedElement
 
 @Composable
-fun SharedTransitionScope.BrbaCharacterRow(
+context(scope: SharedTransitionScope)
+fun BrbaCharacterRow(
     modifier: Modifier = Modifier,
     character: BrbaCharacter,
     animatedVisibilityScope: AnimatedVisibilityScope,
@@ -73,7 +74,7 @@ fun SharedTransitionScope.BrbaCharacterRow(
                     .brbaSharedElement(
                         isLocalInspectionMode = LocalInspectionMode.current,
                         animatedVisibilityScope = animatedVisibilityScope,
-                        rememberSharedContentState(key = "character_${character.charId}_row"),
+                        scope.rememberSharedContentState(key = "character_${character.charId}_row"),
                     ),
             )
 

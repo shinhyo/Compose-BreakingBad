@@ -62,6 +62,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             when (val sate = uiState) {
                 is MainUiState.Loading -> {}
+
                 is MainUiState.Success -> {
                     BrBaTheme(
                         darkTheme = when (sate.deviceData.themeMode) {

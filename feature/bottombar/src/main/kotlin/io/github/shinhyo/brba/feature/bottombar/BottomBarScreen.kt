@@ -15,60 +15,56 @@
  */
 package io.github.shinhyo.brba.feature.bottombar
 
-import androidx.compose.animation.AnimatedVisibilityScope
-import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import io.github.shinhyo.brba.core.ui.BrBaNavigationBar
 import io.github.shinhyo.brba.core.ui.BrbaNavigationBarItem
-import io.github.shinhyo.brba.feature.detail.navigaion.navigateToDetail
-import io.github.shinhyo.brba.feature.favorate.navigation.favoriteComposable
-import io.github.shinhyo.brba.feature.favorate.navigation.navigateFavorite
-import io.github.shinhyo.brba.feature.list.navigation.LIST_ROUTE
-import io.github.shinhyo.brba.feature.list.navigation.listComposable
-import io.github.shinhyo.brba.feature.list.navigation.navigateList
-import io.github.shinhyo.brba.feature.setting.navigation.navigateSetting
-import io.github.shinhyo.brba.feature.setting.navigation.settingComposable
 
+/** 탭바가 차지하는 높이(px) — 본문이 하단 여백으로 삼는다. */
+val LocalTabBarHeightPx = compositionLocalOf { 0 }
+
+/**
+ * 탭바 — 본문 위에 겹쳐 그린다(오버레이).
+ *
+ * Nav2 는 `Scaffold(bottomBar=...)` 로 본문을 밀어 올렸다. nav3 로 오면서 탭바를
+ * 본문 위에 겹치게 하면 탭 전환 때 레이아웃이 흔들리지 않고, 디테일 오버레이가
+ * 탭바 아래로 자연스럽게 깔린다.
+ *
+ * 탭바 높이는 본문이 하단 inset 으로 알아야 하므로 [LocalTabBarHeightPx] 로 전달한다.
+ */
 @Composable
-fun SharedTransitionScope.BottomBarScreen(
-    navController: NavHostController,
-    navTabController: NavHostController = rememberNavController(),
-    animatedVisibilityScope: AnimatedVisibilityScope,
+fun BrbaTabBarOverlay(
+    currentTab: Tab,
+    onSelectTab: (Tab) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    Scaffold(
-        contentWindowInsets = WindowInsets(0.dp),
-        bottomBar = {
-            val currentRoute =
-                navTabController.currentBackStackEntryAsState().value?.destination?.route
+    var tabBarHeightPx by remember { mutableIntStateOf(0) }
+
+    CompositionLocalProvider(LocalTabBarHeightPx provides tabBarHeightPx) {
+        Box(modifier = modifier.fillMaxSize()) {
             BrBaNavigationBar(
                 modifier = Modifier
-                    .navigationBarsPadding(),
+                    .align(Alignment.BottomCenter)
+                    .navigationBarsPadding()
+                    .onSizeChanged { tabBarHeightPx = it.height },
             ) {
                 for (tab in remember { Tab.entries }) {
                     BrbaNavigationBarItem(
-                        onSelected = { currentRoute == tab.route },
-                        onClick = {
-                            if (currentRoute == tab.route) return@BrbaNavigationBarItem
-                            when (tab) {
-                                Tab.LIST -> navTabController.navigateList()
-                                Tab.FAVORITE -> navTabController.navigateFavorite()
-                                Tab.SETTING -> navTabController.navigateSetting()
-                            }
-                        },
+                        onSelected = { currentTab == tab },
+                        onClick = { onSelectTab(tab) },
                         icon = {
                             Icon(
                                 painterResource(id = tab.icon),
@@ -78,25 +74,33 @@ fun SharedTransitionScope.BottomBarScreen(
                     )
                 }
             }
-        },
-        modifier = Modifier.fillMaxSize(),
-    ) { paddingValues ->
-        NavHost(
-            navController = navTabController,
-            startDestination = LIST_ROUTE,
-            modifier = Modifier
-                .padding(paddingValues)
-                .fillMaxSize(),
-        ) {
-            listComposable(
-                navigateToDetail = { navController.navigateToDetail(character = it) },
-                animatedVisibilityScope = animatedVisibilityScope,
-            )
-            favoriteComposable(
-                onCharacterClick = { navController.navigateToDetail(character = it) },
-                animatedVisibilityScope = animatedVisibilityScope,
-            )
-            settingComposable()
         }
+    }
+}
+
+/**
+ * 본문 + 탭바 오버레이.
+ *
+ * @param applyTopInset 본문이 상태바 뒤까지 뻗는지 — 목록은 아래로, 오버레이만 피한다.
+ */
+@Composable
+fun BrbaTabScaffold(
+    currentTab: Tab,
+    onSelectTab: (Tab) -> Unit,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
+) {
+    Box(
+        modifier =
+        modifier
+            .fillMaxSize(),
+    ) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            content()
+        }
+        BrbaTabBarOverlay(
+            currentTab = currentTab,
+            onSelectTab = onSelectTab,
+        )
     }
 }

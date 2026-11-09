@@ -1,20 +1,21 @@
 package io.github.shinhyo.brba.buildlogic
+
+import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.jetbrains.kotlin.compose.compiler.gradle.ComposeCompilerGradlePluginExtension
 
-internal fun Project.configureAndroidCompose() {
-    androidExtension.apply {
-        with(plugins) {
-            apply("org.jetbrains.kotlin.plugin.compose")
-        }
+// AGP 9: buildFeatures 가 CommonExtension 에서 빠짐. Application/Library extension 으로 분리.
 
-        buildFeatures {
-            compose = true
-        }
+internal fun Project.configureAndroidComposeApplication() {
+    with(pluginManager) {
+        apply("org.jetbrains.kotlin.plugin.compose")
+    }
 
+    extensions.configure(ApplicationExtension::class.java) {
+        buildFeatures.compose = true
         dependencies {
             val bom = libs.findLibrary("androidx-compose-bom").get()
             add("implementation", platform(bom))
@@ -22,11 +23,30 @@ internal fun Project.configureAndroidCompose() {
             add("implementation", libs.findLibrary("androidx-compose-ui-tooling-preview").get())
             add("debugImplementation", libs.findLibrary("androidx-compose-ui-tooling").get())
         }
-
     }
 
     extensions.configure<ComposeCompilerGradlePluginExtension> {
-        includeSourceInformation = true
+        includeSourceInformation.set(true)
     }
 }
 
+internal fun Project.configureAndroidComposeLibrary() {
+    with(pluginManager) {
+        apply("org.jetbrains.kotlin.plugin.compose")
+    }
+
+    extensions.configure(LibraryExtension::class.java) {
+        buildFeatures.compose = true
+        dependencies {
+            val bom = libs.findLibrary("androidx-compose-bom").get()
+            add("implementation", platform(bom))
+            add("androidTestImplementation", platform(bom))
+            add("implementation", libs.findLibrary("androidx-compose-ui-tooling-preview").get())
+            add("debugImplementation", libs.findLibrary("androidx-compose-ui-tooling").get())
+        }
+    }
+
+    extensions.configure<ComposeCompilerGradlePluginExtension> {
+        includeSourceInformation.set(true)
+    }
+}

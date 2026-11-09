@@ -32,7 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.chrisbanes.haze.HazeState
 import io.github.shinhyo.brba.core.model.BrbaDeviceData
@@ -43,7 +43,7 @@ import io.github.shinhyo.brba.core.ui.BrbaThemeSelectDialog
 import io.github.shinhyo.brba.core.ui.BrbaTopAppBar
 
 @Composable
-internal fun SettingRoute(
+fun SettingRoute(
     modifier: Modifier = Modifier,
     viewModel: SettingViewModel = hiltViewModel(),
 ) {
@@ -75,6 +75,7 @@ private fun SettingScreen(
     ) {
         when (uiState) {
             is SettingUiState.Loading -> {}
+
             is SettingUiState.Success -> {
                 val themeMode = uiState.settingData.deviceData.themeMode
                 var showSettingsDialog by rememberSaveable { mutableStateOf(false) }

@@ -45,22 +45,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
 import io.github.shinhyo.brba.core.model.BrbaCharacter
 import io.github.shinhyo.brba.core.theme.BrbaPreviewTheme
 import io.github.shinhyo.brba.core.ui.BrBaCircleProgress
 import io.github.shinhyo.brba.core.ui.BrbaChips
 import io.github.shinhyo.brba.core.ui.BrbaIconFavorite
 import io.github.shinhyo.brba.core.utils.brbaSharedElement
+import io.github.shinhyo.brba.feature.detail.navigaion.Detail
 
 @Composable
-fun SharedTransitionScope.DetailRoute(
+context(scope: SharedTransitionScope)
+fun DetailRoute(
     modifier: Modifier = Modifier,
     animatedVisibilityScope: AnimatedVisibilityScope,
-    viewModel: DetailViewModel = hiltViewModel(),
+    detail: Detail,
+    viewModel: DetailViewModel = hiltViewModel<DetailViewModel, DetailViewModel.Factory>(
+        creationCallback = { factory -> factory.create(detail) },
+    ),
 ) {
     val imageState by viewModel.imageState.collectAsStateWithLifecycle()
     val infoState by viewModel.infoState.collectAsStateWithLifecycle()
@@ -75,7 +80,8 @@ fun SharedTransitionScope.DetailRoute(
 }
 
 @Composable
-private fun SharedTransitionScope.DetailScreen(
+context(scope: SharedTransitionScope)
+private fun DetailScreen(
     modifier: Modifier = Modifier,
     infoState: DetailInfoState,
     imageState: Pair<Long, String>,
@@ -176,7 +182,8 @@ private fun SharedTransitionScope.DetailScreen(
 }
 
 @Composable
-private fun SharedTransitionScope.CharacterImage(
+context(scope: SharedTransitionScope)
+private fun CharacterImage(
     modifier: Modifier = Modifier,
     animatedVisibilityScope: AnimatedVisibilityScope,
     imageState: Pair<Long, String>,
@@ -195,8 +202,8 @@ private fun SharedTransitionScope.CharacterImage(
             .brbaSharedElement(
                 isLocalInspectionMode = LocalInspectionMode.current,
                 animatedVisibilityScope = animatedVisibilityScope,
-                rememberSharedContentState(key = "character_${id}_row"),
-                rememberSharedContentState(key = "character_${id}_card"),
+                scope.rememberSharedContentState(key = "character_${id}_row"),
+                scope.rememberSharedContentState(key = "character_${id}_card"),
             ),
     )
 }
